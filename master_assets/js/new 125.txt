@@ -1,0 +1,25 @@
+<tr>
+                                                                            <td><?php echo $i; ?></td>
+                                                                            <?php if($key == 0) : ?>
+                                                                            <td rowspan="<?php  count($values); ?>"><?php echo $data_response['bill_no'] ?></td>
+                                                                            <?php endif;?>
+                                                                            <td><?php echo $data_response['barcode']; ?> </td>
+                                                                            <td> <?php echo $data_response['item_name']; ?> </td>
+                                                                            <td>  <?php echo $data_response['type_name']; ?></td>
+                                                                            <td><?php //echo date('d M Y', strtotime($data_response['due_date']); ?></td>
+                                                                            <td><?php //echo date('d M Y', strtotime($data_response['due_date']); ?></td>
+                                                                            <td><?php echo cart_status_message($data_response['cart_status_id']); ?></td>
+
+                                                                        </tr>
+																		
+																		
+																		
+																		 [garments_details] => Array ( [0] => stdClass Object ( [cart_id] => 18 [booking_id] => 4 [bill_no] => V4 [order_date] => 2017-04-21 17:33:53 [barcode] => V4-1-15 [due_date] => 2017-04-27 [item_name] => Pant [type_name] => Blackberry [cart_status_id] => 0 ) [1] => stdClass Object ( [cart_id] => 19 [booking_id] => 4 [bill_no] => V4 [order_date] => 2017-04-21 17:33:53 [barcode] => V4-2-15 [due_date] => 2017-04-27 [item_name] => Pant [type_name] => Blackberry 
+																		 
+																		 
+																		 
+																		 
+																		 
+																		 PS :  3/2016
+																		 
+																		 Maila chitfund 

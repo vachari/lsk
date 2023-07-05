@@ -1,0 +1,36 @@
+[18-Sep-2017 06:27:52 UTC] PHP Fatal error:  Call to a member function print_debugger() on a non-object in /home/richlabz/public_html/gharaahaar/application/libraries/Sendmail.php on line 85
+[18-Sep-2017 07:40:35 UTC] PHP Parse error:  syntax error, unexpected '$url_re' (T_VARIABLE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 416
+[18-Sep-2017 10:16:38 UTC] PHP Parse error:  syntax error, unexpected ':', expecting ',' or ';' in /home/richlabz/public_html/gharaahaar/application/modules/front/views/index.php on line 271
+[19-Sep-2017 05:09:47 UTC] PHP Parse error:  syntax error, unexpected 'viewFollowers' (T_STRING) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Ajax.php on line 55
+[19-Sep-2017 05:41:10 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/superadmin/controllers/Category.php on line 72
+[19-Sep-2017 07:03:40 UTC] PHP Parse error:  syntax error, unexpected '/' in /home/richlabz/public_html/gharaahaar/application/modules/front/views/order_view.php on line 93
+[19-Sep-2017 16:37:48 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 437
+[19-Sep-2017 16:42:25 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:42:30 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:42:31 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:42:38 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:42:42 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:42:57 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:43:04 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:43:20 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:43:28 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:43:33 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 318
+[19-Sep-2017 16:45:14 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 439
+[19-Sep-2017 16:45:28 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 439
+[19-Sep-2017 16:45:50 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 439
+[19-Sep-2017 16:45:57 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 439
+[19-Sep-2017 16:46:02 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Pages.php on line 439
+[16-Apr-2018 11:30:58 UTC] PHP Fatal error:  Call to a member function print_debugger() on a non-object in /home/richlabz/public_html/gharaahaar/application/libraries/Sendmail.php on line 85
+[06-May-2018 14:08:57 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/richlabz/public_html/gharaahaar/application/modules/front/views/templates/shareCart.php on line 32
+[07-May-2018 05:33:37 UTC] PHP Fatal error:  Call to a member function commonCheck() on a non-object in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/User.php on line 505
+[07-May-2018 05:34:40 UTC] PHP Fatal error:  Call to a member function commonCheck() on a non-object in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/User.php on line 505
+[08-May-2018 05:16:57 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/User.php on line 466
+[08-May-2018 05:26:07 UTC] PHP Parse error:  syntax error, unexpected '$email' (T_VARIABLE) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/User.php on line 437
+[14-Aug-2018 11:56:40 UTC] PHP Parse error:  syntax error, unexpected 'print_r' (T_STRING), expecting function (T_FUNCTION) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Checkout.php on line 43
+[14-Aug-2018 11:57:33 UTC] PHP Parse error:  syntax error, unexpected 'print_r' (T_STRING), expecting function (T_FUNCTION) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Checkout.php on line 43
+[14-Aug-2018 11:58:27 UTC] PHP Parse error:  syntax error, unexpected 'print_r' (T_STRING), expecting function (T_FUNCTION) in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Checkout.php on line 43
+[14-Aug-2018 11:59:16 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/richlabz/public_html/gharaahaar/application/modules/front/controllers/Checkout.php on line 41
+[22-Oct-2019 09:41:13 UTC] PHP Warning:  mysqli::__construct(): (42000/1044): Access denied for user 'seshu'@'localhost' to database 'gharadhaar' in /home/richlabz/public_html/shoperative/import.php on line 8
+[22-Oct-2019 09:41:48 UTC] PHP Warning:  mysqli::__construct(): (42000/1044): Access denied for user 'seshu'@'localhost' to database 'gharadhaar' in /home/richlabz/public_html/shoperative/import.php on line 8
+[22-Oct-2019 09:41:50 UTC] PHP Warning:  mysqli::__construct(): (42000/1044): Access denied for user 'seshu'@'localhost' to database 'gharadhaar' in /home/richlabz/public_html/shoperative/import.php on line 8
+[22-Oct-2019 09:42:06 UTC] PHP Warning:  mysqli::__construct(): (42000/1044): Access denied for user 'seshu'@'localhost' to database 'gharadhaar' in /home/richlabz/public_html/shoperative/import.php on line 8

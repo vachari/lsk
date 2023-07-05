@@ -1,0 +1,4 @@
+June 6, 2023:
+profiles_login_history
+user_device_tokens
+auth_tokens

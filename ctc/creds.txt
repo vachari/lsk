@@ -1,0 +1,23 @@
+
+FTP:
+achariv@shoperative.in / achari@575
+
+
+FTP Username: achariv@shoperative.in
+FTP server: ftp.shoperative.in
+FTP & explicit FTPS port:  21
+
+
+CPANEL : 
+123238493 / Pathmaker@123
+
+Link : http://shoperative.in/
+
+
+Mysql WorkBench:
+
+HostName : 182.50.135.69
+Username : richlabz
+Password : amma*123
+Database : shoperative	
+
