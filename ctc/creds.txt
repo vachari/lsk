@@ -1,23 +1,6 @@
+CC-avenue:
 
-FTP:
-achariv@shoperative.in / achari@575
-
-
-FTP Username: achariv@shoperative.in
-FTP server: ftp.shoperative.in
-FTP & explicit FTPS port:  21
-
-
-CPANEL : 
-123238493 / Pathmaker@123
-
-Link : http://shoperative.in/
-
-
-Mysql WorkBench:
-
-HostName : 182.50.135.69
-Username : richlabz
-Password : amma*123
-Database : shoperative	
-
+merchant_id : 2576880
+access_code : AVNH78KF79BJ52HNJB
+Working key: 523FEAAF52FED812AB333978971AC194
+URL:http://Lskoffers.com

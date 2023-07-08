@@ -13,7 +13,7 @@ $("#wishlist").click(function () {
 
 
 function addWishList(id) {
-   alert(id);
+    
    if (user_id != '') {
       $.ajax({
          dataType: 'json',
@@ -81,7 +81,7 @@ $(document).ready(function () {
 });
 
 function addToCart(id, page = null) {
-   alert(id);
+    
    var qty = 1;
    if (page == 'description') {
       qty = $('#cartQty').val();

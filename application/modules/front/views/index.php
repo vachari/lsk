@@ -32,20 +32,23 @@
                         if ($hotDealsReq->code  == 200) {
                         ?>
                             <div class="deals_product_column1 owl-carousel">
-                                <?php foreach ($hotDealsReq->result as $hd_res) { ?>
+                                <?php foreach ($hotDealsReq->result as $hd_res) {
+                                    
+                                    $prodLink = base_url() . 'productDetails/' . $hd_res->id;
+                                ?>
                                     <div class="deals_product_list">
                                         <div class="product_thumb">
-                                            <a href="product-details.html"><img src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $hd_res->prod_image; ?>" alt=""></a>
+                                            <a href="<?php echo $prodLink; ?>"><img src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $hd_res->prod_image; ?>" alt=""></a>
                                             <div class="label_product">
                                                 <span class="label_sale">sale</span>
                                             </div>
                                             <div class="quick_button">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
+                                                <a href="<?php echo $prodLink; ?>" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
                                             </div>
                                         </div>
                                         <div class="product_content">
                                             <div class="product_name">
-                                                <h3><a href="product-details.html"><?php echo ucfirst($hd_res->prod_name); ?></a></h3>
+                                                <h3><a href="<?php echo $prodLink; ?>"><?php echo ucfirst($hd_res->prod_name); ?></a></h3>
                                             </div>
                                             <div class="product_rating">
                                                 <ul>
@@ -714,7 +717,11 @@
     $allCatProdReq = json_decode($categoryBasedProducts);
     if ($allCatProdReq->code == SUCCESS_CODE) {
         foreach ($allCatProdReq->menu_result as $cpRes) {
+
+            $menu_title = preg_replace('/\s+/', '', $cpRes->menu_title);
+            $menuLink = base_url() . 'products/' . strtolower($menu_title) . '/' . base64_encode($cpRes->menu_id);
     ?>
+            ?>
             <section class="home_product_area product_color_seven mb-50">
                 <div class="container">
                     <div class="row">
@@ -728,9 +735,12 @@
                                         <?php if (count($cpRes->submenu_list) > 0) {
                                             $subSno = 0;
                                             foreach ($cpRes->submenu_list as $subRes) {
+                                                $sub_title = preg_replace('/\s+/', '+', $subRes->submenu_title);
+                                                $subLink = base_url() . 'products/' . strtolower($menu_title) . '/' . strtolower($sub_title) . '/' . base64_encode($subRes->submenu_id);
                                         ?>
+
                                                 <li>
-                                                    <a class="active" data-bs-toggle="tab" href="#<?php echo $subRes->submenu_id; ?>" role="tab" aria-controls="<?php echo $subRes->submenu_id; ?>" aria-selected="true">
+                                                    <a class="active" href="<?php echo $subLink; ?>" aria-controls="<?php echo $subRes->submenu_id; ?>" aria-selected="true">
                                                         <?php echo $subRes->submenu_title; ?>
                                                     </a>
                                                 </li>
@@ -747,7 +757,7 @@
                             <div class="single_banner">
                                 <div class="banner_thumb">
 
-                                    <a href="shop.html"><img src="<?php echo $cpRes->icon; ?>" alt=""></a>
+                                    <a href="<?php echo $menuLink; ?>"><img src="<?php echo $cpRes->icon; ?>" alt=""></a>
                                 </div>
                             </div>
                         </div>

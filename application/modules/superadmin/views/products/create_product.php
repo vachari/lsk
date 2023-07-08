@@ -20,7 +20,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?php echo SUPER_CSS_PATH; ?>_all-skins.min.css">
-
+<script src="https://cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -385,6 +385,7 @@
 
 </html>
 <script>
+    CKEDITOR.replace('product_description');
     $(document).on("keyup", ".number_class", function() {
         (isNaN($(this).val())) ? $(this).val(''): '';
     });
@@ -491,7 +492,7 @@
             $('#gst').css('border', '1px solid red');
             str = false;
         }
-        alert(selling_price);
+       
         if (selling_price == '') {
             $('#selling_price_err').html(' Required');
             $('#selling_price').css('border', '1px solid red');
