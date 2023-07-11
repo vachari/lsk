@@ -24,7 +24,7 @@
 
 
      <!--wishlist area start -->
-     <div class="wishlist_area mt-60">
+     <div class="wishlist_area mt-30">
          <div class="container">
              <form action="#">
                  <div class="row">

@@ -42,7 +42,7 @@
                   ?>
                    <li>
                      <a href="<?php echo base_url() . 'products/' . strtolower($m->menu_title) . '/' . base64_encode($m->menu_id); ?>" <?php if ($uri == $m->menu_id) {
-                                                                                                                                          echo 'style="color:#ea000d;" ';
+                                                                                                                                          echo 'style="color:#016FBF;" ';
                                                                                                                                         } ?>><?php echo (strlen($m->menu_title) > 20) ? substr($m->menu_title, 0, 20) . '...' : $m->menu_title; ?> </a>
                    </li>
                  <?php
@@ -192,13 +192,13 @@
                  <div class="col-lg-4 col-md-4 col-12 ">
                    <div class="single_product">
                      <div class="product_thumb">
-                       <a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>" title="quick view"><img src="<?php echo base_url() . 'uploads/products/' . $fpro->prod_image; ?>" alt=""></a>
+                       <a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>" title="quick view"><img class="prod-img" src="<?php echo base_url() . 'uploads/products/' . $fpro->prod_image; ?>" alt=""></a>
                        <div class="label_product">
                          <span class="label_sale">sale</span>
                        </div>
-                       <div class="quick_button">
+                       <!-- <div class="quick_button">
                          <a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                       </div>
+                       </div> -->
                      </div>
                      <div class="product_content grid_content">
                        <div class="product_name">

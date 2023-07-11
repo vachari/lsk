@@ -39,12 +39,11 @@
                                 <h3>Orders </h3>
 
                             </div>
-                            <div class="table-responsive">
+                            <div class="order-table table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr class="">
                                             <th> S.no </th>
-
                                             <th> Order # </th>
                                             <th> Order Date </th>
                                             <th> Shipping Charges </th>
@@ -76,36 +75,35 @@
                                                     <td> <?php echo  india_price($ol->shippingprice); ?></td>
                                                     <td> <?php echo  india_price($ol->totalpayableprice); ?> </td>
                                                     <td> <?php echo $dueDate; ?></td>
-                                                    <td class=" text-success">
+                                                    <td class="myorder-list text-success">
                                                         <h4>
                                                             <?php if ($ol->orderstatus == 1) { ?>
-                                                                <span class="text-primary text-xs disabled"> Order Placed </span> <br>
+                                                                <span class="text-primary text-xs disabled"> Order Placed </span>
 
 
                                                             <?php  } else if ($ol->orderstatus == 2) { ?>
-                                                                <span class="text-success text-sm disabled">Order Approved </span> <br>
+                                                                <span class="text-success text-sm disabled">Order Approved </span>
                                                             <?php } else if ($ol->orderstatus == 3) { ?>
 
-                                                                <span class="text-warning  text-xs disabled"> Dispatched </span> <br>
+                                                                <span class="text-warning  text-xs disabled"> Dispatched </span>
                                                             <?php } else if ($ol->orderstatus == 4) { ?>
-                                                                <span class="text-info disabled">Order Delivered </span> <br> 
+                                                                <span class="text-info disabled">Order Delivered </span>
                                                             <?php } else if ($ol->orderstatus == 5) { ?>
                                                                 <span class="text-danger disabled  text-xs"> Order Canceled </span>
                                                             <?php } ?>
                                                         </h4>
                                                     </td>
-                                                    <td>
-                                                        <h4> <a href="<?php echo base_url() . 'orderview/' . $ol->orderid . '/' . base64_encode($ol->cart_type); ?>" class="btn btn-info btn-xs" style=""> <i class="glyphicon glyphicon-eye-open"></i> View </a> &nbsp;
+                                                    <td class="td-center">
+                                                       <a href="<?php echo base_url() . 'orderview/' . $ol->orderid . '/' . base64_encode($ol->cart_type); ?>" class="table-icon" style=""> <i class="zmdi zmdi-eye"></i> </a> &nbsp;
                                                     </td>
-                                                    <td class=" text-success">
-                                                        <h4><?php
+                                                    <td class="td-center text-success">
+                                                        <?php
                                                             if ($ol->orderstatus != 5) { ?>
-                                                                <a href="<?php echo base_url() . 'cancelOrder/' . $ol->orderid . '/' . base64_encode($ol->totalpayableprice) ?>" class="btn btn-danger btn-xs" onclick="return window.confirm('Are you sure to cancel this order ?')"> Cancel </a>
-                                                        </h4>
-                                                        </h4>
+                                                                <a href="<?php echo base_url() . 'cancelOrder/' . $ol->orderid . '/' . base64_encode($ol->totalpayableprice) ?>" class="table-icon" onclick="return window.confirm('Are you sure to cancel this order ?')"> <i class="zmdi zmdi-delete"></i> </a>
+                                                        
                                                     <?php } else { ?>
-                                                        <a href="" class="btn btn-danger btn-xs" disabled title="This order is cancelled"> Cancel </a> </h4>
-                                                        </h4>
+                                                        <a href="" class="table-icon" disabled title="This order is cancelled"> <i class="zmdi zmdi-delete"></i> </a> 
+                                                        
                                                     <?php } ?>
                                                     </td>
                                                 </tr>

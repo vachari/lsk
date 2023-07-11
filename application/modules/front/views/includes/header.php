@@ -166,7 +166,7 @@ $category = json_decode($menuList);
                                     $subCount = count($cat->submenu_list);
                                     $men_title = preg_replace('/\s+/', '', $cat->menu_title);
                                 ?>
-                                    <li class="menu_item_children categorie_list"><a href="<?php echo base_url() . 'products/' . strtolower($men_title) . '/' . base64_encode($cat->menu_id); ?>"><span><img src="<?php echo $cat->icon; ?>" /></span> <?php echo $men_title; ?>
+                                    <li class="menu_item_children categorie_list"><a href="<?php echo base_url() . 'products/' . strtolower($men_title) . '/' . base64_encode($cat->menu_id); ?>"><?php echo $men_title; ?>
                                             <?php if ($subCount > 0) { ?>
                                                 <i class="fa fa-angle-right"></i>
                                             <?php } ?>
@@ -231,3 +231,146 @@ $category = json_decode($menuList);
 
 </header>
 <!--header area end-->
+<div class="Offcanvas_menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="canvas_open">
+                        <span>MENU</span>
+                        <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
+                    </div>
+                    <div class="Offcanvas_menu_wrapper">
+                        <div class="canvas_close">
+                              <a href="javascript:void(0)"><i class="ion-android-close"></i></a>  
+                        </div>
+                        <div class="welcome_text">
+                            <p><img src="<?php echo IMG_PATH; ?>mobile.svg" alt="" /> <span>+91 7981186263</span> </p>
+                        </div>
+                       
+                        <div class="top_right">
+                        <ul>
+                            <li class="language">
+                                <a href="#">
+                                    <i class="zmdi zmdi-dribbble"></i> English <i class="zmdi zmdi-caret-down"></i>
+                                </a>
+                                <ul class="dropdown_language">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">Germany</a></li>
+                                    <li><a href="#">French</a></li>
+                                </ul>
+                            </li>
+                            <?php if ($isUserLoggedIn) { ?>
+                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
+                                    <ul class="dropdown_links">
+                                        <li><a href="<?php echo base_url(); ?>checkout">Checkout </a></li>
+                                        <li><a href="<?php echo base_url(); ?>profile">My Account </a></li>
+                                        <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
+                                        <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                        <li><a href="<?php echo base_url(); ?>logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            <?php } else { ?>
+                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i>Signup / Sign IN<i class="zmdi zmdi-caret-down"></i></a>
+                                    <ul class="dropdown_links">
+                                        <li><a href="<?php echo base_url(); ?>register">Create Account </a></li>
+                                        <li><a href="<?php echo base_url(); ?>register">Login </a></li>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div> 
+                    <div class="search-container">
+                            <form action="<?php echo base_url(); ?>products" method="post">
+                                <div class="hover_category">
+                                    <select class="select_option" name="select" id="categori">
+                                        <option selected value="1">All Categories</option>
+                                        <?php foreach ($category->menu_result as $cat) {
+                                            if (!empty($cat->listsubmenu_list)) {
+                                                $listsub = $cat->listsubmenu_list;
+                                            }
+                                            $men_title = preg_replace('/\s+/', '', $cat->menu_title); ?>
+                                            <option value="2"><?php echo  $men_title; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="search_box">
+                                    <input name="search" placeholder="Search product..." type="text">
+                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
+                                </div>
+                            </form>
+                        </div> 
+                        <div class="mini_cart_wrapper">
+                            <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span><?php echo $cartCount; ?>items - <?php echo $CartAmount; ?></span> </a>
+                            <!--mini cart-->
+                            <div class="mini_cart mini_cart_seven">
+                                <?php
+                                $cartReq = json_decode($cartList);
+                                if ($cartReq->code == 200) {
+                                    foreach ($cartReq->cart_result as $cartRes) {
+                                ?>
+                                        <div class="cart_item">
+                                            <div class="cart_img">
+                                                <a href="#"><img src="<?php echo $cartRes->product_image; ?>" alt=""></a>
+                                            </div>
+                                            <div class="cart_info">
+                                                <a href="#"><?php echo $cartRes->prod_name; ?></a>
+
+                                                <span class="quantity">Qty: <?php echo $cartRes->qty; ?></span>
+                                                <span class="price_cart"><?php echo india_price($cartRes->selling_price); ?></span>
+
+                                            </div>
+                                            <div class="cart_remove">
+                                                <a href="#"><i class="ion-android-close"></i></a>
+                                            </div>
+                                        </div>
+                                <?php }
+                                } ?>
+                                <div class="mini_cart_table">
+                                    <div class="cart_total">
+                                        <span>Subtotal:</span>
+                                        <span class="price"><?php echo $CartAmount; ?></span>
+                                    </div>
+                                </div>
+
+                                <div class="mini_cart_footer">
+                                    <div class="cart_button">
+                                        <a href="<?php echo base_url(); ?>cart">View cart</a>
+                                        <a href="<?php echo base_url(); ?>checkout">Checkout</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--mini cart end-->
+                        </div>
+                        <div class="main_menu menu_seven header_position">
+                        <nav>
+                            <ul>
+                                <li class="active">
+                                    <a href="<?php echo base_url(); ?>"><i class="zmdi zmdi-home"></i> home </a>
+                                </li>
+                                <li class="mega_items"><a href="shop.html"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
+                                    <div class="mega_menu">
+                                        <ul class="mega_menu_inner">
+                                            <li><a href="#">other Pages</a>
+                                                <ul>
+                                                    <li><a href="<?php echo base_url(); ?>cart">cart</a></li>
+                                                    <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                                    <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
+                                                    <li><a href="<?php echo base_url(); ?>profile">my account</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="<?php echo base_url(); ?>about"><i class="zmdi zmdi-comments"></i> about Us</a></li>
+                                <li><a href="<?php echo base_url(); ?>contact"><i class="zmdi zmdi-account-box-mail"></i> Contact Us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Offcanvas menu area end-->

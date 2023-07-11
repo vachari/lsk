@@ -28,7 +28,7 @@
     </div>
   </div>
   <!--breadcrumbs area end-->
-  
+  <div class="prod-details">
   <div class="container">
     <div class="row">
       <div class="col-lg-5 col-md-5 col-sm-12">
@@ -79,6 +79,12 @@
             <span class="new_price"><?php echo india_price($feature_pro->result->selling_price); ?></span>
             <span class="old_price"><?php echo india_price($feature_pro->result->mrp); ?></span>
           </div>
+          <div class="modal_add_to_cart">
+              <form action="#">
+                <input min="0" max="100" step="2" value="1" type="number" id="cartQty">
+                <button type="button" onclick="addToCart(<?php echo $feature_pro->result->id; ?>,'description')">add to cart</button>
+              </form>
+            </div>
           <div class="modal_description mb-15">
             <p><?php echo $feature_pro->result->prod_desc; ?></p>
           </div>
@@ -103,20 +109,13 @@
                 <option value="1">orange</option>
               </select>
             </div>
-            <div class="modal_add_to_cart">
-              <form action="#">
-                <input min="0" max="100" step="2" value="1" type="number" id="cartQty">
-                <button type="button" onclick="addToCart(<?php echo $feature_pro->result->id; ?>,'description')">add to cart</button>
-              </form>
-            </div>
+            
           </div>
           <div class="modal_social">
             <h2>Share this product</h2>
             <ul>
               <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-              <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li> 
               <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
             </ul>
           </div>
@@ -124,6 +123,7 @@
       </div>
     </div>
   </div>
+</div>
   <div class="clearfix">&nbsp;</div>
   <?php $this->load->view('includes/footer.php'); ?>
   <!--footer area end-->

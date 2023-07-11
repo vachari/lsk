@@ -34,15 +34,6 @@
 
                     </div>
                     <div class="col-sm-12 col-md-9 col-lg-9">
-                        <!-- Tab panes -->
-                        <div class="tab-content dashboard_content">
-                            <div class="tab-pane fade show active" id="dashboard">
-                                <h3>Orders </h3>
-
-                            </div>
-
-                        </div>
-                        <h3>Order details </h3>
                         <div class="login">
                             <div class="login_form_container">
                                 <div class="col-md-12">
@@ -63,13 +54,13 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="col-md-12">
-                                                            <div class="col-md-12 bord no-pad">
-                                                                <div class="col-sm-7" style="margin-top: 30px;">
-                                                                    <div class="panel-heading bg_darkgray">
-                                                                        <h6 class="panel-title"> <b>Order Information</b></h6>
-                                                                    </div>
-                                                                    <div class="panel-heading bg_darkgray">
-
+                                                            <div class="row bord no-pad">
+                                                                <div class="col-sm-6">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                          <div class="card-title mb-0 fw-bold"> Order Information</div>
+                                                                        </div>
+                                                                        <div class="card-body">
                                                                         <table class="">
                                                                             <tbody>
 
@@ -163,17 +154,17 @@
                                                                             </tfoot>
 
                                                                         </table>
-                                                                    </div>
+                                                                        </div>
+                                                                    </div>                                                                    
                                                                 </div>
 
-                                                                <div class="col-md-5">
-                                                                    <div class="col-md-12 bord no-pad mrtop">
-                                                                        <div class="panel-heading bg_darkgray">
-                                                                            <h6 class="panel-title"> <b>Shipping Information</b></h6>
+                                                                <div class="col-md-6">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                            <div class="card-title mb-0 fw-bold">Shipping Information</div>
                                                                         </div>
-                                                                        <div class="" style="margin-left: -13px">
-                                                                            <div class="col-md-12">
-                                                                                <table class="table">
+                                                                        <div class="card-body">
+                                                                        <table class="table">
                                                                                     <tr>
                                                                                         <td> Shipping Date : </td>
                                                                                         <td>
@@ -216,11 +207,9 @@
 
                                                                                     </tr>
 
-
                                                                                 </table>
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div>                                                                    
                                                                 </div>
                                                             <?php }
                                                             ?>
@@ -232,14 +221,13 @@
                                                                 )
                                                             );
                                                             if ($uri == 1) { ?>
-                                                                <div class="col-md-12 bord ">
-                                                                    <h3> &nbsp;&nbsp; Products </h3>
-                                                                    <table class="table table-striped table-hover">
-                                                                       
+                                                            
+                                                                <div class="products-info bord ">
+                                                                    <h3 class="prod-title">  Products </h3>
+                                                                    <table class="table table-bordered prod-list">                                                                       
                                                                         <thead>
                                                                             <tr></tr>
                                                                             <tr>
-
                                                                                 <th> Image </th>
                                                                                 <th> Product </th>
                                                                                 <th> Qty </th>
@@ -338,15 +326,29 @@
                                                                         ?>
 
                                                          
-    <!-- my account end   -->
+                                                                                <!-- my account end   -->
 
                                                                                     <!--brand newsletter area start-->
 
                                                                                 </tfoot>
                                                                     </table>
-                                                                                <?php $this->load->view(
-                                                                                        "includes/footer.php"
-                                                                                    ); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+                    <?php $this->load->view(
+                            "includes/footer.php"
+                        ); ?>
 </body>
-
 </html>

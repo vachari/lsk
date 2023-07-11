@@ -36,7 +36,7 @@
                     <div class="col-sm-12 col-md-9 col-lg-9">
                         <!-- Tab panes -->
                         <div class="tab-content dashboard_content">
-                            <div class="tab-pane fade show active" id="dashboard">
+                            <div class="tab-pane fade show active mb-4" id="dashboard">
                                 <h3>Dashboard </h3>
                                 <p>From your account dashboard. you can easily check &amp; view your
                                     <a href="#">recent orders</a>, manage your <a href="#">shipping and billing
@@ -45,7 +45,7 @@
                             </div>
 
                         </div>
-                        <h3>Account details </h3>
+                        <h3 class="acc-title">Account details </h3>
                         <div class="login">
                             <div class="login_form_container">
                                 <?php

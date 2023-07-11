@@ -38,13 +38,13 @@
                                 ?>
                                     <div class="deals_product_list">
                                         <div class="product_thumb">
-                                            <a href="<?php echo $prodLink; ?>"><img src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $hd_res->prod_image; ?>" alt=""></a>
+                                            <a href="<?php echo $prodLink; ?>"><img class="hot-deals" src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $hd_res->prod_image; ?>" alt=""></a>
                                             <div class="label_product">
                                                 <span class="label_sale">sale</span>
                                             </div>
-                                            <div class="quick_button">
+                                            <!-- <div class="quick_button">
                                                 <a href="<?php echo $prodLink; ?>" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="product_content">
                                             <div class="product_name">
@@ -81,10 +81,10 @@
     <!--slider area end-->
 
     <!--banner area start-->
-    <div class="banner_area mt-30 mb-20">
+    <div class="banner_area mt-10 mb-30">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-6 col-md-6 mb-20">
                     <div class="single_banner mb-30">
                         <div class="banner_thumb">
                             <a href="shop.html"><img src="<?php echo IMG_PATH; ?>bg/banner23.jpg" alt=""></a>
@@ -138,13 +138,13 @@
                             <div class="col-lg-3">
                                 <div class="single_product">
                                     <div class="product_thumb">
-                                        <a href="product-details.html"><img src="<?php echo IMG_PATH; ?>product/product18.jpg" alt=""></a>
+                                        <a href="product-details.html"><img  src="<?php echo IMG_PATH; ?>product/product18.jpg" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">sale</span>
                                         </div>
-                                        <div class="quick_button">
+                                        <!-- <div class="quick_button">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="product_content">
                                         <div class="product_name">
@@ -177,9 +177,9 @@
                                 <div class="single_product">
                                     <div class="product_thumb">
                                         <a href="product-details.html"><img src="<?php echo IMG_PATH; ?>product/product19.jpg" alt=""></a>
-                                        <div class="quick_button">
+                                        <!-- <div class="quick_button">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="product_content">
                                         <div class="product_name">
@@ -215,9 +215,9 @@
                                         <div class="label_product">
                                             <span class="label_sale">sale</span>
                                         </div>
-                                        <div class="quick_button">
+                                        <!-- <div class="quick_button">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="product_content">
                                         <div class="product_name">
@@ -721,7 +721,7 @@
             $menu_title = preg_replace('/\s+/', '', $cpRes->menu_title);
             $menuLink = base_url() . 'products/' . strtolower($menu_title) . '/' . base64_encode($cpRes->menu_id);
     ?>
-            ?>
+        
             <section class="home_product_area product_color_seven mb-50">
                 <div class="container">
                     <div class="row">
@@ -776,13 +776,13 @@
                                                 <div class="col-lg-3">
                                                     <div class="single_product">
                                                         <div class="product_thumb">
-                                                            <a href="<?php echo $prodRes->productLink; ?>"><img src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $prodRes->prod_image; ?>" alt=""></a>
+                                                            <a href="<?php echo $prodRes->productLink; ?>"><img class="prod-img" src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $prodRes->prod_image; ?>" alt=""></a>
                                                             <div class="label_product">
                                                                 <span class="label_sale">sale</span>
                                                             </div>
-                                                            <div class="quick_button">
+                                                            <!-- <div class="quick_button">
                                                                 <a href="<?php echo $prodRes->productLink; ?>" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                         <div class="product_content">
                                                             <div class="product_name">
