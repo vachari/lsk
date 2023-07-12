@@ -185,7 +185,7 @@ define('PROJECT_URL', $final_url);
 define('PROJECT_PHONE', '+91-9182900940');
 define('PROJECT_UI_TITLE', 'VAV');
 define('PROJECT_DEVELOPED_BY', 'CircleTech');
-define('PROJECT_DEVELOPED_LINK', 'http://www.circletech.clouds');
+define('PROJECT_DEVELOPED_LINK', 'http://www.circletech.cloud');
 define('SUPPORT_EMAIL', 'vachari010@gmail.com');
 define('BCC_MAIL', 'achariphp@gmail.com');
 define('CC_MAIL', 'achariphp@gmail.com,achary.richlabz@gmail.com');
@@ -202,3 +202,4 @@ define('ADMIN_MAIL', 'vachari010@gmail.com');
 // Superadmin manage views perpage to load records 
 define('PER_PAGE', 20);
 define('CURRENCY', '₹');
+define('ORDER_EXT', 'LSK');

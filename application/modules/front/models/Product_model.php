@@ -64,7 +64,7 @@ class Product_model extends CI_Model
         } elseif ($order == 2) {
             $order = 'ASC';
         }
-        $this->db->select('mp.*,u.unit_of_measure');
+        $this->db->select('mp.*');
         $this->db->from('ga_main_prod_details_tbl mp');
         $this->db->where($where);
         if ($price != null) {
@@ -75,16 +75,16 @@ class Product_model extends CI_Model
                 if ($range[0] == '<') {
                     $price_exp = explode('-', $range);
                     $val = $price_exp[1];
-                    $price_search_array[] = '( selling_price <' . $val . ' )';
+                    $price_search_array[] = '( mp.selling_price <' . $val . ' )';
                 } elseif ($range[0] == '>') {
                     $price_exp = explode('-', $range);
                     $val = $price_exp[1];
-                    $price_search_array[] = '( selling_price >' . $val . ' )';
+                    $price_search_array[] = '( mp.selling_price >' . $val . ' )';
                 } else {
                     $price_exp = explode('-', $range);
                     $val1 = $price_exp[0];
                     $val2 = $price_exp[1];
-                    $price_search_array[] = '( selling_price BETWEEN ' . $val1 . ' AND ' . $val2 . ' )';
+                    $price_search_array[] = '( mp.selling_price BETWEEN ' . $val1 . ' AND ' . $val2 . ' )';
                 }
             }
             $price_array = implode(' OR ', $price_search_array);

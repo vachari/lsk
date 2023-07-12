@@ -35,39 +35,39 @@
 
                             <div class="col-lg-6 mb-20">
                                 <label>User Name <span>*</span></label>
-                                <input type="text" name="name" maxlength="60" value="<?php echo $_SESSION['user_name']; ?>">
+                                <input type="text" name="name" maxlength="60" value="<?php echo $_SESSION['user_name']; ?>" required>
                             </div>
 
                             <div class="col-lg-6 mb-20">
                                 <label>Phone<span>*</span></label>
-                                <input type="text" name="phone" value="<?php echo isset($_SESSION['user_mobile']) ? $_SESSION['user_mobile'] : ''; ?>">
+                                <input type="text" name="phone" value="<?php echo isset($_SESSION['user_mobile']) ? $_SESSION['user_mobile'] : ''; ?>" required>
 
                             </div>
                             <div class="col-lg-6 mb-20">
                                 <label> Email Address <span>*</span></label>
-                                <input type="text" name="email" value="<?php echo $_SESSION['user_email']; ?>" maxlength="60" />
+                                <input type="text" name="email" value="<?php echo $_SESSION['user_email']; ?>" maxlength="60" required/>
 
                             </div>
 
                             <div class="col-12 mb-20">
                                 <label>Street address <span>*</span></label>
-                                <textarea name="address" class="form-control" placeholder="House number and street name" maxlength="200">GK Residency, BTM 2nd Stage</textarea>
+                                <textarea name="address" class="form-control" placeholder="House number and street name"  required></textarea>
                             </div>
                             <!-- <div class="col-12 mb-20">
                                     <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
                                 </div> -->
                             <div class="col-12 mb-20">
                                 <label>Town / City <span>*</span></label>
-                                <input type="text" name="city" maxlength="60" value="Banglore">
+                                <input type="text" name="city" maxlength="60"  required/>
                             </div>
                             <div class="col-12 mb-20">
                                 <label>State / County <span>*</span></label>
-                                <input type="text" name="state" maxlength="50" value="karnataka">
+                                <input type="text" name="state" maxlength="50"  required/>
                             </div>
 
                             <div class="col-12 mb-20">
                                 <label>Pincode<span>*</span></label>
-                                <input type="text" name="pincode" maxlength="6" value="560094">
+                                <input type="text" name="pincode" maxlength="6"  required/>
                             </div>
 
 
@@ -83,8 +83,8 @@
                                 </div>
                             </div>
                             <div class="col-12 mb-20">
-                                <input  style="display: none;" id="address" type="checkbox" data-bs-target="createp_account" />
-                                <label  style="display: none;" class="righ_0" for="address" data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-controls="collapseOne">Ship to a different address?</label>
+                                <input style="display: none;" id="address" type="checkbox" data-bs-target="createp_account" />
+                                <label style="display: none;" class="righ_0" for="address" data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-controls="collapseOne">Ship to a different address?</label>
 
                                 <div id="collapsetwo" class="collapse one" data-parent="#accordion">
                                     <div class="row">
@@ -176,7 +176,7 @@
                             </table>
                         </div>
                         <div class="payment_method">
-                            <div class="panel-default">
+                            <!-- <div class="panel-default">
                                 <input id="payment" name="check_method" type="radio" data-bs-target="createp_account" />
                                 <label for="payment" data-bs-toggle="collapse" data-bs-target="#method" aria-controls="method">Create an account?</label>
 
@@ -185,11 +185,11 @@
                                         <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="panel-default">
 
                                 <input id="payment_online" checked name="mod" value="online" type="radio" /> ONLINE
-                                <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/icon/papyel.png" alt=""></label>
+                                <!-- <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/icon/papyel.png" alt=""></label> -->
 
                                 <div id="collapsedefult" class="collapse one" data-parent="#accordion">
                                     <div class="card-body1">
@@ -197,8 +197,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="order_button">
-                                <button type="submit">Proceed to PayPal</button>
+                                <a class="btn btn-sm btn-success" href="<?php echo base_url(); ?>">Add more items</a>
+                                <a class="btn btn-sm btn-warning" href="<?php echo base_url(); ?>cart">Modify Cart</a>
+
+                                <button type="submit" class="btn btn-sm btn-danger">Proceed to Pay</button>
                             </div>
                         </div>
                         <?php echo form_close(); ?>

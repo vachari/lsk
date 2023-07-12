@@ -22,7 +22,7 @@
 </body>
 <script type="text/javascript">
     function redi() {
-        window.location.href = '<?php echo base_url(); ?>';
+        window.location.href = '<?php echo base_url(); ?>myorders';
     }
 </script>
 

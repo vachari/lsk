@@ -72,36 +72,7 @@ class Cart extends CI_Controller
 		$this->cart_session_id = $this->session->userdata('cart_session_id');
 		redirect($url);
 	}
-	public function cartUpdate()
-	{
-		$cart_id = $this->input->post('cart_id');
-		$qty = $this->input->post('qty');
-		$update_condition = array('cart_id' => $cart_id);
-		$resil = $this->Cart_model->commonGetWhere('ga_cart_tbl', $update_condition);
-		$res = json_decode($resil);
-		$prod_id = $res->result->prod_id;
-		$prod_qty = $res->result->qty;
-		$unit_price1 = $res->result->unit_price;
-		$where = array('prod_id' => $prod_id, 'qty_range_from <=' => $qty, 'qty_range_to >=' => $qty);
 
-		$get_item_pricing = json_decode($this->Cart_model->commonGetWhere('ga_prod_item_pricing_tbl', $where));
-		if ($get_item_pricing->result) {
-			$res2 = $get_item_pricing->result;
-			$unit_price2 = $res2->selling_price;
-		} else {
-			$where2 = array('prod_id' => $prod_id);
-			$get_item_pricing2 = $this->Cart_model->commonGetWhere2('ga_prod_item_pricing_tbl', $where2);
-			$ress = json_decode($get_item_pricing2);
-			$unit_price2 = $ress->result->selling_price;
-		}
-		$total1 = $res->result->unit_price * $qty;
-		$total2 = $unit_price2 * $qty;
-		$discount = $total1 - $total2;
-		$update_data = array('qty' => $qty, 'discount' => $discount, 'total_amount' => $total1);
-		$res_update = $this->Crud->commonUpdate('ga_cart_tbl', $update_data, $update_condition);
-		echo $res_update;
-		exit;
-	}
 	public function getCartData()
 	{
 		// $cart_id=$this->input->post('cart_id');
@@ -111,76 +82,7 @@ class Cart extends CI_Controller
 		exit;
 	}
 
-	public function addsharecart()
-	{
-		$response = array();
-		$end_date = stripslashes(strtoupper(trim($this->input->post('datepicker'))));
-		$this->session->set_userdata("share_cart_date", $end_date);
-		$data = array(
-			'user_id' => $this->user_id,
-			'session_id' => $this->cart_session_id,
-			'start_date' => DATE,
-			'end_date' => date("Y-m-d", strtotime($end_date))
-		);
-		$session_id = $this->cart_session_id;
-		$shared_data = array(
-			'session_id' => $session_id,
-			'shared_by'  => $this->user_id,
-			'shared_on'  => DATE,
-			'end_date'	 => date("Y-m-d", strtotime($end_date)),
-			'status'     => 1
-		);
-		//echo $session_id;exit;
-		$whereconditionss = array('session_id' => $session_id);
-		$sharedcartCheckData = $this->Crud->commonCheck('id', 'ga_sharecart_displaydate_tbl', $whereconditionss);
-		if ($sharedcartCheckData == 0) {
-			$url = base_url() . 'front/cart/follower_session_id/' . $session_id;
-			$where = array('user_id' => $this->user_id);
-			$where2 = array('power_user_id' => $this->user_id);
-			$powerUser = $this->user->commonGetAll('ga_users_tbl', $where);
-			$powerUser = json_decode($powerUser);
-			foreach ($powerUser->result as $powerUser) {
-				$powerUserName = $powerUser->user_name;
-			}
-			$followers = $this->user->commonGetAll('ga_followers_tbl', $where2);
-			$followers = json_decode($followers);
-			$email = array();
-			foreach ($followers->result as $follower) {
-				$email[] = $follower->email;
-			}
-			$to = implode(',', $email);
-			$subject = "Share Cart details from Power User";
-			/*$result = $this->sendmail->sendEmail(
-								array(
-									'to' => array($to),
-									'cc' => array('info@' . SITE_DOMAIN),
-									'bcc' => array(BCC_EMAIL),
-									'subject' => $subject,
-									'data' => array('powerUserName'=>$powerUserName,'end_date'=>$end_date,'link'=>$url),
-									'template' => EMAIL_TEMPLATE_FOLDER.'/shareCart',
-								)
-							);*/
-			$result['code'] = 1;
-			if ($result['code'] == 1) {
-				$sharedCart = $this->Crud->commonInsert('ga_shared_cart_tbl', $shared_data, 'Cart shared Successfully');
-				$sharecartDisplayDate = $this->Crud->commonInsert('ga_sharecart_displaydate_tbl', $data, 'Shared cart inserted Successfully');
-				$response[CODE] = SUCCESS_CODE;
-				$response[MESSAGE] = 'Success';
-				$response[DESCRIPTION] = 'You have shared this cart to your followers Successfully';
-				echo json_encode($response);
-			} else {
-				$response[CODE] = FAIL_CODE;
-				$response[MESSAGE] = 'Failed';
-				$response[DESCRIPTION] = 'Unabled to share this cart, please try again';
-				echo json_encode($response);
-			}
-		} else {
-			$response[CODE] = FAIL_CODE;
-			$response[MESSAGE] = 'Failed';
-			$response[DESCRIPTION] = 'You have already shared this cart to your followers';
-			echo json_encode($response);
-		}
-	}
+
 
 	public function cartItemRemove()
 	{
@@ -205,5 +107,25 @@ class Cart extends CI_Controller
 			exit;
 		}
 		echo json_encode($response);
+	}
+
+	public function updateCartForm()
+	{
+		$cartID = $_POST['cartid'];
+		$qty = $_POST['qty'];
+
+		for ($i = 0; $i < count($cartID); $i++) {
+			$table = 'ga_cart_tbl';
+
+			$wherecondition = array('cart_id' => $cartID[$i], 'cart_session_id' => $this->cart_session_id);
+			$cartSql = $this->db->select('unit_price')->from($table)->where($wherecondition)->get();
+			$cartCount = $cartSql->num_rows();
+			if ($cartCount > 0) {
+				$sellingPrice = $cartSql->row()->unit_price;
+				$qtyWithPrice = ($qty[$i] * $sellingPrice);
+				$this->db->update($table, ['qty' => $qty[$i],'total_amount'=>$qtyWithPrice],$wherecondition);
+			}
+		}
+		echo json_encode(['code' => 200]);
 	}
 }

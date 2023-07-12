@@ -70,7 +70,7 @@ class Cart_model extends CI_Model
         $response = array();
         $product_folder = PRODCUCT_IMAGE_PATH;
         $where = array('c.cart_session_id' => $cartsession, 'c.cart_status' => 0, 'c.cart_type' => 1);
-        $cols = "c.cart_id as cart_id,c.unit_price as selling_price,c.qty,c.shipping_charges,p.id,p.prod_code,p.prod_group,p.prod_name,p.prod_desc,CONCAT('" . $product_folder . "',prod_image) as product_image,p.other_image,p.active_status,p.trash";
+        $cols = "c.cart_id as cart_id,c.prod_id as prod_id,c.unit_price as selling_price,c.qty,c.shipping_charges,p.id,p.prod_code,p.prod_group,p.prod_name,p.prod_desc,CONCAT('" . $product_folder . "',prod_image) as product_image,p.other_image,p.active_status,p.trash";
         $sql =  $this->db->select($cols, false)->from('ga_cart_tbl c')->join('ga_main_prod_details_tbl p', 'p.id=c.prod_id', 'inner')->where($where)->order_by('c.cart_id', 'ASC')->get();
         $db_error =  $this->db->error();
         if ($db_error['code'] == 0) {

@@ -14,7 +14,10 @@
           <div class="breadcrumb_content">
             <ul>
               <li><a href="<?php echo base_url(); ?>">home</a></li>
-              <li>shop</li>
+              <?php if ($this->uri->segment(4) == '') { ?>
+                <li ><a href="#"><?php echo ($this->uri->segment(2)); ?></a></li>
+
+              <?php  } ?>
             </ul>
           </div>
         </div>
@@ -31,7 +34,7 @@
           <!--sidebar widget start-->
           <aside class="sidebar_widget">
             <div class="shop_sidebar_banner mb-50">
-              <a href="#"><img src="<?php echo IMG_PATH; ?>bg/banner16.jpg" alt=""></a>
+              <a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_PATH; ?>bg/banner16.jpg" alt=""></a>
             </div>
             <div class="widget_list widget_categories">
               <h2>categories</h2>
@@ -62,7 +65,7 @@
             </div>
 
 
-            <div class="widget_list">
+            <div class="widget_list" style="display: none;">
               <h2>Select By Color</h2>
               <ul>
                 <li>
@@ -125,28 +128,15 @@
         <div class="col-lg-9 col-md-12">
           <!--shop wrapper start-->
           <!--shop toolbar start-->
-          <div class="shop_banner">
+          <!-- <div class="shop_banner">
             <img src="<?php echo IMG_PATH; ?>bg/banner29.jpg" alt="">
-          </div>
-          <div class="shop_title">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>">Home</a></li>
-              <?php if ($this->uri->segment(4) == '') { ?>
-                <li class="breadcrumb-item active"><?php echo  ucfirst(urldecode($this->uri->segment(2))); ?></li>
-              <?php } else if ($this->uri->segment(5) == '') { ?>
-                <li class="breadcrumb-item"><a href="#"><?php echo  ucfirst($this->uri->segment(2)); ?></a></li>
-                <li class="breadcrumb-item active"><?php echo  ucfirst(urldecode($this->uri->segment(3))); ?></li>
-              <?php  } else if ($this->uri->segment(6) == '') { ?>
-                <li class="breadcrumb-item"><a href="#"><?php echo  ucfirst($this->uri->segment(2)); ?></a></li>
-                <li class="breadcrumb-item active"><a href="#"><?php echo  ucfirst(urldecode($this->uri->segment(3))); ?></a></li>
-                <li class="breadcrumb-item active"><?php echo  ucfirst(urldecode($this->uri->segment(4))); ?></li>
-              <?php  } ?>
-            </ol>
-          </div>
+          </div> -->
+         
           <?php
           $pro = json_decode($products);
           if ($pro->code == 200) {
             $recordsCount = count($pro->result);
+            
           ?>
             <div class="shop_toolbar_wrapper">
               <div class="shop_toolbar_btn">
@@ -177,9 +167,9 @@
 
               </div>
 
-              <div class="page_amount">
-                <p>Showing 1–9 of <?php echo $recordsCount; ?> results</p>
-              </div>
+              <!-- <div class="page_amount">
+                <p>Showing  1 - <?php echo $recordsCount; ?> results</p>
+              </div> -->
             </div>
           <?php  } ?>
           <!--shop toolbar end-->
@@ -377,4 +367,3 @@
     /*Ajax code End*/
   }
 </script>
- 

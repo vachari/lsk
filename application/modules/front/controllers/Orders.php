@@ -33,7 +33,7 @@ class Orders extends CI_Controller
 		//  print_r($this->data['cartUStatistics'] );exit;
 		/*  Generate Order Id   */
 		$tot_wallet_amount = $this->tot_wallet_amount;
-		$ordernumber = 'LSKG' . time() . rand(0, 222);
+		$ordernumber = ORDER_EXT . time() . rand(0, 222);
 		$user_id = $this->user_id;
 		$where = array('user_id' => $user_id);
 		//getting user data
@@ -60,13 +60,13 @@ class Orders extends CI_Controller
 		$state = $this->input->post('state');
 		$city = $this->input->post('city');
 		$pincode = $this->input->post('pincode');
-		$payment_mod = $this->input->post('mod');
+		$inputpayment_mod = $this->input->post('mod');
 
-		if (strtolower(trim($payment_mod)) == "cod") {
+		if (strtolower(trim($inputpayment_mod)) == "cod") {
 			$payment_mod = 1;
 			$orderstatus = 1;
 		}
-		if (strtolower(trim($payment_mod)) == "online") {
+		if (strtolower(trim($inputpayment_mod)) == "online") {
 			$payment_mod = 2;
 			$orderstatus = 0;
 		}
@@ -95,7 +95,6 @@ class Orders extends CI_Controller
 					'delivery_due_date' => $delivery_due_date,
 					'expected_delivery_date' => $delivery_due_date,
 					'userid'          => $this->user_id,
-					'poweruserid' => $power_user
 				);
 
 				$current_pay_amount = $cartStatisticsReq->cart_grand_total;
@@ -107,7 +106,8 @@ class Orders extends CI_Controller
 					$this->session->set_userdata('pay_email', $email);
 					$this->data['pay_name'] = $name;
 					$this->data['pay_amount'] = $current_pay_amount;
-					$this->load->view('razorPay', $this->data);
+					//$this->load->view('razorPay', $this->data);
+					$this->tempPayment();
 					/*Paymentn gateway related variables ENd */
 				}
 			} else {
@@ -375,5 +375,66 @@ class Orders extends CI_Controller
 		} else {
 			return false;
 		}
+	}
+
+
+	public function tempPayment()
+	{
+
+		/* >> Cart status and Order id update */
+		$ordernumber = $this->session->userdata('order_no');
+		$email = $this->session->userdata('pay_email');
+		$payment_id = 'PAYMENT_ID';
+		$where_cond = array('ordercartsession' => $this->cart_session_id);
+		$order_data_raw = $this->db->select('orderid')->from('ga_orders_tbl')->where($where_cond)->order_by('orderid', 'DESC')->limit(1, 0)->get()->row();
+
+		$order_id = $order_data_raw->orderid;
+		$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id);
+		$update = $this->Crud->commonUpdate('ga_orders_tbl', $updatedata, ['orderid' => $order_id]);
+		$update_data = array('order_id' => $order_id, 'cart_status' => 1);
+		$update_condition = array('cart_session_id' => $this->cart_session_id, 'order_id' => 0);
+		$update = $this->Crud->commonUpdate('ga_cart_tbl', $update_data, $update_condition);
+		$update = json_decode($update);
+		unset($_SESSION['cart_session_id']);
+		if ($update->code == 200) {
+			$this->session->set_flashdata('success', 'Your  Order ( #' . $ordernumber . ' )   Successfully Placed.');
+
+			$data = array(
+				'order_number' => $ordernumber,
+				'order_date' => DATE,
+				'order_status' => 1,
+			);
+
+
+
+
+
+			/*    Email code stats    */
+			$subject = "Order Successfully Placed";
+			$this->data['order_data'] = array(
+				'order_number' => $ordernumber,
+				'order_date' => DATE,
+				'order_status' => 1,
+			);
+			if (SITE_MODE == 1) {
+				$result = $this->sendmail->sendEmail(
+					array(
+						'to' => array($email),
+						'cc' => array('info@' . SITE_DOMAIN),
+						'bcc' => array(BCC_EMAIL),
+						'subject' => $subject,
+						'data' => array('order_data' => $this->data['order_data'], 'cartList' => $cartList, 'checkoutStatistics' => $checkoutStatistics),
+						'template' => EMAIL_TEMPLATE_FOLDER . '/order_status_temp',
+					)
+				);
+			}
+
+			$this->load->view('order_status/order_success', $this->data);
+		} else {
+			$this->session->set_flashdata('failed', 'Order Failed ');
+			$this->load->view('order_status/order_success', $this->data);
+		}
+		$this->session->unset_userdata('order_no');
+		$this->session->unset_userdata('pay_email');
 	}
 }

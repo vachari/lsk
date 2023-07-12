@@ -1,2 +1,0 @@
-1. Profile Update API
-2. Change Password APi

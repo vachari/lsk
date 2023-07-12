@@ -131,23 +131,32 @@ function addToCart(id, page = null) {
 
 //This function will delete cart item values from ga_cart_tbl by cartid
 function cartRemove(id) {
-   $.ajax({
-      dataType: 'json',
-      type: 'post',
-      data: { 'tablename': 'cart', 'updatelist': id, 'user_id': user_id },
-      url: basepath + 'front/Cart/cartItemRemove',
-      success: function (u) {
-         console.log(u);
-         if (u.code == '200') {
-            alert('Item successfully removed from cart');
-            setTimeout(function () { window.location = location.href; }, 2000);
-         }
-         if (u.code == '204' || u.code == '301' || u.code == '422') { alert('Product could not removed from cart'); }
-      },
-      error: function (er) {
-         console.log(er);
+   Swal.fire({
+      title: 'Do you want to remove it from Cart?',
+      showDenyButton: true,
+      confirmButtonText: 'Confirm',
+      denyButtonText: `Cancel`,
+   }).then((result) => {
+
+      if (result.isConfirmed) {
+         $.ajax({
+            dataType: 'json',
+            type: 'post',
+            data: { 'tablename': 'cart', 'updatelist': id, 'user_id': user_id },
+            url: basepath + 'front/Cart/cartItemRemove',
+            success: function (u) {
+               console.log(u);
+               if (u.code == '200') {
+                  window.location = location.href;
+               }
+               if (u.code == '204' || u.code == '301' || u.code == '422') { alert('Product could not removed from cart'); }
+            },
+            error: function (er) {
+               console.log(er);
+            }
+         });
       }
-   });
+   })
 }
 
 
