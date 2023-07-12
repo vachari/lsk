@@ -18,6 +18,12 @@
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="<?php echo CSS_PATH; ?>style.css">
+    <script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.16/dist/sweetalert2.all.min.js
+"></script>
+    <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.16/dist/sweetalert2.min.css
+" rel="stylesheet">
     <style>
         .disableClass {
             opacity: 0.5;

@@ -13,7 +13,7 @@ $("#wishlist").click(function () {
 
 
 function addWishList(id) {
-    
+
    if (user_id != '') {
       $.ajax({
          dataType: 'json',
@@ -22,23 +22,32 @@ function addWishList(id) {
          data: { 'prod_id': id },
          url: basepath + 'front/User/addWish',
          success: function (wish) {
-            alert('Product added to wishlist');
-            //alert(wish);  
-            // if(u.wish=='200'){
-            // $("#my_image").attr("src",basepath+'assets/images/heart-full.png');
-            //}  
+            Swal.fire({
+               title: "<b>Success</b>",
+               html: "Product added to wishlisit.",
+               confirmButtonText: "Okay",
+            });
          },
          error: function (err) {
             console.log(err);
-
+            Swal.fire({
+               title: "<b>Error</b>",
+               html: "Already exists in wishlist or error occured",
+               confirmButtonText: "Okay",
+            });
          }
       });
    } else {
-      // alert(' Please Login before add to sharecart');
-      // alert($(this).attr('href'));
-      var register = basepath + "register";
-      window.location = register;
-      // alert(document.referrer);
+      Swal.fire({
+         title: "<b>Authentication</b>",
+         html: "Login required",
+         confirmButtonText: "Okay",
+      }).then((value) => {
+         if (value) {
+            var register = basepath + "register";
+            window.location = register;
+         }
+      });
    }
 
 
@@ -81,7 +90,7 @@ $(document).ready(function () {
 });
 
 function addToCart(id, page = null) {
-    
+
    var qty = 1;
    if (page == 'description') {
       qty = $('#cartQty').val();
@@ -94,12 +103,24 @@ function addToCart(id, page = null) {
       data: { 'id': id, 'cartType': 1, 'qty': qty },
       url: basepath + 'addtocart',
       success: function (cart) {
-         alert(cart.description);
-         location.reload();
+         Swal.fire({
+            title: "<b>Success</b>",
+            html: "Item Added to cart",
+            confirmButtonText: "Okay",
+         }).then((value) => {
+            if (value) {
+               location.reload();
+            }
+         });
+
       },
       error: function (error) {
          console.log(error);
-         //alert('Not Added');
+         Swal.fire({
+            title: "<b>Error</b>",
+            html: "Something Error Occured",
+            confirmButtonText: "Okay",
+         });
       }
    });
 

@@ -33,7 +33,7 @@
                         ?>
                             <div class="deals_product_column1 owl-carousel">
                                 <?php foreach ($hotDealsReq->result as $hd_res) {
-                                    
+
                                     $prodLink = base_url() . 'productDetails/' . $hd_res->id;
                                 ?>
                                     <div class="deals_product_list">
@@ -138,7 +138,7 @@
                             <div class="col-lg-3">
                                 <div class="single_product">
                                     <div class="product_thumb">
-                                        <a href="product-details.html"><img  src="<?php echo IMG_PATH; ?>product/product18.jpg" alt=""></a>
+                                        <a href="product-details.html"><img src="<?php echo IMG_PATH; ?>product/product18.jpg" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">sale</span>
                                         </div>
@@ -721,7 +721,7 @@
             $menu_title = preg_replace('/\s+/', '', $cpRes->menu_title);
             $menuLink = base_url() . 'products/' . strtolower($menu_title) . '/' . base64_encode($cpRes->menu_id);
     ?>
-        
+
             <section class="home_product_area product_color_seven mb-50">
                 <div class="container">
                     <div class="row">
@@ -804,7 +804,7 @@
                                                             <div class="action_links">
                                                                 <ul>
                                                                     <li class="wishlist" data-id="<?php echo $prodRes->id; ?>"><a data-id="<?php echo $prodRes->id; ?>" href="javascript:void(0)" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                                                    <li class="add_to_cart"><a href="javascript:void(0)" id="addToCart" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
+                                                                    <li class="add_to_cart" data-id="<?php echo $prodRes->id; ?>"><a href="javascript:void(0)" id="addToCart" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
                                                                     <li class="compare"><a href="<?php echo $prodRes->productLink; ?>" title="compare"><i class="zmdi zmdi-swap"></i></a></li>
                                                                 </ul>
                                                             </div>
@@ -840,17 +840,14 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#addToCart").click(function() {
-            alert('Wr')
+        $(".add_to_cart").click(function() {
+            var _this = $(this);
+            addToCart($(this).attr('data-id'));
+
         });
         $('.wishlist').click(function() {
             var _this = $(this);
-            console.log($(this).attr('data-id'))
             addWishList($(this).attr('data-id'));
-            // var current = _this.attr("src");
-            // var swap = _this.attr("data-swap");
-            // _this.attr('src', swap).attr("data-swap", current);
-
         })
     });
 </script>
