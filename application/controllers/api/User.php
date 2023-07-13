@@ -480,4 +480,42 @@ class User extends RestApi_Controller
             httpResponse([CODE => VALIDATION_CODE, MESSAGE => 'fail', DESCRIPTION => 'Auth Token required'], 206);
         }
     }
+
+    public function emailTest()
+    {
+        $to = ["achariphp@gmail.com"];
+        $username = 'venkateswara Achari';
+        $email = 'achariphp@gmail.com';
+        $bookingLink = 'http://google.com/';
+        $mobile = '9182900940';
+        $body = "Dear Achari, <br/> Account created successfully. Please find user detail below.<br/>";
+        $body .= 'User Details: ' . "<br/>" . 'Name: ' . $username . "<br/>" . 'Email: ' . $email . "<br/>" . 'Mobile:' . $mobile . "<br/>" . 'Link: <a href=' . $bookingLink . '>Click Here</a>';
+        $this->load->library('email');
+        //SMTP & mail configuration
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.hostinger.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'info@lskoffers.com',
+            'smtp_pass' => 'LSKOffers@info#2023',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'starttls'  => true,
+            'newline'   => "\r\n",
+            'smtp_crypto' => 'ssl'
+        );
+        $subject = "Welcome to LSK";
+        $this->email->initialize($config);
+        $this->email->from('info@lskoffers.com', 'LSK Enterprises');
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($body);
+        $result = $this->email->send();
+        print_r( $result);
+        if( $result){
+            echo "Mail Sent";
+        }else{
+            echo "Mail Failed";
+        }
+    }
 }

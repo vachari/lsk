@@ -7,3 +7,20 @@ URL:http://Lskoffers.com
 
 adm_2576880
 Febeight@2014
+
+
+info@lskoffers.com
+LSKOffers@info#2023
+
+smtp.hostinger.com
+PORT :  465 
+--------------------------------------------------------------------------
+RazorPay:
+
+Merchant ID : MDDejxoiYt04rU
+Phone number : 7981186263
+Email  : varma.s0208@gmail.com
+KeyID : rzp_test_hxaOwRZK5P1vCs
+Secret Key : uO9fOhcPrslqRTpXeL9yX8Vm
+
+--------------------------------------------------------------------------

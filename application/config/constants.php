@@ -203,3 +203,8 @@ define('ADMIN_MAIL', 'vachari010@gmail.com');
 define('PER_PAGE', 20);
 define('CURRENCY', '₹');
 define('ORDER_EXT', 'LSK');
+define('RAZORPAY_API_KEY', 'rzp_test_hxaOwRZK5P1vCs');
+define('RAZORPAY_API_SECRET_KEY', 'uO9fOhcPrslqRTpXeL9yX8Vm');
+define('RAZORPAY_BRAND_NAME', 'LSK Enterprises');
+define('RAZORPAY_MODE', 'TEST');
+define('PROJECT_LOGO', IMG_PATH . 'lsk-logo.svg');

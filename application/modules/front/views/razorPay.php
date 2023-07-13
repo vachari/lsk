@@ -1,10 +1,11 @@
 <?php
-$razor_api_key = "rzp_test_a5o9roI9nSyMNJ";
-$razor_api_secret = "Ly8a4HcAGejDLf4A6qnocbqD";
+$razor_api_key = "rzp_test_hxaOwRZK5P1vCs";
+$razor_api_secret = "uO9fOhcPrslqRTpXeL9yX8Vm";
 echo "Payable Amount : " . $pay_amount;
 echo "<br>";
-$pay_amount = $pay_amount * 100;
+$orgpay_amount = $pay_amount * 100;
 $pay_email = $this->session->userdata('pay_email');
+$pay_amount = (RAZORPAY_MODE == 'TEST') ? 100 : $orgpay_amount;
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,9 +30,7 @@ $pay_email = $this->session->userdata('pay_email');
 
 
 <body>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-pad" style="opacity: 0;">
-        <?php $this->load->view('includes/header_pay.php'); ?>
-    </div>
+
     <section>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 full-bg martop150">
 
@@ -59,11 +58,12 @@ $pay_email = $this->session->userdata('pay_email');
         <!-- for live --
 		data-amount="<?php echo $pay_amount ?>"
 		-->
-        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="<?php echo $razor_api_key ?>" data-amount="100" data-buttontext="Pay Now" data-name="LSK Global Enterprises" data-description="RazorPay Test" data-image="<?php echo IMG_PATH; ?>logo.png" data-prefill.name="<?php echo $pay_name ?>" data-prefill.email="<?php echo $pay_email ?>" data-theme.color="#F37254"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="<?php echo $razor_api_key ?>" data-amount="<?php echo $pay_amount; ?>" data-buttontext="Pay Now" data-name="<?php echo RAZORPAY_BRAND_NAME; ?>" data-description="<?php echo RAZORPAY_BRAND_NAME; ?> payment" data-image="<?php echo PROJECT_LOGO; ?>" data-prefill.name="<?php echo $pay_name ?>" data-prefill.email="<?php echo $pay_email ?>" data-theme.color="#F37254"></script>
         <input type="hidden" value="Hidden Element" name="hidden">
     </form>
 </body>
-<?php $this->load->view('includes/footer'); ?>
+<?php //$this->load->view('includes/footer'); 
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script type="text/javascript">

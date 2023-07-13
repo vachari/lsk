@@ -106,8 +106,7 @@ class Orders extends CI_Controller
 					$this->session->set_userdata('pay_email', $email);
 					$this->data['pay_name'] = $name;
 					$this->data['pay_amount'] = $current_pay_amount;
-					//$this->load->view('razorPay', $this->data);
-					$this->tempPayment();
+					$this->load->view('razorPay', $this->data);
 					/*Paymentn gateway related variables ENd */
 				}
 			} else {
@@ -124,6 +123,7 @@ class Orders extends CI_Controller
 
 	public function payment()
 	{
+		print_r($_POST);
 		if ($_POST['razorpay_payment_id']) {
 			/* >> Cart status and Order id update */
 			$ordernumber = $this->session->userdata('order_no');
@@ -136,69 +136,38 @@ class Orders extends CI_Controller
 			$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id);
 			$update = $this->Crud->commonUpdate('ga_orders_tbl', $updatedata, ['orderid' => $order_id]);
 			$update_data = array('order_id' => $order_id, 'cart_status' => 1);
-			$update_condition = array('cart_session_id' => $this->cart_session_id, 'user_id' => $this->user_id, 'order_id' => 0);
+			$update_condition = array('cart_session_id' => $this->cart_session_id, 'order_id' => 0);
 			$update = $this->Crud->commonUpdate('ga_cart_tbl', $update_data, $update_condition);
 			$update = json_decode($update);
 			unset($_SESSION['cart_session_id']);
 			if ($update->code == 200) {
-				$vendor_id = json_decode($this->Orders_model->get_order_vendor($order_id));
-				if ($vendor_id != null) {
-					foreach ($vendor_id as $vid) {
 
-						$vendor_pay_order = json_decode($this->Orders_model->get_vendor_pay_order($order_id, $vid->vendor_id));
-						$due_days = $this->Crud->checkAndReturn('no_of_days_credit_from_delivery_date', 'ga_payment_terms_tbl', ['vendor_id' => $vid->vendor_id]);
-						if ($vendor_pay_order != null) {
-							$vendor_pay_data = array(
-								'vendor_id' => $vid->vendor_id,
-								'order_id' => $order_id,
-								'delivery_date' => $vendor_pay_order->delivery_due_date,
-								'total_value_of_delivery' => $vendor_pay_order->totalpayableprice,
-								'due_amount' => $vendor_pay_order->totalpayableprice,
-								'due_days' => $due_days,
-								'created_on' => DATE
-							);
-							$insert_vp = $this->Crud->commonInsert('ga_vendor_payment_table', $vendor_pay_data);
-						}
-					}
-				}
 				$this->session->set_flashdata('success', 'Your  Order ( #' . $ordernumber . ' )   Successfully Placed.');
-				$orderdata = array('order_id' => $order_id, 'user_id' => $this->user_id);
-
-				$cartList =	$this->Orders_model->cartList($orderdata, $cart_type = 2);
-				$checkoutStatistics = $this->Orders_model->checkoutStatistics($orderdata);
-
-				$resp = json_decode($this->Orders_model->commonGetWhere("ga_users_tbl", ['user_id' => $this->user_id]));
-
 				$data = array(
 					'order_number' => $ordernumber,
 					'order_date' => DATE,
 					'order_status' => 1,
 				);
-
-
-
-
-				if ($resp->result->user_type == 3) {
-					/*    Email code stats    */
-					$subject = "Order Successfully Placed";
-					$this->data['order_data'] = array(
-						'order_number' => $ordernumber,
-						'order_date' => DATE,
-						'order_status' => 1,
+				/*    Email code stats    */
+				$subject = "Order Successfully Placed";
+				$this->data['order_data'] = array(
+					'order_number' => $ordernumber,
+					'order_date' => DATE,
+					'order_status' => 1,
+				);
+				if (SITE_MODE == 1) {
+					$result = $this->sendmail->sendEmail(
+						array(
+							'to' => array($email),
+							'cc' => array('info@' . SITE_DOMAIN),
+							'bcc' => array(BCC_EMAIL),
+							'subject' => $subject,
+							'data' => array('order_data' => $this->data['order_data'], 'cartList' => $cartList, 'checkoutStatistics' => $checkoutStatistics),
+							'template' => EMAIL_TEMPLATE_FOLDER . '/order_status_temp',
+						)
 					);
-					if (SITE_MODE == 1) {
-						$result = $this->sendmail->sendEmail(
-							array(
-								'to' => array($email),
-								'cc' => array('info@' . SITE_DOMAIN),
-								'bcc' => array(BCC_EMAIL),
-								'subject' => $subject,
-								'data' => array('order_data' => $this->data['order_data'], 'cartList' => $cartList, 'checkoutStatistics' => $checkoutStatistics),
-								'template' => EMAIL_TEMPLATE_FOLDER . '/order_status_temp',
-							)
-						);
-					}
 				}
+
 				$this->load->view('order_status/order_success', $this->data);
 			} else {
 				$this->session->set_flashdata('failed', 'Order Failed ');
