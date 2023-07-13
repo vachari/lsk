@@ -123,7 +123,6 @@ class Orders extends CI_Controller
 
 	public function payment()
 	{
-		print_r($_POST);
 		if ($_POST['razorpay_payment_id']) {
 			/* >> Cart status and Order id update */
 			$ordernumber = $this->session->userdata('order_no');

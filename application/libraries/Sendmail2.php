@@ -40,7 +40,7 @@ class Sendmail
           {
              // print_r($mail_array);exit;
                 $to=$mail_array['to'];
-                $cc=$mail_array['cc'];
+             //   $cc=$mail_array['cc'];
                 $subject=$mail_array['subject'];
                 $data=$mail_array['data'];
                 $attachment=(isset($mail_array['attachment']))?$mail_array['attachment']:'';
@@ -48,7 +48,7 @@ class Sendmail
                 $error=0;$error_messsage='';
                 /*Validation Error Start*/
                 if(!is_array($to)){$error=1;$error_messsage.='To email should be in array format only, ';}
-                if(!is_array($cc)){$error=1;$error_messsage.='CC email should be in array format only, ';}
+                //if(!is_array($cc)){$error=1;$error_messsage.='CC email should be in array format only, ';}
                 if($subject==''){$error=1;$error_messsage.='Enter subject, ';}
                 if(!is_array($data)){$error=1;$error_messsage.='Enter data, ';}
                 if($req_template==''){$error=1;$error_messsage.='Template path is missing, ';}

@@ -166,16 +166,16 @@ define('EMAIL_TEMPLATE_FOLDER', 'front/templates/');
 define('NEW_EMAIL_TEMPLATE_FOLDER', 'front/templates/new_temp/');
 define('EMAIL_TEMPLATE_FOLDER_SUPER', 'superadmin/templates/');
 define('SITE_MODE', 0);/*1 : LIVE & 0 : LOCALHOST*/
-define('SMTP_FROM_EMAIL', (SITE_MODE == 1) ? 'info@achari.com' : 'achariphp@gmail.com');
+define('SMTP_FROM_EMAIL', 'info@lskoffers.com');
 define('SMTP_FROM_NAME', SITE_DOMAIN);
-define('BCC_EMAIL', 'achari.android@gmail.com');
-define('SMTP_PORT', (SITE_MODE == 1) ? 25 : 465);
-define('SMTP_USER', (SITE_MODE == 1) ? 'secure@achari.com' : 'knsr1987@gmail.com');
-define('SMTP_PASSWORD', (SITE_MODE == 1) ? 'achariphp' : 'reddy*123');
-define('SMTP_HOST', (SITE_MODE == 1) ? 'mail.achari.com' : 'ssl://smtp.gmail.com');
-define('SMTP_PROTOCAL', (SITE_MODE == 1) ? 'mail' : 'smtp');
+define('BCC_EMAIL', 'achariphp@gmail.com');
+define('SMTP_PORT', 465);
+define('SMTP_USER', 'info@lskoffers.com');
+define('SMTP_PASSWORD', 'LSKOffers@info#2023');
+define('SMTP_HOST', 'smtp.hostinger.com');
+define('SMTP_PROTOCAL', 'smtp');
 define('logo_theme', 'blue');
-define('SITE_NAME', 'Shoperative');
+define('SITE_NAME', 'LSK Enterprises');
 
 define('SUPER_IMG_PATH_LOGO', $final_url . 'superadmin_assets/images/logo.png'); //URL for Logo
 define('PROJECT_NAME', 'LSK & GLOBAL ENTERPRISES');

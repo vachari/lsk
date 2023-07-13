@@ -1,10 +1,11 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Sendmail 
+class Sendmail
 {
 
-    public function emailConfigSetttings() {
+    public function emailConfigSetttings()
+    {
         $config['protocol'] = SMTP_PROTOCAL;
         $config['smtp_host'] = SMTP_HOST;
         $config['smtp_port'] = SMTP_PORT;
@@ -14,93 +15,39 @@ class Sendmail
         $config['mailtype'] = "html";
         $config['newline'] = "\r\n";
         $config['wordwrap'] = TRUE;
-        $config['mailpath'] = '/usr/sbin/sendmail';
+        //   $config['mailpath'] = '/usr/sbin/sendmail';
         return $config;
     }
     public function sendEmail($mail_array)
-    {
-        /*
-         * TO : to email addresses. we can add multiple email ids (It accepts array only)- manditory
-         * CC : cc email addresses. we can add multiple email ids (It accepts array only)- manditory
-         * SUBJECT :  Subject of mail - manditory
-         * DATA : Body data (Dynamic data) - manditory
-         * ATTACHMENT : We can attach multiple files - Not manditory
-         * TEMPLATE :  Email  body template
-         * 
-         */
-          $response=array();
-          $obj =& get_instance();
-          if(is_array($mail_array))
-          {
-             //print_r($mail_array);exit;
-                $to=$mail_array['to'];
-                $cc=$mail_array['cc'];
-                $subject=$mail_array['subject'];
-                $data=$mail_array['data'];
-                $attachment=(isset($mail_array['attachment']))?$mail_array['attachment']:'';
-                $req_template=$mail_array['template'];
-                $error=0;$error_messsage='';
-                /*Validation Error Start*/
-                if(!is_array($to)){$error=1;$error_messsage.='To email should be in array format only, ';}
-                if(!is_array($cc)){$error=1;$error_messsage.='CC email should be in array format only, ';}
-                if($subject==''){$error=1;$error_messsage.='Enter subject, ';}
-                if(!is_array($data)){$error=1;$error_messsage.='Enter data, ';}
-                if($req_template==''){$error=1;$error_messsage.='Template path is missing, ';}
-                //checking multiple emails are valid or not is pending.
-                /*Validation Error End*/
-                if($error==0)
-                {
-                        $obj ->load->library('email'); 
-                        if(SITE_MODE==0)    {
-                            $config = $this->emailConfigSetttings();
-                            $obj->email->initialize($config);
-                        }
-                        else
-                        {
-                            $obj ->email->set_header('MIME-Version', '1.0; charset=utf-8');
-                            $obj ->email->set_header('Content-type', 'text/html');
-                        }
-                        $assign_template = $obj->load->view($req_template, $data,TRUE);
-                        $obj->email->from(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
-                        $obj->email->to($to);
-                        if(is_array($cc) && (count($cc) > 0)){
-                            $obj->email->cc($cc);
-                        }
-                        $obj->email->bcc(BCC_EMAIL);
-                        $obj->email->reply_to(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
-                        $obj->email->subject($subject);
-                        if(count($attachment) > 0 && is_array($attachment))
-                        {
-                            foreach ($attachment as $attachment_result){
-                            $obj->email->attach($attachment_result);
-                            }
-                        }
-                        $obj->email->message($assign_template);
-                        $obj->email->set_alt_message('Some data is missing.Please refresh once');
-                        $send = $obj->email->send();
-                           if($send)
-                           {
-                                     $response[CODE]=1;
-                                     $response[MESSAGE]='Mail sent successfully';
-                            }
-                            else 
-                            {
-                                $response[CODE]=0;
-                                $response[MESSAGE]='';
-                                //$response[MESSAGE]=$this->email->print_debugger();
-                            }
-                }
-                else
-                {
-                    $response[CODE]=0;
-                    $response[MESSAGE]=$error_messsage;
-                }
-          }
-         else
-         {
-             $response[CODE]=0;
-             $response[MESSAGE]='Input data should be in array format only';
-         }
-         return $response;
+    { 
+        $obj = &get_instance();
+        $userEmail = $mail_array['to'];
+        $subject = $mail_array['subject'];
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.hostinger.com',
+            'smtp_port' => '465',
+            'smtp_user' => 'info@lskoffers.com',
+            'smtp_pass' => 'LSKOffers@info#2023',
+            'smtp_timeout' => '4',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+
+            'wordwrap' => TRUE,
+        );
+
+        $obj->load->library('email', $config);
+        //$obj->email->set_newline("\r\n");
+        $obj->email->set_newline("\r\n");
+        $obj->email->set_header('MIME-Version', '1.0; charset=utf-8');
+        $obj->email->set_header('Content-type', 'text/html');
+        $obj->email->from('support@lskoffers.com', 'LSK Offers');
+
+        $obj->email->to($userEmail);  // replace it with receiver mail id
+        $obj->email->subject($subject); // replace it with relevant subject
+        $body = $obj->load->view('emails/testmail.php', $mail_array['data'], TRUE);
+        $obj->email->message($body);
+        $obj->email->send();
+        return true;
     }
 }

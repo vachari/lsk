@@ -64,7 +64,7 @@ class User extends RestApi_Controller
 
                     'user_reigster_id' => 'LSKG' . date('dmy') . rand(1, 99),
                     'user_type' => 3,
-                    'user_status' => 1,
+                    'user_status' => 3,
                     'created_on' => DATE
                 );
 
@@ -76,10 +76,10 @@ class User extends RestApi_Controller
                     if (SITE_MODE == 1) {
                         $mail_array = $this->sendmail->sendEmail(
                             array(
-                                'to' => array($email),
+                                'to' => $email,
                                 'cc' => array('info@' . SITE_DOMAIN),
                                 'bcc' => array(BCC_EMAIL),
-                                'subject' => 'Shoperative User Verification Link',
+                                'subject' => 'User Verification Link @' . SITE_NAME,
                                 'data' => array('user_data' => $user_data),
                                 'template' => EMAIL_TEMPLATE_FOLDER . 'verification_user',
                             )
@@ -511,10 +511,10 @@ class User extends RestApi_Controller
         $this->email->subject($subject);
         $this->email->message($body);
         $result = $this->email->send();
-        print_r( $result);
-        if( $result){
+        print_r($result);
+        if ($result) {
             echo "Mail Sent";
-        }else{
+        } else {
             echo "Mail Failed";
         }
     }

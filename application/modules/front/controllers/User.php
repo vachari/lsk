@@ -7,13 +7,7 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->vendor_id = $this->session->userdata('vendor_id');
-        if (!empty($this->vendor_id)) {
-            redirect(base_url() . 'vendor/dashboard');
-        }
-        $this->shipper_id = $this->session->userdata('shipper_id');
-        if (!empty($this->shipper_id)) {
-            redirect(base_url() . 'shipper/dashboard');
-        }
+
         //load models here
         $this->load->model(array('Pages_model', 'Cart_model', 'User_model', 'Orders_model'));
         //helper loads here for xss_clean
@@ -479,21 +473,16 @@ class User extends CI_Controller
 
         if ($up->code == SUCCESS_CODE) {
             //Mail data 
-            if ($user_info->result->user_type == 2) {
-                $subject = 'Power User Registration';
-            } else {
-                $subject = 'Regular User Registration';
-            }
+            $subject = 'User verification success @' . SITE_NAME;
             $user_data = array(
                 'user_name' => $user_info->result->user_name,
                 'user_email' =>  $user_info->result->user_email,
                 'user_mobile' =>  $user_info->result->user_mobile,
-                'user_type' => $user_info->result->user_type,
                 'subject' => $subject
             );
             $result = $this->sendmail->sendEmail(
                 array(
-                    'to' => array($user_info->result->user_email),
+                    'to' => $user_info->result->user_email,
                     'cc' => array('info@' . SITE_DOMAIN),
                     'bcc' => array(BCC_EMAIL),
                     'subject' => $subject,
@@ -503,7 +492,7 @@ class User extends CI_Controller
             );
             $this->session->set_flashdata('success', 'Account activation successfully done! Please login now.');
             // $this->session->set_flashdata('success', 'Your email verification sucessfully.');
-            redirect('signin');
+            redirect('register');
         } else {
             $this->session->set_flashdata('failed', 'Unautherized user, unabled to verify user account');
             redirect('register');

@@ -7,13 +7,7 @@
     <div class="customer_login">
         <div class="container">
             <div class="login-bg">
-                <?php if ($this->session->flashdata('success')) {
-                    echo "<div class='alert alert-success  alert-dismissible text-center'>" . $this->session->flashdata('success') . "<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                }
-                if ($this->session->flashdata('failed')) {
-                    echo "<div class='alert alert-danger  alert-dismissible text-center'>" . $this->session->flashdata('failed') . "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                }
-                ?>
+
                 <div class="row">
                     <!--login area start-->
                     <div class="col-lg-6 col-md-6">
@@ -257,9 +251,13 @@
                         if (res['code'] == 200) {
                             $('.loginSubmitDiv').removeClass('disableClass');
                             $('.loginLoader').html(res['description']).addClass('successClass');
-                            localStorage.setItem('LSG_USER_TOKEN',res['token']);
+                            localStorage.setItem('LSG_USER_TOKEN', res['token']);
                             setTimeout(() => {
-                                history.back();
+                                if (history.back()) {
+                                    history.back();
+                                } else {
+                                    window.location = "<?php echo base_url(); ?>";
+                                }
                             }, 2000)
                         } else {
                             $('.loginSubmitDiv').removeClass('disableClass');
