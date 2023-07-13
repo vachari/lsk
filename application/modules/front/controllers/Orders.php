@@ -134,7 +134,7 @@ class Orders extends CI_Controller
 			$order_id = $order_data_raw->orderid;
 			$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id);
 			$update = $this->Crud->commonUpdate('ga_orders_tbl', $updatedata, ['orderid' => $order_id]);
-			$update_data = array('order_id' => $order_id, 'cart_status' => 1);
+			$update_data = array('order_id' => $order_id, 'cart_status' => 1, 'user_id' => $this->user_id);
 			$update_condition = array('cart_session_id' => $this->cart_session_id, 'order_id' => 0);
 			$update = $this->Crud->commonUpdate('ga_cart_tbl', $update_data, $update_condition);
 			$update = json_decode($update);
@@ -148,16 +148,20 @@ class Orders extends CI_Controller
 					'order_status' => 1,
 				);
 				/*    Email code stats    */
-				$subject = "Order Successfully Placed";
+				$subject = $ordernumber . " - Order placement confirmation";
 				$this->data['order_data'] = array(
 					'order_number' => $ordernumber,
 					'order_date' => DATE,
 					'order_status' => 1,
 				);
+				$orderdata = array('order_id' => $order_id, 'user_id' => $this->user_id);
+
+				$cartList =	$this->Orders_model->cartList($orderdata);
+				$checkoutStatistics = $this->Orders_model->checkoutStatistics($orderdata);
 				if (SITE_MODE == 1) {
 					$result = $this->sendmail->sendEmail(
 						array(
-							'to' => array($email),
+							'to' => $email,
 							'cc' => array('info@' . SITE_DOMAIN),
 							'bcc' => array(BCC_EMAIL),
 							'subject' => $subject,
@@ -200,7 +204,7 @@ class Orders extends CI_Controller
 		if ($refund_amount_raw->num_rows() > 0) {
 			$refund_amount = ($refund_amount) - ($refund_amount_raw->row()->cart_refund_amount);
 		}
-		$update_data = array('orderid' => $order_id, 'userid' => $this->user_id, 'orderstatus' => 5, 'cancelled_date' => DATE);
+		$update_data = array('orderstatus' => 5, 'cancelled_date' => DATE);
 		// print_r($update_data);exit;
 		$update_condition = array('userid' => $this->user_id, 'orderid' => $order_id);
 		$update = $this->Crud->commonUpdate('ga_orders_tbl', $update_data, $update_condition);
@@ -227,7 +231,7 @@ class Orders extends CI_Controller
 			);
 			$result = $this->sendmail->sendEmail(
 				array(
-					'to' => array($email),
+					'to' => $email,
 					'cc' => array('info@' . SITE_DOMAIN),
 					'bcc' => array(BCC_EMAIL),
 					'subject' => 'Order Cancellation ',
