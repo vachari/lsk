@@ -235,7 +235,7 @@ class Shipper extends CI_Controller {
             $email=$this->input->post('email');
             $check_email=$this->Crud->commonCheck('email','ga_shippers_table',['email'=>$email]);
             $shipper_data=array();
-            $verificationcode=sha1('ShoperativeShipper'.rand(100,999));
+            $verificationcode=sha1(SHIPPING_SECURE_CODE.rand(100,999));
             if($check_email){
                 $update_shipper=json_decode($this->Crud->commonUpdate('ga_shippers_table',['verificationcode'=>$verificationcode],['email'=>$email]));
                 if($update_shipper->code==200){

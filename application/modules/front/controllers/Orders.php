@@ -29,8 +29,7 @@ class Orders extends CI_Controller
 	}
 	public function orders()
 	{
-		// echo $this->cart_session_id;
-		//  print_r($this->data['cartUStatistics'] );exit;
+
 		/*  Generate Order Id   */
 		$tot_wallet_amount = $this->tot_wallet_amount;
 		$ordernumber = ORDER_EXT . time() . rand(0, 222);
@@ -50,7 +49,7 @@ class Orders extends CI_Controller
 
 		$orderitems = $cartStatisticsReq->cart_count;
 		$orderqty = $cartStatisticsReq->cart_qty;
-		$delivery_due_date = date('Y-m-d', strtotime(' + 2 days'));
+		$delivery_due_date = date('Y-m-d', strtotime(' + 20 days'));
 		// Post data 
 		$name = $this->input->post('name');
 		$mobile = $this->input->post('phone');
@@ -58,10 +57,12 @@ class Orders extends CI_Controller
 		$address = $this->input->post('address');
 
 		$state = $this->input->post('state');
+		$country = $this->input->post('country');
 		$city = $this->input->post('city');
 		$pincode = $this->input->post('pincode');
 		$inputpayment_mod = $this->input->post('mod');
-
+		$referralCode = $this->input->post('referralCode');
+		$paymentgateway_agent = $this->input->post('paymentgateway_agent');
 		if (strtolower(trim($inputpayment_mod)) == "cod") {
 			$payment_mod = 1;
 			$orderstatus = 1;
@@ -95,6 +96,11 @@ class Orders extends CI_Controller
 					'delivery_due_date' => $delivery_due_date,
 					'expected_delivery_date' => $delivery_due_date,
 					'userid'          => $this->user_id,
+					'paymentgateway_agent' => $paymentgateway_agent,
+					'referralCode' => $referralCode,
+					'state' => $state,
+					'country' => $country,
+					'user_name' => $name,
 				);
 
 				$current_pay_amount = $cartStatisticsReq->cart_grand_total;
@@ -106,7 +112,13 @@ class Orders extends CI_Controller
 					$this->session->set_userdata('pay_email', $email);
 					$this->data['pay_name'] = $name;
 					$this->data['pay_amount'] = $current_pay_amount;
-					$this->load->view('razorPay', $this->data);
+					if ($_POST['paymentgateway_agent'] == 'CC_AVENUE') {
+						$this->data['customerData'] = $insert_array;
+						$this->load->view('payments/cc_avenue', $this->data);
+					} else {
+						$this->load->view('razorPay', $this->data);
+					}
+
 					/*Paymentn gateway related variables ENd */
 				}
 			} else {
@@ -408,5 +420,123 @@ class Orders extends CI_Controller
 		}
 		$this->session->unset_userdata('order_no');
 		$this->session->unset_userdata('pay_email');
+	}
+
+	public function ccProcessPayment()
+	{
+		error_reporting(0);
+		$this->load->library('someclass');
+		$merchant_data = '';
+		$working_key = CC_AVENUE_WORKING_KEY;
+		$access_code = CC_AVENUE_ACCESS_CODE;
+
+		foreach ($_POST as $key => $value) {
+			$merchant_data .= $key . '=' . $value . '&';
+		}
+
+		$encrypted_data = $this->someclass->encrypt($merchant_data, $working_key); // Method for encrypting the data.
+		var_dump($encrypted_data);
+?>
+		<form method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
+			<?php
+			echo "<input type=hidden name=encRequest value=$encrypted_data>";
+			echo "<input type=hidden name=access_code value=$access_code>";
+			?>
+		</form>
+		</center>
+		<script language='javascript'>
+			document.redirect.submit();
+		</script>
+<?php
+
+	}
+
+	public function ccPaymentSuccess()
+	{
+		if ($_POST['encResp']) {
+			/* >> Cart status and Order id update */
+			$ordernumber = $this->session->userdata('order_no');
+			$email = $this->session->userdata('pay_email');
+			$payment_id = $_POST['encResp'];
+			$where_cond = array('ordercartsession' => $this->cart_session_id);
+			$order_data_raw = $this->db->select('orderid')->from('ga_orders_tbl')->where($where_cond)->order_by('orderid', 'DESC')->limit(1, 0)->get()->row();
+
+			$order_id = $order_data_raw->orderid;
+			$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id);
+			$update = $this->Crud->commonUpdate('ga_orders_tbl', $updatedata, ['orderid' => $order_id]);
+			$update_data = array('order_id' => $order_id, 'cart_status' => 1, 'user_id' => $this->user_id);
+			$update_condition = array('cart_session_id' => $this->cart_session_id, 'order_id' => 0);
+			$update = $this->Crud->commonUpdate('ga_cart_tbl', $update_data, $update_condition);
+			$update = json_decode($update);
+			unset($_SESSION['cart_session_id']);
+			if ($update->code == 200) {
+				$order_status = "";
+				$decryptValues = explode('&', $rcvdString);
+				$dataSize = sizeof($decryptValues);
+				for ($i = 0; $i < $dataSize; $i++) {
+					$information = explode('=', $decryptValues[$i]);
+					if ($i == 3)    $order_status = $information[1];
+				}
+				if ($order_status === "Success") {
+					$this->session->set_flashdata('success', 'Your  Order ( #' . $ordernumber . ' )   Successfully Placed. <br/>Thank you for shopping with us. We will be shipping your order to you soon.');
+					$data = array(
+						'order_number' => $ordernumber,
+						'order_date' => DATE,
+						'order_status' => 1,
+					);
+					/*    Email code stats    */
+					$subject = $ordernumber . " - Order placement confirmation";
+					$this->data['order_data'] = array(
+						'order_number' => $ordernumber,
+						'order_date' => DATE,
+						'order_status' => 1,
+					);
+					$orderdata = array('order_id' => $order_id, 'user_id' => $this->user_id);
+
+					$cartList =	$this->Orders_model->cartList($orderdata);
+					$checkoutStatistics = $this->Orders_model->checkoutStatistics($orderdata);
+					if (SITE_MODE == 1) {
+						$result = $this->sendmail->sendEmail(
+							array(
+								'to' => $email,
+								'cc' => array('info@' . SITE_DOMAIN),
+								'bcc' => array(BCC_EMAIL),
+								'subject' => $subject,
+								'data' => array('order_data' => $this->data['order_data'], 'cartList' => $cartList, 'checkoutStatistics' => $checkoutStatistics),
+								'template' => EMAIL_TEMPLATE_FOLDER . '/order_status_temp',
+							)
+						);
+					}
+
+					$this->load->view('order_status/order_success', $this->data);
+				} else if ($order_status === "Aborted") {
+					$failMsg = "<br>Thank you for shopping with us.We will keep you posted regarding the status of your order through e-mail";
+					$this->session->set_flashdata('failed', $failMsg);
+					$this->load->view('order_status/order_success', $this->data);
+				} else if ($order_status === "Failure") {
+					$failMsg = "<br>Thank you for shopping with us.However,the transaction has been declined.";
+					$this->session->set_flashdata('failed', $failMsg);
+					$this->load->view('order_status/order_success', $this->data);
+				} else {
+					$failMsg = "<br>Security Error. Illegal access detected";
+					$this->session->set_flashdata('failed', $failMsg);
+					$this->load->view('order_status/order_success', $this->data);
+				}
+			} else {
+				$this->session->set_flashdata('failed', 'Order Failed ');
+				$this->load->view('order_status/order_success', $this->data);
+			}
+			$this->session->unset_userdata('order_no');
+			$this->session->unset_userdata('pay_email');
+		} else {
+			$this->session->set_flashdata('failed', 'Order Failed ');
+			$this->load->view('order_status/order_success', $this->data);
+		}
+	}
+
+	public function paymentFail()
+	{
+		$this->session->set_flashdata('failed', 'Order Failed ');
+		$this->load->view('order_status/order_success', $this->data);
 	}
 }

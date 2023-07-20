@@ -188,7 +188,7 @@ define('PROJECT_DEVELOPED_BY', 'CircleTech');
 define('PROJECT_DEVELOPED_LINK', 'http://www.circletech.cloud');
 define('SUPPORT_EMAIL', 'vachari010@gmail.com');
 define('BCC_MAIL', 'achariphp@gmail.com');
-define('CC_MAIL', 'achariphp@gmail.com,achary.richlabz@gmail.com');
+define('CC_MAIL', 'achariphp@gmail.com');
 define('DEVELOPER_MAIL', 'achariphp@gmail.com');
 define('SOCIAL_LINK_FB', 'facebook.com/');
 define('SOCIAL_LINK_twitter', 'twitter.com/');
@@ -208,3 +208,12 @@ define('RAZORPAY_API_SECRET_KEY', 'uO9fOhcPrslqRTpXeL9yX8Vm');
 define('RAZORPAY_BRAND_NAME', 'LSK Enterprises');
 define('RAZORPAY_MODE', 'TEST');
 define('PROJECT_LOGO', IMG_PATH . 'lsk-logo.svg');
+define('USER_SECURE_CODE', 'LSKUSER');
+define('SHIPPING_SECURE_CODE', 'LSKTRANSPORT');
+define('PROJECT_SHORT_CODE', 'LSK');
+/*CC Avenue Payment Details */
+define('CC_AVENUE_MERCHANT_ID', '2576880');
+define('CC_AVENUE_ACCESS_CODE', 'AVNH78KF79BJ52HNJB');
+define('CC_AVENUE_WORKING_KEY', '523FEAAF52FED812AB333978971AC194');
+define('CC_AVENUE_MODE', 'LIVE');
+/*CC Avenue Payment Details End*/

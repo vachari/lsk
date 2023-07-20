@@ -118,7 +118,7 @@ class UserModel extends CI_Model
     public function forgotPasswordRequest($inputReq)
     {
         $email = $inputReq['email'];
-        $verificationcode = sha1('ShoperativeUser' . rand(100, 999));
+        $verificationcode = sha1(USER_SECURE_CODE . rand(100, 999));
         $query = $this->db->update_string($this->user_tbl, ['verificationcode' => $verificationcode], ['user_email' => $email]);
         $request = $this->db->query($query);
         $count  = $this->db->affected_rows();

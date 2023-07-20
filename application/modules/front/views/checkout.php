@@ -45,29 +45,38 @@
                             </div>
                             <div class="col-lg-6 mb-20">
                                 <label> Email Address <span>*</span></label>
-                                <input type="text" name="email" value="<?php echo $_SESSION['user_email']; ?>" maxlength="60" required/>
+                                <input type="text" name="email" value="<?php echo $_SESSION['user_email']; ?>" maxlength="60" required />
 
                             </div>
 
                             <div class="col-12 mb-20">
                                 <label>Street address <span>*</span></label>
-                                <textarea name="address" class="form-control" placeholder="House number and street name"  required></textarea>
+                                <textarea name="address" class="form-control" placeholder="House number and street name" required></textarea>
                             </div>
                             <!-- <div class="col-12 mb-20">
                                     <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
                                 </div> -->
                             <div class="col-12 mb-20">
                                 <label>Town / City <span>*</span></label>
-                                <input type="text" name="city" maxlength="60"  required/>
+                                <input type="text" name="city" maxlength="60" required />
                             </div>
-                            <div class="col-12 mb-20">
-                                <label>State / County <span>*</span></label>
-                                <input type="text" name="state" maxlength="50"  required/>
-                            </div>
+
 
                             <div class="col-12 mb-20">
                                 <label>Pincode<span>*</span></label>
-                                <input type="text" name="pincode" maxlength="6"  required/>
+                                <input type="text" name="pincode" maxlength="6" required />
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label>State <span>*</span></label>
+                                <input type="text" name="state" maxlength="50" required />
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label>Country <span>*</span></label>
+                                <input type="text" name="country" maxlength="30" required value="INDIA" />
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label>Referral Code<span></span></label>
+                                <input type="text" name="referralCode" maxlength="20" />
                             </div>
 
 
@@ -106,12 +115,16 @@
                                             <input type="text" name="b_city" id="b_city" value="Banglore">
                                         </div>
                                         <div class="col-12 mb-20">
-                                            <label>State / County <span>*</span></label>
+                                            <label>State <span>*</span></label>
                                             <input type="text" name="b_state" id="b_state" value="Karnataka">
                                         </div>
                                         <div class="col-12 mb-20">
                                             <label>Pincode <span>*</span></label>
                                             <input type="text" name="b_pincode" id="b_pincode" maxlength="6" value="560094">
+                                        </div>
+                                        <div class="col-12 mb-20">
+                                            <label>Country <span>*</span></label>
+                                            <input type="text" name="b_country" id="b_country" value="INDIA">
                                         </div>
                                         <div class="col-lg-6 mb-20">
                                             <label>Phone<span>*</span></label>
@@ -188,12 +201,12 @@
                             </div> -->
                             <div class="panel-default">
 
-                                <input id="payment_online" checked name="mod" value="online" type="radio" /> ONLINE
+                                <input id="payment_online" checked name="mod" value="online" type="radio" /> ONLINE ( Make Secure payment with CC Avenue)
                                 <!-- <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/icon/papyel.png" alt=""></label> -->
 
                                 <div id="collapsedefult" class="collapse one" data-parent="#accordion">
                                     <div class="card-body1">
-                                        <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                        <p>Make secure payment with CC Avenue</p>
                                     </div>
                                 </div>
                             </div>
@@ -205,6 +218,7 @@
                                 <button type="submit" class="btn btn-sm btn-danger">Proceed to Pay</button>
                             </div>
                         </div>
+                        <input type="hidden" name="paymentgateway_agent" value="CC_AVENUE">
                         <?php echo form_close(); ?>
                     </div>
                 </div>
