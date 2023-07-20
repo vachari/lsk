@@ -7190,20 +7190,19 @@ height: 246px;
   border-color: #016FBF;
   color: #016FBF;
 }
+
 .product_tab_button.button_color ul li a:hover {
   border-color: #016FBF;
   color: #016FBF;
 }
+
 .section_title_seven h2 {
   font-size: 17px;
   line-height: 17px;
   text-transform: uppercase;
   padding: 0;
 }
-.home_product_reverse .banner_thumb img{
-  max-height: 452px;
-  width: 100%;   
-}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .row.home_product_reverse {
     flex-direction: column-reverse;
@@ -11971,7 +11970,7 @@ height: 246px;
   border: 1px solid #e5e5e5;
   height: 40px;
   max-width: 100%;
-  padding: 0 10px;
+  padding: 0 20px;
   background: none;
   width: 100%;
 }
@@ -12039,13 +12038,13 @@ height: 246px;
 .customer_login {
   padding-bottom: 60px;
   background: #f4f4f4;
-  /* height: 100vh; */
+  height: 100vh;
 }
 
 .account_form {
   background: #ffffff;
-  padding: 20px;
-  margin-top: 2rem;
+  padding: 40px;
+  margin-top: 4rem;
 }
 
 .login-bg .logo {
@@ -12060,10 +12059,6 @@ height: 246px;
 @media only screen and (max-width: 767px) {
   .account_form.register {
     margin-top: 57px;
-  }
-  .account_form {
-   padding: 20px;
-    margin-top: 1rem;
   }
 }
 

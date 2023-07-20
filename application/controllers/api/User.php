@@ -67,7 +67,14 @@ class User extends RestApi_Controller
                     'user_status' => 3,
                     'created_on' => DATE
                 );
-
+                $duplicateEmail = $this->db->select('user_id')->from('ga_users_tbl')->where('user_email', $email)->get()->num_rows();
+                $duplicateMobile = $this->db->select('user_id')->from('ga_users_tbl')->where('user_mobile', $mobile)->get()->num_rows();
+                if ($duplicateEmail > 0) {
+                    httpResponse([CODE => FAIL_CODE, MESSAGE => 'fail', DESCRIPTION => $email . ' already exists'], 409);
+                }
+                if ($duplicateMobile > 0) {
+                    httpResponse([CODE => FAIL_CODE, MESSAGE => 'fail', DESCRIPTION => $mobile . ' already exists'], 409);
+                }
                 $insert_user = json_decode($this->Crud->commonInsert('ga_users_tbl', $insert_array, 'Register Successfully done'));
                 if ($insert_user->code == SUCCESS_CODE) {
                     $user_id = $insert_user->inserted_id;
@@ -84,15 +91,9 @@ class User extends RestApi_Controller
                                 'template' => EMAIL_TEMPLATE_FOLDER . 'verification_user',
                             )
                         );
-                    } else {
-                        $mail_array['code'] = 1;
-                    }
-
-                    if ($mail_array['code'] == 1) {
-                        httpResponse([CODE => SUCCESS_CODE, MESSAGE => 'success', DESCRIPTION => 'Registration successfully done & verification link sent to your email ID'], 200);
-                    } else {
-                        httpResponse([CODE => SUCCESS_CODE, MESSAGE => 'fail', DESCRIPTION => 'Data Inserted successfully but unabled to send verification link'], 200);
-                    }
+                    }  
+                    httpResponse([CODE => SUCCESS_CODE, MESSAGE => 'success', DESCRIPTION => 'Registration successfully done & verification link sent to your email ID'], 200);
+                    
                 } else {
                     httpResponse([CODE => FAIL_CODE, MESSAGE => 'fail', DESCRIPTION => 'OOPs something went wrong.'], 206);
                 }
@@ -158,18 +159,19 @@ class User extends RestApi_Controller
                     $email = $userInfo->email;
                     $mobile = $userInfo->mobile;
                     $profile_status = $userInfo->profile_status;
-                    if ($appType == 'WEB') {
-                        $session_data = array(
-                            'user_id' => $userId,
-                            'user_name' => $username,
-                            'user_email' => $email,
-                            'user_mobile' => $mobile,
-                        );
 
-                        $this->session->set_userdata($session_data);
-                    }
 
                     if ($userId && $profile_status == 1) {
+                        if ($appType == 'WEB') {
+                            $session_data = array(
+                                'user_id' => $userId,
+                                'user_name' => $username,
+                                'user_email' => $email,
+                                'user_mobile' => $mobile,
+                            );
+
+                            $this->session->set_userdata($session_data);
+                        }
                         $bearerToken = $this->api_auth->generateToken($userId);
                         $response[CODE] = SUCCESS_CODE;
                         $response[MESSAGE] = 'Login Success';
@@ -517,5 +519,21 @@ class User extends RestApi_Controller
         } else {
             echo "Mail Failed";
         }
+    }
+    
+     public function mailTest()
+    {
+        $email = 'achariphp@gmail.com';
+        $user_data = ['link' => base_url()];
+        $this->sendmail->sendEmail(
+            array(
+                'to' => $email,
+                'cc' => array('info@' . SITE_DOMAIN),
+                'bcc' => array(BCC_EMAIL),
+                'subject' => 'User Verification Link @' . SITE_NAME,
+                'data' => array('user_data' => $user_data),
+                'template' => EMAIL_TEMPLATE_FOLDER . 'verification_user',
+            )
+        );
     }
 }

@@ -1,11 +1,10 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Sendmail
+class Sendmail 
 {
 
-    public function emailConfigSetttings()
-    {
+    public function emailConfigSetttings() {
         $config['protocol'] = SMTP_PROTOCAL;
         $config['smtp_host'] = SMTP_HOST;
         $config['smtp_port'] = SMTP_PORT;
@@ -15,39 +14,35 @@ class Sendmail
         $config['mailtype'] = "html";
         $config['newline'] = "\r\n";
         $config['wordwrap'] = TRUE;
-        //   $config['mailpath'] = '/usr/sbin/sendmail';
+     //   $config['mailpath'] = '/usr/sbin/sendmail';
         return $config;
     }
     public function sendEmail($mail_array)
-    { 
-        $obj = &get_instance();
+    {
+       // print_r($mail_array);exit;
+        $obj =& get_instance();
         $userEmail = $mail_array['to'];
         $subject = $mail_array['subject'];
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'smtp.hostinger.com',
-            'smtp_port' => '465',
-            'smtp_user' => 'info@lskoffers.com',
-            'smtp_pass' => 'LSKOffers@info#2023',
-            'smtp_timeout' => '4',
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-
-            'wordwrap' => TRUE,
-        );
-
-        $obj->load->library('email', $config);
-        //$obj->email->set_newline("\r\n");
+        
+        $config['protocol'] = "smtp";
+        $config['smtp_host'] = "ssl://smtp.gmail.com";
+        $config['smtp_port'] = "465";
+        $config['smtp_user'] = "cirlcetechdev@gmail.com"; 
+        $config['smtp_pass'] = "fmfwjhbayozyxcxu";
+        $config['charset'] = "utf-8";
+        $config['mailtype'] = "text/html";
+        $config['newline'] = "\r\n";
+        $obj->email->initialize($config);
         $obj->email->set_newline("\r\n");
         $obj->email->set_header('MIME-Version', '1.0; charset=utf-8');
         $obj->email->set_header('Content-type', 'text/html');
-        $obj->email->from('support@lskoffers.com', 'LSK Offers');
-
-        $obj->email->to($userEmail);  // replace it with receiver mail id
-        $obj->email->subject($subject); // replace it with relevant subject
-        $body = $obj->load->view('emails/testmail.php', $mail_array['data'], TRUE);
+        $obj->email->from('info@lskoffers', 'LSK Offers');
+        $obj->email->to($userEmail);  
+        $obj->email->subject($subject); 
+        $body = $obj->load->view($mail_array['template'], $mail_array['data'], TRUE);
         $obj->email->message($body);
         $obj->email->send();
         return true;
+         
     }
 }

@@ -25,3 +25,66 @@ Secret Key : uO9fOhcPrslqRTpXeL9yX8Vm
 
 --------------------------------------------------------------------------
 
+https://www.youtube.com/watch?v=aBbmo1pi5B0
+
+$config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.hostinger.com',
+            'smtp_port' => '465',
+            'smtp_user' => 'info@lskoffers.com',
+            'smtp_pass' => 'LSKOffers@info#2023',
+            'smtp_timeout' => '4',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'wordwrap' => TRUE,
+            'mailpath'=>'/usr/sbin/sendmail',
+            'smtp_crypto'=>'ssl'
+        );
+  $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => '587',
+            'smtp_user' => 'cirlcetechdev@gmail.com',
+            'smtp_pass' => 'fmfwjhbayozyxcxu',
+            'smtp_timeout' => '4',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'wordwrap' => TRUE,
+  
+            
+        );
+
+        ------------------------
+         public function sendEmail($mail_array)
+    {
+       // print_r($mail_array);exit;
+        $ci =& get_instance();
+         $ci->load->library('email');
+        $userEmail = $mail_array['to'];
+        $subject = $mail_array['subject'];
+       
+
+       
+      $ci = get_instance();
+$ci->load->library('email');
+$config['protocol'] = "smtp";
+$config['smtp_host'] = "ssl://smtp.gmail.com";
+$config['smtp_port'] = "465";
+$config['smtp_user'] = "cirlcetechdev@gmail.com"; 
+$config['smtp_pass'] = "fmfwjhbayozyxcxu";
+$config['charset'] = "utf-8";
+$config['mailtype'] = "html";
+$config['newline'] = "\r\n";
+
+$ci->email->initialize($config);
+
+$ci->email->from('vachari010@gmail.com', 'LSK Offers');
+$list = array('achariphp@gmail.com','vachari010@gmail.com');
+$ci->email->to($list);
+$ci->email->reply_to('my-email@gmail.com', 'Explendid Videos');
+$ci->email->subject('This is an email test');
+$ci->email->message('It is working. Great!');
+$ci->email->send();
+      //  return true;
+         
+    }

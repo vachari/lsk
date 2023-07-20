@@ -181,18 +181,18 @@
                             $('.registerSubmitDiv').removeClass('disableClass');
                             $('.signupLoader').html(res['description']).addClass('failClass');
                             setTimeout(() => {
-                                location.reload();
-                            }, 1000)
+                                $('.signupLoader').html('').removeClass('failClass');
+                            }, 3000)
                         }
 
                     },
                     error: function(error) {
                         console.log(error);
                         $('.registerSubmitDiv').removeClass('disableClass');
-                        $('.signupLoader').html('Something error occured').addClass('failClass');
+                        $('.signupLoader').html(error.responseJSON.description).addClass('failClass');
                         setTimeout(() => {
-                            location.reload();
-                        }, 1000)
+                            $('.signupLoader').html('').removeClass('failClass');
+                        }, 3000)
                     }
                 });
             }
@@ -263,8 +263,8 @@
                             $('.loginSubmitDiv').removeClass('disableClass');
                             $('.loginLoader').html(res['description']).addClass('failClass');
                             setTimeout(() => {
-                                location.reload();
-                            }, 1000)
+                                $('.loginLoader').html('').removeClass('failClass');
+                            }, 5000)
                         }
 
                     },
@@ -273,8 +273,8 @@
                         $('.loginSubmitDiv').removeClass('disableClass');
                         $('.loginLoader').html('Something error occured').addClass('failClass');
                         setTimeout(() => {
-                            location.reload();
-                        }, 1000)
+                            $('.loginLoader').html('').removeClass('failClass');
+                        }, 5000)
                     }
                 });
             }
