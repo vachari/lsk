@@ -452,7 +452,7 @@ class Orders extends CI_Controller
 
 	public function ccPaymentSuccess()
 	{
-		
+
 		if ($_REQUEST['encResp']) {
 			$this->load->library('someclass');
 			/* >> Cart status and Order id update */
@@ -496,6 +496,7 @@ class Orders extends CI_Controller
 						'order_number' => $ordernumber,
 						'order_date' => DATE,
 						'order_status' => 1,
+						'paid_amount' => $orderAdvanceAmount,
 					);
 					$orderdata = array('order_id' => $order_id, 'user_id' => $this->user_id);
 

@@ -153,23 +153,31 @@
 
                             <tr>
                                 <th colspan="4"> Sub Total</th>
-                                <th> <?php echo "Rs. " . $check->cart_amount; ?></th>
+                                <th> <?php echo india_price($check->cart_amount); ?></th>
                             </tr>
                             <tr>
                                 <th colspan="4"> Shipping Charges</th>
-                                <th> <?php echo "Rs. " . $check->cart_shipping; ?></th>
+                                <th> <?php echo india_price($check->cart_shipping); ?></th>
                             </tr>
                             <tr>
                                 <th colspan="4"> Processing Fee</th>
-                                <th><?php echo "Rs. " . $check->cart_service_charge; ?></th>
+                                <th><?php echo india_price($check->cart_service_charge); ?></th>
                             </tr>
                             <tr>
                                 <th colspan="4">Cart Discount</th>
-                                <th><?php echo "Rs. " . $check->cart_discount; ?></th>
+                                <th><?php echo india_price($check->cart_discount); ?></th>
                             </tr>
                             <tr border='1px'>
                                 <th colspan="4"> Total </th>
-                                <th><?php echo "Rs. " . $check->cart_grand_total; ?></th>
+                                <th><?php echo india_price($check->cart_grand_total); ?></th>
+                            </tr>
+                            <tr border='1px'>
+                                <th colspan="4"> Paid Amount </th>
+                                <th><?php echo india_price($order_data['paid_amount']); ?></th>
+                            </tr>
+                            <tr border='1px'>
+                                <th colspan="4"> Pending Payment </th>
+                                <th><?php echo india_price(($check->cart_grand_total - $order_data['paid_amount'])); ?></th>
                             </tr>
 
                         </tfoot>
