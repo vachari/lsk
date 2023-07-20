@@ -126,8 +126,7 @@ class Orders extends CI_Controller
 				redirect('/');
 			}
 		} else {
-			echo "coming to here for firled";
-			exit;
+
 			$this->session->set_flashdata('failed', 'Please fill all  fields');
 			redirect('/checkout');
 		}
@@ -453,16 +452,29 @@ class Orders extends CI_Controller
 
 	public function ccPaymentSuccess()
 	{
-		if ($_POST['encResp']) {
+		
+		if ($_REQUEST['encResp']) {
+			$this->load->library('someclass');
 			/* >> Cart status and Order id update */
 			$ordernumber = $this->session->userdata('order_no');
 			$email = $this->session->userdata('pay_email');
-			$payment_id = $_POST['encResp'];
+			$payment_id = $_REQUEST['encResp'];
+			$order_status = "";
+			$orderAdvanceAmount = 0;
+			$rcvdString = $this->someclass->decrypt($payment_id, CC_AVENUE_WORKING_KEY);
+			$decryptValues = explode('&', $rcvdString);
+			$dataSize = sizeof($decryptValues);
+			for ($i = 0; $i < $dataSize; $i++) {
+				$information = explode('=', $decryptValues[$i]);
+				if ($i == 3)    $order_status = $information[1];
+				if ($i == 10) $orderAdvanceAmount = $information[1];
+			}
 			$where_cond = array('ordercartsession' => $this->cart_session_id);
 			$order_data_raw = $this->db->select('orderid')->from('ga_orders_tbl')->where($where_cond)->order_by('orderid', 'DESC')->limit(1, 0)->get()->row();
 
 			$order_id = $order_data_raw->orderid;
-			$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id);
+
+			$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id, 'paid_order_amount' => $orderAdvanceAmount);
 			$update = $this->Crud->commonUpdate('ga_orders_tbl', $updatedata, ['orderid' => $order_id]);
 			$update_data = array('order_id' => $order_id, 'cart_status' => 1, 'user_id' => $this->user_id);
 			$update_condition = array('cart_session_id' => $this->cart_session_id, 'order_id' => 0);
@@ -470,13 +482,7 @@ class Orders extends CI_Controller
 			$update = json_decode($update);
 			unset($_SESSION['cart_session_id']);
 			if ($update->code == 200) {
-				$order_status = "";
-				$decryptValues = explode('&', $rcvdString);
-				$dataSize = sizeof($decryptValues);
-				for ($i = 0; $i < $dataSize; $i++) {
-					$information = explode('=', $decryptValues[$i]);
-					if ($i == 3)    $order_status = $information[1];
-				}
+
 				if ($order_status === "Success") {
 					$this->session->set_flashdata('success', 'Your  Order ( #' . $ordernumber . ' )   Successfully Placed. <br/>Thank you for shopping with us. We will be shipping your order to you soon.');
 					$data = array(

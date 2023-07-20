@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-12 mb-20">
                                 <label>Country <span>*</span></label>
-                                <input type="text" name="country" maxlength="30" required value="INDIA" />
+                                <input type="text" name="country" maxlength="30" required value="India" />
                             </div>
                             <div class="col-12 mb-20">
                                 <label>Referral Code<span></span></label>
@@ -124,7 +124,7 @@
                                         </div>
                                         <div class="col-12 mb-20">
                                             <label>Country <span>*</span></label>
-                                            <input type="text" name="b_country" id="b_country" value="INDIA">
+                                            <input type="text" name="b_country" id="b_country" value="India">
                                         </div>
                                         <div class="col-lg-6 mb-20">
                                             <label>Phone<span>*</span></label>

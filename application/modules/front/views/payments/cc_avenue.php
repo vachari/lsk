@@ -1,10 +1,10 @@
 <?php
 $pay_email = $this->session->userdata('pay_email');
-echo $pay_orderid = $this->session->userdata('order_no');
-print_r($customerData);
+$pay_orderid = $this->session->userdata('order_no');
 $username = $customerData['user_name'];
 ?>
 <html>
+
 
 <head>
     <script>
@@ -16,18 +16,38 @@ $username = $customerData['user_name'];
 </head>
 
 <body>
-    <form method="post" name="customerData" action="<?php echo base_url() . 'front/Orders/ccProcessPayment'; ?>">
-        <input type="text" name="currency" value="INR" required />
-        <tr>
-            <td></td>
-            <td><INPUT TYPE="submit" value="CheckOut"></td>
-        </tr>
-        <table width="40%" height="100" border='1' align="center">
+    <form method="post" class="login100-form validate-form" name="customerData" action="<?php echo base_url() . 'front/Orders/ccProcessPayment'; ?>">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <img src="<?php echo PROJECT_LOGO; ?>" alt="IMG">
+                </div>
+
+                <div class="col-md-6">
+                    <h5>
+                        Make Payment
+                    </h5>
+                    <div class="clearfix">&nbsp;</div>
+                    <ul class="list-items">
+                        <li>Total Amount : <?php echo india_price($customerData['totalpayableprice']); ?></li>
+                        <li>Paying Amount ₹: <input type="text" name="amount" value="1.00" class="form-control" /></li>
+                    </ul>
+
+                    <div class="clearfix">&nbsp;</div>
+                    <div>
+                        <input type="submit" value="Make Payment" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table width="40%" height="100" border='1' align="center" style="opacity: 0;">
             <caption>
                 <font size="4" color="blue"><b>Integration Kit</b></font>
             </caption>
         </table>
-        <table width="40%" height="100" border='1' align="center">
+        <table width="40%" height="100" border='1' align="center" style="opacity: 0;">
             <tr>
                 <td>Parameter Name:</td>
                 <td>Parameter Value:</td>
@@ -47,17 +67,14 @@ $username = $customerData['user_name'];
                 <td>Order Id :</td>
                 <td><input type="text" name="order_id" value="<?php echo $pay_orderid; ?>" /></td>
             </tr>
-            <tr>
-                <td>Amount :</td>
-                <td><input type="text" name="amount" value="1.00" /></td>
-            </tr>
+
             <tr>
                 <td>Currency :</td>
                 <td><input type="text" name="currency" value="INR" /></td>
             </tr>
             <tr>
                 <td>Redirect URL :</td>
-                <td><input type="text" name="redirect_url" value="<?php echo base_url() . 'front/Orders/paymentSuccess'; ?>" /></td>
+                <td><input type="text" name="redirect_url" value="<?php echo base_url() . 'front/Orders/ccPaymentSuccess'; ?>" /></td>
             </tr>
             <tr>
                 <td>Cancel URL :</td>
