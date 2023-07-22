@@ -434,7 +434,7 @@ class Orders extends CI_Controller
 		}
 
 		$encrypted_data = $this->someclass->encrypt($merchant_data, $working_key); // Method for encrypting the data.
-		var_dump($encrypted_data);
+		//var_dump($encrypted_data);
 ?>
 		<form method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
 			<?php
@@ -456,28 +456,34 @@ class Orders extends CI_Controller
 		if ($_REQUEST['encResp']) {
 			$this->load->library('someclass');
 			/* >> Cart status and Order id update */
-			$ordernumber = $this->session->userdata('order_no');
-			$email = $this->session->userdata('pay_email');
+			//$ordernumber = $this->session->userdata('order_no');
+			//$email = $this->session->userdata('pay_email');
 			$payment_id = $_REQUEST['encResp'];
 			$order_status = "";
 			$orderAdvanceAmount = 0;
+			$ordernumber = 0;
+			$email = '';
 			$rcvdString = $this->someclass->decrypt($payment_id, CC_AVENUE_WORKING_KEY);
 			$decryptValues = explode('&', $rcvdString);
 			$dataSize = sizeof($decryptValues);
 			for ($i = 0; $i < $dataSize; $i++) {
 				$information = explode('=', $decryptValues[$i]);
+				if ($i == 0) $ordernumber = $information[1];
 				if ($i == 3)    $order_status = $information[1];
 				if ($i == 10) $orderAdvanceAmount = $information[1];
+				if ($i == 18) $email = $information[1];
 			}
-			$where_cond = array('ordercartsession' => $this->cart_session_id);
-			$order_data_raw = $this->db->select('orderid')->from('ga_orders_tbl')->where($where_cond)->order_by('orderid', 'DESC')->limit(1, 0)->get()->row();
+			$where_cond = array('ordernumber' => $ordernumber);
+			$order_data_raw = $this->db->select('orderid,ordercartsession,userid')->from('ga_orders_tbl')->where($where_cond)->order_by('orderid', 'DESC')->limit(1, 0)->get()->row();
 
 			$order_id = $order_data_raw->orderid;
-
+			$order_session = $order_data_raw->ordercartsession;
+			$userid = $order_data_raw->userid;
+			$this->session->set_userdata('cart_session_id', $order_session);
 			$updatedata = array('orderstatus' => 1, 'payment_status' => 1, 'payment_id' => $payment_id, 'paid_order_amount' => $orderAdvanceAmount);
 			$update = $this->Crud->commonUpdate('ga_orders_tbl', $updatedata, ['orderid' => $order_id]);
-			$update_data = array('order_id' => $order_id, 'cart_status' => 1, 'user_id' => $this->user_id);
-			$update_condition = array('cart_session_id' => $this->cart_session_id, 'order_id' => 0);
+			$update_data = array('order_id' => $order_id, 'cart_status' => 1, 'user_id' => $userid);
+			$update_condition = array('cart_session_id' => $order_session, 'order_id' => 0);
 			$update = $this->Crud->commonUpdate('ga_cart_tbl', $update_data, $update_condition);
 			$update = json_decode($update);
 			unset($_SESSION['cart_session_id']);
@@ -530,20 +536,20 @@ class Orders extends CI_Controller
 					$this->load->view('order_status/order_success', $this->data);
 				}
 			} else {
-				$this->session->set_flashdata('failed', 'Order Failed ');
+				$this->session->set_flashdata('failed', 'Order Failed due to session issue.');
 				$this->load->view('order_status/order_success', $this->data);
 			}
 			$this->session->unset_userdata('order_no');
 			$this->session->unset_userdata('pay_email');
 		} else {
-			$this->session->set_flashdata('failed', 'Order Failed ');
+			$this->session->set_flashdata('failed', 'Order Failed due to Request method');
 			$this->load->view('order_status/order_success', $this->data);
 		}
 	}
 
 	public function paymentFail()
 	{
-		$this->session->set_flashdata('failed', 'Order Failed ');
+		$this->session->set_flashdata('failed', 'Order Faileded due to Payment fail ');
 		$this->load->view('order_status/order_success', $this->data);
 	}
 }

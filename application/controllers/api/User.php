@@ -64,7 +64,7 @@ class User extends RestApi_Controller
 
                     'user_reigster_id' => 'LSKG' . date('dmy') . rand(1, 99),
                     'user_type' => 3,
-                    'user_status' => 3,
+                    'user_status' => 1,
                     'created_on' => DATE
                 );
                 $duplicateEmail = $this->db->select('user_id')->from('ga_users_tbl')->where('user_email', $email)->get()->num_rows();
