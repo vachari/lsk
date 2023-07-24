@@ -64,7 +64,7 @@
                                                 <span class="old_price"><?php echo CURRENCY; ?><?php echo $hd_res->selling_price; ?></span>
                                             </div>
                                             <div class="product_timing_seven">
-                                                <div data-countdown="2030/12/15"></div>
+                                                <div data-countdown="<?php echo date('Y/m/d 23:59'); ?>"></div>
                                             </div>
                                         </div>
                                     </div>

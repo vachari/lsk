@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?php echo PROJECT_NAME;  ?> | Edit Product</title>
+    <title><?php echo PROJECT_NAME;  ?> | Add Product</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -31,6 +31,10 @@
         textarea {
             resize: none;
         }
+
+        .select2-container .select2-selection--single {
+            height: 34px !important;
+        }
     </style>
 </head>
 
@@ -53,13 +57,9 @@
                 <ol class="breadcrumb">
                     <li><a href="<?php echo SUPER_ADMIN_FOLDER_PATH; ?>"><i class="fa fa-dashboard"></i> Home </a></li>
                     <li><a href="<?php echo SUPER_ADMIN_FOLDER_PATH; ?>Product/productDetails"><i class="fa fa-dashboard"></i> Manage Products</a></li>
-                    <li class="active"> Update Product </li>
+                    <li class="active"> Edit Product </li>
                 </ol>
             </section>
-            <?php //print_r($menu_result);
-            ?>
-            <?php //print_r($product_records); 
-            ?>
 
             <!-- Main content -->
             <section class="content">
@@ -72,6 +72,7 @@
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
+
                             <?php
                             $form_attributes = array('id' => 'insertproduct', 'name' => 'insertproduct');
                             echo form_open('', $form_attributes);
@@ -88,11 +89,11 @@
                                             'maxlength' => '40',
                                             'autocomplete' => 'off',
                                             'class' => 'form-control',
-                                            'placeholder' => 'Shoperative Product Code',
-                                            'value' => $product_records->prod_code
-
+                                            'placeholder' => 'Product Code',
+                                            'value' =>  $product_records->prod_code,
+                                            'readonly' => true
                                         );
-                                        echo form_label('Shoperative Product Code', 'Shoperative Product Code') . "<span style='color:red' id='prod_code_err';> *</span>";
+                                        echo form_label(' Product Code', ' Product Code') . "<span style='color:red' id='prod_code_err';> *</span>";
                                         echo form_input($data1); ?>
                                         <span class="err_class" id="prod_code_err"></span>
                                         <?php
@@ -101,22 +102,39 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <?php $data2 = array(
                                             'name' => 'product_title',
                                             'id' => 'product_title',
-                                            'maxlength' => '40',
+                                            'maxlength' => '250',
                                             'autocomplete' => 'off',
                                             'class' => 'form-control',
                                             'placeholder' => 'Product Name',
-                                            'value' => $product_records->prod_name
+                                            'value' =>  $product_records->prod_name,
                                         );
-                                        echo form_label(' Product Title', ' Product Title') . "<span style='color:red' id='prod_title_err'> *</span>";
+                                        echo form_label('Product Title', 'Product Title') . "<span style='color:red' id='prod_title_err'> *</span>";
                                         echo form_input($data2);
                                         ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <?php $data3 = array(
+                                            'name' => 'sku_qty',
+                                            'id' => 'sku_qty',
+                                            'min' => '1',
+                                            'type' => 'number',
+                                            'maxlength' => '40',
+                                            'autocomplete' => 'off',
+                                            'class' => 'form-control',
+                                            'placeholder' => 'Quntity',
+                                            'value' =>  $product_records->stock,
+                                        );
+                                        echo form_label('SKU Qty', 'SKU Qty') . "<span style='color:red' id='prod_skuqty_err'> *</span>";
+                                        echo form_input($data3);
+                                        ?>
+                                        <span class="err_class" id="prod_skuqty_err"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -131,7 +149,9 @@
                                             if ($unit_req->code == SUCCESS_CODE) {
                                                 foreach ($unit_req->units_list as $units_response) {
                                             ?>
-                                                    <option value="<?php echo $units_response->id; ?>"><?php echo $units_response->unit_code; ?></option>
+                                                    <option value="<?php echo $units_response->id; ?>" <?php if ($units_response->id == $product_records->unit) {
+                                                                                                            echo "selected";
+                                                                                                        } ?>><?php echo $units_response->unit_code; ?></option>
                                             <?php
                                                 }
                                             }
@@ -140,8 +160,6 @@
                                         <span class="err_class" id="unit_err"></span>
                                     </div>
                                 </div>
-
-                                <div class="clearfix">&nbsp;</div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <?php echo form_label('Category', 'Category'); ?>
@@ -189,7 +207,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <?php echo form_label('Sub sub Category', 'Listsub Category'); ?>
-                                        <span style="color:red;" id="listsubmenu_err"> *</span>
+                                        <span style="color:red;" id="listsubmenu_err"> </span>
                                         <select name="listsubmenu" id="listsubmenu" class="form-control ">
                                             <option value="">Choose Listsub Category </option>
                                             <?php
@@ -205,7 +223,27 @@
                                         <span class="err_class" id="listsubmenu_err"></span>
                                     </div>
                                 </div>
-                                <div class="clearfix">&nbsp;</div>
+
+                                <div class="clearfix"></div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Offer (%)&nbsp;&nbsp;<input type="text" value="20" class="" id="calulator_offerprice" placeholder="Enter offer Percentage" />
+
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        Price&nbsp;&nbsp;<input type="text" class="" id="calulator_sellingprice" placeholder="Enter Selling Price">
+                                        Selling Price : <span id="dispSellingPrice">0</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" onclick="caluclatePrice()">Caluclate</button>
+                                        <button type="button" onclick="caluclateNUpdate()">Caluclate & Update</button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="clearfix"></div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <?php $data1 = array(
@@ -214,7 +252,8 @@
                                             'maxlength' => '40',
                                             'autocomplete' => 'off',
                                             'class' => 'form-control',
-                                            'placeholder' => 'Mrp'
+                                            'placeholder' => 'Mrp',
+                                            'value' =>  $product_records->mrp,
                                         );
                                         echo form_label('Mrp', 'Mrp') . "<span style='color:red' id='mrp_err';> *</span>";
                                         echo form_input($data1); ?>
@@ -224,6 +263,7 @@
                                         ?>
                                     </div>
                                 </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <?php $dataSelling = array(
@@ -232,7 +272,8 @@
                                             'maxlength' => '10',
                                             'autocomplete' => 'off',
                                             'class' => 'form-control',
-                                            'placeholder' => 'Selling Price'
+                                            'placeholder' => 'Selling Price',
+                                            'value' =>  $product_records->selling_price,
                                         );
                                         echo form_label('Selling Price', 'Selling Price') . "<span style='color:red' id='selling_price_err';> *</span>";
                                         echo form_input($dataSelling); ?>
@@ -250,7 +291,8 @@
                                             'maxlength' => '40',
                                             'autocomplete' => 'off',
                                             'class' => 'form-control',
-                                            'placeholder' => 'Gst'
+                                            'placeholder' => 'Gst',
+                                            'value' =>  $product_records->gst
                                         );
                                         echo form_label('Gst', 'Gst') . "<span style='color:red' id='gst_err';> *</span>";
                                         echo form_input($data1); ?>
@@ -268,7 +310,8 @@
                                             'maxlength' => '8',
                                             'autocomplete' => 'off',
                                             'class' => 'form-control',
-                                            'placeholder' => 'Offer price'
+                                            'placeholder' => 'Offer price',
+                                            'value' =>  $product_records->offer_price
                                         );
                                         echo form_label('Offer Price', 'Offer Price');
                                         echo form_input($dataOfferPrice); ?>
@@ -278,11 +321,10 @@
                                         ?>
                                     </div>
                                 </div>
-
                                 <div class="clearfix"></div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <?php echo form_label('Image (250 X 150)', 'IMAGE'); ?>
+                                        <?php echo form_label('Product Image (500 X 500)', 'IMAGE (250 X 150)'); ?>
                                         <span style="color:red;" id="prod_img_err"> </span>
 
                                         <?php
@@ -293,9 +335,13 @@
                                         );
 
                                         echo form_upload($upload1);
+
                                         ?>
+
+
                                         <span class="err_class" id="prod_img_err"></span>
                                     </div>
+                                    <img src="<?php echo PRODCUCT_IMAGE_PATH . $product_records->prod_image; ?>" width="100px" />
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -307,13 +353,17 @@
                                             'name' => 'alt_image',
                                             'id' => 'alt_image',
                                             'class' => 'form-control',
-                                            'value' => $product_records->prod_image
                                         );
 
                                         echo form_upload($upload1);
                                         ?>
                                         <span class="err_class" id="prod_alt_img_err"></span>
                                     </div>
+                                    <img src="<?php echo PRODCUCT_IMAGE_PATH . 'other_images/' . $product_records->other_image; ?>" width="100px" />
+                                </div>
+                                <div class="col-md-12">
+
+                                    <p class="help-block">Note : Upload upto 2 MB size file only. <a href="http://compressjpeg.com/" target="_blank">Compress Image here </a></p>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -328,10 +378,9 @@
                                                 'rows' => 4,
                                                 'placeholder' => 'Product Description',
                                                 'value' => $product_records->prod_desc
-
                                             );
                                             echo form_label('Product Description', 'Product Description'); ?>
-                                            <span style="color:red;" id="prod_desc_err"></span>
+                                            <span style="color:red;" id="prod_desc_err">*</span>
                                             <?php echo form_textarea($data1); ?>
 
                                             <span class="err_class" id="prod_desc_err"></span>
@@ -343,7 +392,7 @@
                                 </div>
                                 <div class="box-footer pull-right">
                                     <p class="success_msg"></p>
-                                    <a href="<?php echo base_url("superadmin/Product/productDetails"); ?>"><button type="button" class="btn btn-danger">Cancel</button></a>
+
                                     <?php echo form_submit('submit', 'Update', array('class' => 'btn btn-success', 'name' => 'btn_submit', 'id' => 'btn_submit')); ?>
                                 </div>
                             </div>
@@ -430,8 +479,8 @@
     $('#insertproduct').on('submit', function(i) {
         i.preventDefault();
         var str = true;
-        $('#prod_desc_err,#submenu_err,#menu_err,#listsubmenu_err,#prod_code_err,#prod_title_err,#prod_skuqty_err,#prod_img_err,#unit_err,#group_err,#vendor_err,#vendor_item_code_err,#hsn_code_err,#shelf_life_no_err,#shelf_life_unit_err').html('');
-        $('#menu_id,#submenu_id,#listsubmenu,#product_code,#product_title,#product_description,#sku_qty,#image,#seller,#group_id,#unit_id,#vendor,#vendor_item_code,#hsn_code,#shelf_life_no,#shelf_life_unit').css('border', '');
+        $('#prod_desc_err,#submenu_err,#menu_err,#listsubmenu_err,#prod_code_err,#prod_title_err,#prod_skuqty_err,#prod_img_err,#unit_err,#group_err,#vendor_err,#vendor_item_code_err,#hsn_code_err,#shelf_life_no_err,#shelf_life_unit_err,#gst_err,#mrp_err').html('');
+        $('#menu_id,#submenu_id,#listsubmenu,#product_code,#product_title,#product_description,#sku_qty,#image,#seller,#group_id,#unit_id,#vendor,#vendor_item_code,#hsn_code,#shelf_life_no,#shelf_life_unit,#mrp,#gst').css('border', '');
         var menu = $('#menu_id').val();
         var submenu = $('#submenu_id').val();
         var listsubmenu = $('#listsubmenu').val();
@@ -441,28 +490,14 @@
         var prodskuqty = $('#sku_qty').val();
         var image = $('#image').val();
         var unit = $('#unit_id').val();
-        var group = $('#group_id').val();
-        var vendor = $("#vendor").val();
-        var vendor_item_code = $("#vendor_item_code").val();
-        var hsn = $("#hsn_code").val();
-        var shelf_life_no = $("#shelf_life_no").val();
-        var shelf_life_unit = $("#shelf_life_unit").val();
-
-        if (vendor_item_code == '') {
-            $('#vendor_item_code_err').html(' Required');
-            $('#vendor_item_code').css('border', '1px solid red');
-            str = false;
-        }
+        var mrp = $("#mrp").val();
+        var gst = $("#gst").val();
+        var selling_price = $("#selling_price").val();
         if (unit == '') {
             $('#unit_err').html('Please select unit');
             $('#unit_id').css('border', '1px solid red');
             str = false;
         }
-        // if (group == '') {
-        //     $('#group_err').html('Please select group');
-        //     $('#group_id').css('border', '1px solid red');
-        //     str = false;
-        // }
         if (menu == '') {
             $('#menu_err').html('Please select Category');
             $('#menu_id').css('border', '1px solid red');
@@ -476,11 +511,6 @@
         if (submenu == '') {
             $('#submenu_err').html('Please select sub category');
             $('#submenu_id').css('border', '1px solid red');
-            str = false;
-        }
-        if (vendor == '') {
-            $('#vendor_err').html('Please select vendor');
-            $('#vendor').css('border', '1px solid red');
             str = false;
         }
         if (prodcode == '') {
@@ -504,34 +534,29 @@
             $('#sku_qty').css('border', '1px solid red');
             str = false;
         }
-        if (hsn == '') {
-            $('#hsn_code_err').html(' Required');
-            $('#hsn_code').css('border', '1px solid red');
-            str = false;
-        }
-        if (shelf_life_no == '') {
-            $('#shelf_life_no_err').html(' Required');
-            $('#shelf_life_no').css('border', '1px solid red');
-            str = false;
-        }
-        if (shelf_life_no != '' && shelf_life_no <= 0) {
-            $('#shelf_life_no_err').html(' Invalid');
-            $('#shelf_life_no').css('border', '1px solid red');
-            str = false;
-        }
-        if (shelf_life_unit == '') {
-            $('#shelf_life_unit_err').html(' Required');
-            $('#shelf_life_unit').css('border', '1px solid red');
-            str = false;
-        }
 
         if (proddesc == '') {
             $('#description_err').html(' Required');
             $('#product_description').css('border', '1px solid red');
             str = false;
         }
-        // if (image == '')
-        // {
+        if (mrp == '') {
+            $('#mrp_err').html(' Required');
+            $('#mrp').css('border', '1px solid red');
+            str = false;
+        }
+        if (gst == '') {
+            $('#gst_err').html(' Required');
+            $('#gst').css('border', '1px solid red');
+            str = false;
+        }
+
+        if (selling_price == '') {
+            $('#selling_price_err').html(' Required');
+            $('#selling_price').css('border', '1px solid red');
+            str = false;
+        }
+        // if (image == '') {
         //     $('#image').css('border', '1px solid red');
         //     $('#prod_img_err').text('Please upload product image');
         //     str = false;
@@ -548,6 +573,7 @@
                 case 'JPEG':
                 case 'PNG':
                 case 'GIF':
+                case 'webp':
                     validformat = true;
                     break;
                 default:
@@ -574,7 +600,7 @@
                     switch (data.code) {
                         case 200:
 
-                            $('.success_msg').html('Data Updated Successfully').addClass('alert alert-success fade in');
+                            $('.success_msg').html(data.description).addClass('alert alert-success fade in');
                             setTimeout(function() {
                                 window.location = "<?php echo base_url(); ?>superadmin/Product/productDetails/";
                             }, 2000);
@@ -583,7 +609,7 @@
                             $('.fail_msg').html(data.description).addClass('alert alert-success fade in');
                             $('#btn_submit').show();
                             setTimeout(function() {
-                                window.location = location.href;
+                                window.location = "<?php echo base_url(); ?>superadmin/Product/createProduct";
                             }, 3000);
                         case 301:
                         case 422:
@@ -602,6 +628,13 @@
     });
 </script>
 <script type="text/javascript">
+    $('.pricefilter').on('keyup', function() {
+        $(this).css('border', '');
+        var pricevalue = $(this).val();
+        if (isNaN(pricevalue) || pricevalue == 0) {
+            $(this).css('border', '1px solid red').val('');
+        }
+    });
     $('#menu_id').on('change', function() {
         var menu = $(this).val();
         if (menu > 0 && !isNaN(menu)) {
@@ -645,4 +678,24 @@
         }
     });
     $(".select2").select2();
+
+    function caluclatePrice() {
+        $('#dispSellingPrice').html(0);
+        let percentage = Number($('#calulator_offerprice').val());
+        let price = Number($('#calulator_sellingprice').val());
+        let percentageAmount = (price * percentage) / 100;
+        let calsellingPrice = (price - percentageAmount);
+        $('#dispSellingPrice').html(calsellingPrice);
+    }
+
+    function caluclateNUpdate() {
+        $('#dispSellingPrice').html(0);
+        let percentage = Number($('#calulator_offerprice').val());
+        let price = Number($('#calulator_sellingprice').val());
+        let percentageAmount = (price * percentage) / 100;
+        let calsellingPrice = (price - percentageAmount);
+        $('#dispSellingPrice').html(calsellingPrice);
+        $('#selling_price').val(calsellingPrice);
+        $('#offerprice').val(percentage);
+    }
 </script>

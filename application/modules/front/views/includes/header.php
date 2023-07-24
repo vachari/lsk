@@ -192,7 +192,7 @@ $category = json_decode($menuList);
 
                                 <?php } ?>
 
-                                <li><a href="#" id="more-btn"><i class="fa fa-plus" aria-hidden="true"></i> More Categories</a></li>
+                                <!-- <li><a href="#" id="more-btn"><i class="fa fa-plus" aria-hidden="true"></i> More Categories</a></li> -->
                             </ul>
                         </div>
                     </div>
@@ -244,7 +244,7 @@ $category = json_decode($menuList);
                               <a href="javascript:void(0)"><i class="ion-android-close"></i></a>  
                         </div>
                         <div class="welcome_text">
-                            <p><img src="<?php echo IMG_PATH; ?>mobile.svg" alt="" /> <span>+91 7981186263</span> </p>
+                            <p><img src="<?php echo IMG_PATH; ?>mobile.svg" alt="" /> <span><?php echo PROJECT_PHONE; ?></span> </p>
                         </div>
                        
                         <div class="top_right">

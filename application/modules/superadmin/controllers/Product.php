@@ -69,7 +69,7 @@ class Product extends CI_Controller
 
         $image = $_FILES['image']['name'];
         $alt_image = $_FILES['alt_image']['name'];
-        $imageextension = array("jpg", "JPG", "gif", "GIF", "PNG", "png", "JPEG", "jpeg");
+        $imageextension = array("jpg", "JPG", "gif", "GIF", "PNG", "png", "JPEG", "jpeg", "webp");
         if (
             $image != '' && $menu != '' && $submenu != '' && $prodcode != '' && $prodtitle != '' &&
             $prod_desc != '' && $sku_qty != '' && $mrp != '' && $gst != '' && $sellingprice != ''
@@ -115,7 +115,9 @@ class Product extends CI_Controller
                     'mrp' => $mrp,
                     'gst' => $gst,
                     'selling_price' => $sellingprice,
-                    'offer_price' => $offerprice
+                    'offer_price' => $offerprice,
+                    'unit' => $prod_unit,
+                    'stock' => $sku_qty
                 );
                 $insert = $this->Crud->commonInsert('ga_main_prod_details_tbl', $insert_array);
                 echo $insert;
@@ -664,19 +666,15 @@ class Product extends CI_Controller
 
         $id = $this->uri->segment(4);
         $this->data['unit_result'] = $this->Settings_model->getUnitslist();
-        //print_r($this->data['unit_result']);exit;
+
         $this->data['groups_result'] = $this->Settings_model->getGroupsList();
         $this->data['menu_result'] = $this->Super_model->get_catdata('menu_tbl');
-        //print_r($this->data['menu_result']);exit;
+
         $this->data['submenu_result'] = $this->Super_model->get_catdata('submenu_tbl');
-        //print_r($this->data['submenu_result']);exit;
+
         $this->data['listsubmenu_result'] = $this->Super_model->get_catdata('listsubmenu_tbl');
-        //print_r($this->data['listsubmenu_result']);exit;
-        //$this->data['menu_response'] = $this->Product_model->getMenulist();
-        // print_r($this->data['menu_response']);exit;
         $this->data['vendor_result'] = $this->Super_model->getVendorList();
         $this->data['product_records'] = $this->Product_model->updateProduct($id);
-        // print_r($this->data['product_records']);exit;
         $this->load->view('products/update_product', $this->data);
     }
     public function update_product_details()
@@ -691,21 +689,17 @@ class Product extends CI_Controller
         $prodtitle = $this->input->post('product_title');
         $prod_desc = $this->input->post('product_description');
         $sku_qty = $this->input->post('sku_qty');
-        $prod_group = $this->input->post('group_id');
         $prod_unit = $this->input->post('unit_id');
-        $vendor_id = $this->input->post('vendor');
-        $vendor_item_code = $this->input->post('vendor_item_code');
-        $hsn_code = $this->input->post('hsn_code');
-        $shelf_life_no = $this->input->post('shelf_life_no');
-        $shelf_life_unit = $this->input->post('shelf_life_unit');
-
+        $mrp = $this->input->post('mrp');
+        $sellingprice = $this->input->post('selling_price');
+        $gst = $this->input->post('gst');
+        $offerprice = $this->input->post('offerprice');
         $image = $_FILES['image']['name'];
         $alt_image = $_FILES['alt_image']['name'];
         $id = $this->input->post('pro_id');
         $where = array('id' => $id);
-        $imageextension = array("jpg", "JPG", "gif", "GIF", "PNG", "png", "JPEG", "jpeg");
-        // if ($image != '' && $menu != '' && $submenu != '' && $prodcode != '' && $prodtitle != '' &&
-        //         $prod_desc != '' && $sku_qty != '') {
+        $imageextension = array("jpg", "JPG", "gif", "GIF", "PNG", "png", "JPEG", "jpeg", "webp");
+
         if (!empty($image)) {
             $extension = $this->getFileExtensions($_FILES['image']['name']);
             if (in_array($extension, $imageextension)) {
@@ -741,18 +735,17 @@ class Product extends CI_Controller
             'sub_category' => $submenu,
             'listsubmenu_id' => $listsubmenu,
             'prod_code' => $prodcode,
-            'vendor_id' => $vendor_id,
-            'vendor_item_code' => $vendor_item_code,
             'prod_name' => $prodtitle,
             'prod_desc' => $prod_desc,
             'sku' => $sku_qty,
-            'hsn_code' => $hsn_code,
-            'shelf_life_no' => $shelf_life_no,
-            'shelf_life_unit' => $shelf_life_unit,
+            'mrp' => $mrp,
+            'gst' => $gst,
+            'selling_price' => $sellingprice,
+            'offer_price' => $offerprice,
             'prod_image' => $upload_picture,
             'unit' => $prod_unit,
-            'prod_group' => $prod_group,
-            'other_image' => $upload_alt_picture
+            'other_image' => $upload_alt_picture,
+            'stock' => $sku_qty
         );
         $update = $this->Crud->commonUpdate('ga_main_prod_details_tbl', $update_array, ['id' => $id]);
         echo $update;
@@ -784,6 +777,8 @@ class Product extends CI_Controller
             $image = imagecreatefromgif($source_url);
         elseif ($info['mime'] == 'image/JPEG')
             $image = imagecreatefromjpeg($source_url);
+        elseif ($info['mime'] == 'image/webp')
+            $image = imagecreatefromwebp($source_url);
         // elseif ($info['mime'] == 'image/TIFF')
         //     $image = imagecreatefromtiff($source_url);
 
