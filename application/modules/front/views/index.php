@@ -61,7 +61,7 @@
                                             </div>
                                             <div class="price_box">
                                                 <span class="current_price"><?php echo CURRENCY; ?><?php echo $hd_res->selling_price; ?></span>
-                                                <span class="old_price"><?php echo CURRENCY; ?><?php echo $hd_res->selling_price; ?></span>
+                                                <span class="old_price"><?php echo CURRENCY; ?><?php echo $hd_res->mrp; ?></span>
                                             </div>
                                             <div class="product_timing_seven">
                                                 <div data-countdown="<?php echo date('Y/m/d 23:59'); ?>"></div>
