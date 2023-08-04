@@ -179,4 +179,16 @@ class Product_model extends CI_Model
     }
 
     /* Code for getting prod sku qty and product unit ends here */
+    public function fetchGalleryList($product_id)
+    {
+        $response = array();
+        $where = array('product_id' => $product_id);
+        $sql = $this->db->select('*')->from('product_images_tbl')->where($where)->get();
+        $count = $sql->num_rows();
+        $response['code'] = ($count > 0) ? 200 : 204;
+        $response['message'] = ($count > 0) ? 'Success' : 'Fail';
+        $response['description'] = ($count > 0) ? "$count results found" : 'No results found..!';
+        $response['result'] = ($count > 0) ? $sql->result() : array();
+        return json_encode($response);
+    }
 }

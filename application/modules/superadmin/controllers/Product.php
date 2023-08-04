@@ -66,6 +66,7 @@ class Product extends CI_Controller
         $sellingprice = $this->input->post('selling_price');
         $gst = $this->input->post('gst');
         $offerprice = $this->input->post('offerprice');
+        $short_desc = $this->input->post('short_description');
 
         $image = $_FILES['image']['name'];
         $alt_image = $_FILES['alt_image']['name'];
@@ -117,7 +118,8 @@ class Product extends CI_Controller
                     'selling_price' => $sellingprice,
                     'offer_price' => $offerprice,
                     'unit' => $prod_unit,
-                    'stock' => $sku_qty
+                    'stock' => $sku_qty,
+                    'short_description' => $short_desc
                 );
                 $insert = $this->Crud->commonInsert('ga_main_prod_details_tbl', $insert_array);
                 echo $insert;
@@ -697,6 +699,7 @@ class Product extends CI_Controller
         $image = $_FILES['image']['name'];
         $alt_image = $_FILES['alt_image']['name'];
         $id = $this->input->post('pro_id');
+        $short_desc = $this->input->post('short_description');
         $where = array('id' => $id);
         $imageextension = array("jpg", "JPG", "gif", "GIF", "PNG", "png", "JPEG", "jpeg", "webp");
 
@@ -745,7 +748,8 @@ class Product extends CI_Controller
             'prod_image' => $upload_picture,
             'unit' => $prod_unit,
             'other_image' => $upload_alt_picture,
-            'stock' => $sku_qty
+            'stock' => $sku_qty,
+            'short_description' => $short_desc
         );
         $update = $this->Crud->commonUpdate('ga_main_prod_details_tbl', $update_array, ['id' => $id]);
         echo $update;
@@ -929,5 +933,154 @@ class Product extends CI_Controller
             return $number . 'th';
         else
             return $number . $ends[$number % 10];
+    }
+
+    public function product_gallery()
+    {
+        $prod_id = $this->uri->segment(4);
+        $this->data['galleryList'] = $this->Product_model->fetchGalleryList($prod_id);
+        $this->load->view('products/product_gallery', $this->data);
+    }
+
+    public function insertGallery()
+    {
+        error_reporting(0);
+        $productID = $_POST['product_id'];
+        if ($productID > 0) {
+
+            $multiProductArray = [];
+
+            if (count($this->input->post('product_title')) > 0) {
+
+                $product_title = $this->input->post('product_title');
+
+                $downloadLink = $this->input->post('product_downloadlink');
+
+                $product_priority = $this->input->post('product_priority');
+
+                for ($i = 0; $i < count($product_title); $i++) {
+
+                    if (!empty($product_title) && !empty($_FILES["product_file"]["name"][$i])) {
+
+                        $otherProductName = '';
+                        $insertProductImg = '';
+                        if ($_FILES["product_file"]["name"][$i] != '') {
+                            $imageextension = array("jpg", "JPG", "gif", "GIF", "PNG", "png", "JPEG", "jpeg", "webp");
+                            $extension = $this->getFileExtensions($_FILES["product_file"]["name"][$i]);
+                            if (in_array($extension, $imageextension)) {
+                                $upload_pic = sha1(time() . rand(00000000, 999999999));
+                                $filename = stripslashes($_FILES['product_file']['name'][$i]);
+                                $upload_file = $_FILES['product_file']['tmp_name'][$i];
+                                $upload_alt_picture = $upload_pic . '.' . $extension;
+                                $projectpath = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+                                $url = $_SERVER['DOCUMENT_ROOT'] . '/' . $projectpath . "/uploads/products/other_images/" . $upload_alt_picture;
+                                $filename = $this->compress_image($upload_file, $url, 30);
+                                $otherProductName = "/uploads/products/other_images/" . $upload_alt_picture;
+                            }
+                        }
+
+                        $loopArray = [
+
+                            'title' => $product_title[$i],
+
+                            'image' => $otherProductName,
+
+                            'product_id' => $productID,
+
+                            'download_url' => $downloadLink[$i],
+
+                            'priority' => $product_priority[$i],
+
+                        ];
+
+                        array_push($multiProductArray, $loopArray);
+                    }
+                }
+
+                if (count($multiProductArray) > 0) {
+                    $this->db->insert_batch('product_images_tbl', $multiProductArray);
+                    $this->session->set_tempdata("success_msg", "Product Updated Successfully.", 3);
+                } else {
+                    $this->session->set_tempdata("error_msg", "Manditory Fields are requied.", 3);
+                }
+                redirect(base_url() . 'superadmin/Product/product_gallery/' . $productID, 'refresh');
+            }
+        } else {
+            $this->session->set_tempdata("error_msg", "Invalid Product ID", 3);
+            redirect(base_url() . 'superadmin/Product/product_gallery/' . $productID, 'refresh');
+        }
+        redirect(base_url() . 'superadmin/Product/product_gallery/' . $productID, 'refresh');
+    }
+
+    public function updateProductChild()
+    {
+
+        $updateArray = [
+
+            'title' => $this->input->post("modal_title"),
+
+            'priority' => $this->input->post("modal_priority"),
+
+            'download_url' => $this->input->post("modal_downloadUrl"),
+
+
+        ];
+
+        $id = $this->input->post("modal_product_refId");
+
+        $productID = $this->input->post("modal_product_Id");
+
+        if ($_FILES["modal_uploadfile"]["name"] != '') {
+
+            $mtarget_dir = "uploads/products/other_images/";
+
+            $temp = explode(".", $_FILES["modal_uploadfile"]["name"]);
+
+            $newfilename = time() . md5(rand(0, 10000)) . '_product' . '.' . end($temp);
+
+            $otherProductName = $mtarget_dir . $newfilename;
+
+            move_uploaded_file($_FILES["modal_uploadfile"]["tmp_name"], $otherProductName);
+
+            $updateArray['image'] = $otherProductName;
+        }
+
+        $updateQuery = $this->db->update_string('product_images_tbl', $updateArray, ['id' => $id]);
+
+        $this->db->query($updateQuery);
+
+        redirect(base_url() . 'superadmin/Product/product_gallery/' . $productID, 'refresh');
+    }
+
+    public function sortProducts()
+
+    {
+
+        $productID = $this->input->post('sort_productid');
+
+        $rowID = $this->input->post('sort_id');
+
+        $priority = $this->input->post("sort_prioirty");
+
+        $count = count($rowID);
+
+
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $id = $rowID[$i];
+
+            $updateArray = [
+
+                'priority' => $priority[$i]
+
+            ];
+
+            $updateQuery = $this->db->update_string('product_images_tbl', $updateArray, ['id' => $id]);
+
+            $this->db->query($updateQuery);
+        }
+
+        redirect(base_url('superadmin/Product/product_gallery/' . $productID));
     }
 }

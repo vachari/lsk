@@ -149,7 +149,7 @@
                             <th>
                               <input type="checkbox" id="checkAll">
                             </th>
-                            <th> <span title="Shoperative Product Code"> SPC</span></th>
+                            <th> <span title="Product Code"> SPC</span></th>
                             <th> Product Name </th>
                             <th> <span title="Stock Keeping Unit"> SKU</span></th>
                             <th> <span title="Unit of measure">UOM</span></th>
@@ -237,6 +237,8 @@
 
 
                                   <a href="<?php echo base_url(); ?>superadmin/Product/update_product/<?php echo $row->id; ?>" class="btn btn-sm btn-info" title="Edit Product Details"><i class="glyphicon glyphicon-edit"> </i> </a><br /><br />
+                                  <a href="<?php echo base_url(); ?>superadmin/Product/product_gallery/<?php echo $row->id; ?>" class="btn btn-sm btn-info" title="Edit Product Details"><i class="glyphicon glyphicon-picture	
+"> </i> </a><br /><br />
                                   <!-- <a href="<?php echo base_url(); ?>superadmin/Product/groupPricingList/<?php echo $row->id; ?>" class="btn btn-sm btn-success "> View Group Pricing <i class="glyphicon glyphicon-upload"> </i> </a><br/><br/>
                                             <a href="<?php echo base_url(); ?>superadmin/Product/itemPricingList/<?php echo $row->id; ?>" class="btn btn-sm btn-success "> View Item Pricing <i class="glyphicon glyphicon-upload">  --></i> </a>
                                 </td>

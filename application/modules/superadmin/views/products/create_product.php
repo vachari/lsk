@@ -332,6 +332,28 @@
                                         <div class="form-group">
                                             <?php
                                             echo "<div class='form-group col-md-8'> ";
+                                            $shortData = array(
+                                                'name' => 'short_description',
+                                                'id' => 'short_description',
+                                                'autocomplete' => 'off',
+                                                'class' => 'form-control',
+                                                'rows' => 4,
+                                                'placeholder' => 'Short Description'
+                                            );
+                                            echo form_label('Short Description', 'Short Description'); ?>
+                                            <span style="color:red;" id="short_desc_err">*</span>
+                                            <?php echo form_textarea($shortData); ?>
+
+                                            <span class="err_class" id="short_desc_err"></span>
+                                            <?php
+                                            echo "</div>";
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <?php
+                                            echo "<div class='form-group col-md-8'> ";
                                             $data1 = array(
                                                 'name' => 'product_description',
                                                 'id' => 'product_description',
