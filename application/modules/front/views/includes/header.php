@@ -43,7 +43,7 @@ $category = json_decode($menuList);
                                             <li><a href="<?php echo base_url(); ?>checkout">Checkout </a></li>
                                             <li><a href="<?php echo base_url(); ?>profile">My Account </a></li>
                                             <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
-                                            <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                            <li><a href="<?php echo base_url(); ?>profile">Wishlist</a></li>
                                             <li><a href="<?php echo base_url(); ?>logout">Logout</a></li>
                                         <?php  } else { ?>
                                             <li><a href="<?php echo base_url(); ?>register">Create Account </a></li>
@@ -199,7 +199,7 @@ $category = json_decode($menuList);
                                     <li><a href="javascript:void(0)">Quick Access</a>
                                         <ul class="dropdown">
                                             <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
-                                            <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                            <li><a href="<?php echo base_url(); ?>profile">Wishlist</a></li>
                                             <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
                                             <li><a href="<?php echo base_url(); ?>login">Login Register</a></li>
                                             <li><a href="<?php echo base_url(); ?>profile">My Account</a></li>
@@ -259,7 +259,7 @@ $category = json_decode($menuList);
                                 <li><a href="javascript:void(0)">Quick Access</a>
                                     <ul>
                                         <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
-                                        <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                        <li><a href="<?php echo base_url(); ?>profile">Wishlist</a></li>
                                         <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
                                         <li><a href="<?php echo base_url(); ?>login">Login Register</a></li>
                                         <li><a href="<?php echo base_url(); ?>profile">My Account</a></li>

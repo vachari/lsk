@@ -101,6 +101,7 @@ class Orders extends CI_Controller
 					'state' => $state,
 					'country' => $country,
 					'user_name' => $name,
+					'order_notes' => $this->input->post('order_comments')
 				);
 
 				$current_pay_amount = $cartStatisticsReq->cart_grand_total;

@@ -1,93 +1,118 @@
-<?php $this->load->view('includes/header_css.php'); ?>
+<?php $this->load->view('includes/header_css'); ?>
 
 <body>
-    <?php $this->load->view('includes/header.php'); ?>
+    <!--[if lt IE 8]>
+	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
 
-    <!-- customer login start -->
-    <div class="customer_login">
-        <div class="container">
-            <div class="login-bg">
-
+    <div class="wrapper">
+        <?php $this->load->view('includes/header'); ?>
+        <!--Heading Banner Area Start-->
+        <section class="heading-banner-area pt-30">
+            <div class="container">
                 <div class="row">
-                    <!--login area start-->
-                    <div class="col-lg-6 col-md-6">
-                        <div class="account_form">
-                            <h2>login</h2>
-                            <form action="javascript:void(0)" method="post">
-                                <p>
-                                    <label>Email<span class="text-danger">*</span></label>
-
-                                    <input type="text" name="email_login" id="email_login" placeholder="Email" class="form-control" autocomplete="off" max="60" min="6" value="">
-                                    <span id="email_login_error" class="text-danger "></span>
-                                </p>
-                                <p>
-                                    <label>Password<span class="text-danger">*</span></label>
-
-                                    <input type="password" name="password_login" id="password_login" placeholder="Password" class="form-control" autocomplete="off" max="60" min="6">
-                                    <span id="password_login_error" class="text-danger "></span>
-                                </p>
-                                <div class="login_submit">
-                                    <a href="#">Lost your password?</a>
-                                    <label for="remember">
-                                        <input id="remember" type="checkbox">
-                                        Remember me
-                                    </label>
-                                    <button id='btn_submit_login' class="loginSubmitDiv" type="submit">login</button>
-                                    <div id="loginLoader" class="loginLoader"> </div>
-                                </div>
-
-                            </form>
+                    <div class="col-lg-12">
+                        <div class="heading-banner">
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li><a href="<?php echo base_url(); ?>">Home</a><span class="breadcome-separator">></span></li>
+                                    <li>Login / Register</li>
+                                </ul>
+                            </div>
+                            <div class="heading-banner-title">
+                                <h1>Login / Register</h1>
+                            </div>
                         </div>
                     </div>
-                    <!--login area start-->
-
-                    <!--register area start-->
-                    <div class="col-lg-6 col-md-6">
-                        <div class="account_form register">
-                            <h2>Register</h2>
-
-                            <form action="javascript:void(0)" method="post">
-                                <p>
-                                    <label>Name <span>*</span></label>
-                                    <input type="text" name="user_name" id="names" placeholder="Name" class="form-control" autocomplete="off" max="60" min="6" value="<?php echo set_value('user_name'); ?>">
-                                    <span id="name_error" class="text-danger "><?php echo form_error('user_name'); ?> </span>
-                                </p>
-                                <p>
-                                    <label>Mobile<span class="text-danger">*</span></label>
-                                    <input type="text" name="user_mobile" id="phone" placeholder="Mobile" class="form-control number-class" autocomplete="off" maxlength="10" value="<?php echo set_value('user_mobile'); ?>">
-                                    <span id="phone_error" class="text-danger "> <?php echo form_error('user_mobile'); ?></span>
-                                </p>
-                                <p>
-                                    <label>Email<span class="text-danger">*</span></label>
-
-                                    <input type="text" name="user_email" id="email" placeholder="Email" class="form-control" autocomplete="off" max="60" min="6" value="<?php echo set_value('user_email'); ?>">
-                                    <span id="email_error" class="text-danger "> <?php echo form_error('user_email'); ?></span>
-                                </p>
-                                <p>
-                                    <label>Password<span class="text-danger">*</span></label>
-
-                                    <input type="password" name="user_password" id="password" placeholder="Password" class="form-control" autocomplete="off" max="60" min="6">
-                                    <span id="password_error" class="text-danger "> <?php echo form_error('user_password'); ?></span>
-                                </p>
-                                <div class="login_submit registerSubmitDiv">
-                                    <button type="submit" id="btn_submit_register">Register</button>
-                                </div>
-                                <div id="signupLoader" class="signupLoader"> </div>
-
-                            </form>
-                        </div>
-                    </div>
-                    <!--register area end-->
                 </div>
             </div>
-        </div>
+        </section>
+        <!--Heading Banner Area End-->
+        <!--My Account Area Start-->
+        <section class="my-account-area mt-20">
+            <div class="container">
+                <div class="row">
+                    <!--Login Form Start-->
+                    <div class="col-lg-6 col-md-6">
+                        <div class="customer-login-register">
+                            <div class="form-login-title">
+                                <h2>Login</h2>
+                            </div>
+                            <div class="login-form">
+                                <form action="javascript:void(0)" method="post">
+                                    <div class="form-fild">
+                                        <p><label>Email<span class="required">*</span></label></p>
+                                        <input  autocomplete="off" type="text" name="email_login" id="email_login" placeholder="Email" class="form-control" autocomplete="off" max="60" min="6" value="">
+                                        <span id="email_login_error" class="text-danger "></span>
+                                    </div>
+                                    <div class="form-fild">
+                                        <p><label>Password <span class="required">*</span></label></p>
+                                        <input  autocomplete="off" type="password" name="password_login" id="password_login" placeholder="Password" class="form-control" autocomplete="off" max="60" min="6">
+                                        <span id="password_login_error" class="text-danger "></span>
+                                    </div>
+                                    <div class="login-submit">
+                                        <button id='btn_submit_login' class="form-button loginSubmitDiv pull-right" type="submit">login</button>
+                                        <div id="loginLoader" class="loginLoader"> </div>
+                                        <label>
+                                            <input class="checkbox" type="checkbox" name="rememberme" value="">
+                                            <span>Remember me</span>
+                                        </label>
+                                    </div>
+                                    <div class="lost-password">
+                                        <a href="#">Lost your password?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Login Form End-->
+                    <!--Register Form Start-->
+                    <div class="col-lg-6 col-md-6">
+                        <div class="customer-login-register register-pt-0">
+                            <div class="form-register-title">
+                                <h2>Register</h2>
+                            </div>
+                            <div class="register-form">
+                                <form action="javascript:void(0)" method="post">
+                                    <div class="form-fild">
+                                        <p><label>User Name<span class="required">*</span></label></p>
+                                        <input autocomplete="off" type="text" name="user_name" id="names" placeholder="Name" class="form-control" autocomplete="off" max="60" min="6" value="<?php echo set_value('user_name'); ?>">
+                                        <span id="name_error" class="text-danger "><?php echo form_error('user_name'); ?> </span>
+                                    </div>
+                                    <div class="form-fild">
+                                        <p><label>Mobile <span class="required">*</span></label></p>
+                                        <input  autocomplete="off" type="text" name="user_mobile" id="phone" placeholder="Mobile" class="form-control number-class" autocomplete="off" maxlength="10" value="<?php echo set_value('user_mobile'); ?>">
+                                        <span id="phone_error" class="text-danger "> <?php echo form_error('user_mobile'); ?></span>
+                                    </div>
+                                    <div class="form-fild">
+                                        <p><label>Email <span class="required">*</span></label></p>
+                                        <input  autocomplete="off" type="text" name="user_email" id="email" placeholder="Email" class="form-control" autocomplete="off" max="60" min="6" value="<?php echo set_value('user_email'); ?>">
+                                        <span id="email_error" class="text-danger "> <?php echo form_error('user_email'); ?></span>
+                                    </div>
+                                    <div class="form-fild">
+                                        <p><label>Password <span class="required">*</span></label></p>
+                                        <input type="password" name="user_password" id="password" placeholder="Password" class="form-control" autocomplete="off" max="60" min="6">
+                                        <span id="password_error" class="text-danger "> <?php echo form_error('user_password'); ?></span>
+                                    </div>
+                                    <div class="register-submit registerSubmitDiv">
+                                        <button type="submit" id="btn_submit_register" class="form-button">Register</button>
+                                    </div>
+                                    <div id="signupLoader" class="signupLoader"> </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Register Form End-->
+                </div>
+            </div>
+        </section>
+        <!--My Account Area End-->
+
+        <?php $this->load->view('includes/footer'); ?>
+
     </div>
-    <!-- customer login end -->
-    <?php $this->load->view('includes/footer.php'); ?>
 
 </body>
-
-</html>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#btn_submit_register").click(function() {
@@ -287,3 +312,5 @@
         (isNaN($(this).val())) ? $(this).val(''): '';
     });
 </script>
+
+</html>

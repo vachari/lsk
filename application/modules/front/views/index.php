@@ -272,7 +272,7 @@ $category = json_decode($menuList);
                                                             <div class="row no-gutters single-product style-2 list">
                                                                 <div class="col-4">
                                                                     <div class="product-img">
-                                                                        <a href="single-product.html">
+                                                                        <a href="<?php echo $prodLink; ?>">
                                                                             <img class="first-img" src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $hd_res->prod_image; ?>" alt="">
                                                                             <img class="hover-img" src="<?php echo PRODCUCT_IMAGE_PATH; ?><?php echo $hd_res->prod_image; ?>" alt="">
                                                                         </a>

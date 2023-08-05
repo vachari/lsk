@@ -34,7 +34,7 @@
               <ul class="footer-info">
                 <li><a href="<?php echo base_url(); ?>about">About Us</a></li>
                 <li><a href="<?php echo base_url(); ?>contact">Contact</a></li>
-                <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                <li><a href="<?php echo base_url(); ?>profile">Wishlist</a></li>
               </ul>
             </div>
           </div>

@@ -37,6 +37,8 @@ class User extends CI_Controller
         if (!empty($this->user_id)) {
             $where = array('user_status' => 1, 'trash' => 0, 'user_id' => $this->user_id);
             $this->data['user_details'] = $this->User_model->commonGetAll('ga_users_tbl', $where);
+            $this->data['ordersdata'] = $this->User_model->cartOrderData();
+            $this->data['wish_list'] = $this->User_model->wishlist($this->user_id);
             $this->load->view('profile', $this->data);
         } else {
             redirect('/');
@@ -52,7 +54,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('user_name', 'user_name', 'required|trim|min_length[3]');
         $this->form_validation->set_rules('user_mobile', 'Mobile', 'required|trim|regex_match[/^[6-9]+[0-9]{9}$/]', array('regex_match' => 'Please enter valid Mobile'));
         $this->form_validation->set_rules('user_city', 'City', 'trim|alpha');
-        $this->form_validation->set_rules('state', 'State', 'trim|alpha');
+        $this->form_validation->set_rules('state', 'State', 'trim');
         if ($this->form_validation->run() == false) {
             $this->load->view('profile', $this->data);
         } else {
@@ -734,4 +736,37 @@ class User extends CI_Controller
     }
     // Forgot password code end here
     /*end*/
+
+    public function updatePassword()
+    {
+        if (!empty($this->user_id)) {
+
+
+            $old_password = $this->input->post('old_password');
+            $new_password = $this->input->post('new_password');
+            $confirm_password = $this->input->post('confirm_password');
+
+            $cols = array('user_password');
+            $wherecondition = array('user_password' => md5($old_password), 'user_id' => $this->user_id,);
+            $common_check = $this->Crud->commonCheck($cols, 'ga_users_tbl', $wherecondition);
+            if ($common_check == 1) {
+                $update_data = array('user_password' => md5($new_password));
+                $update_condition = array('user_id' => $this->user_id);
+                $update = $this->Crud->commonUpdate('ga_users_tbl', $update_data, $update_condition);
+                $update = json_decode($update);
+
+                if ($update->code == SUCCESS_CODE) {
+                    //print_r($update);
+                    $this->session->set_flashdata('success', 'Your password has been changed successfully!');
+                } else {
+                    $this->session->set_flashdata('failed', 'Oops! Unabled to change password');
+                }
+            } else {
+                $this->session->set_flashdata('failed', 'Something went wrong, try again');
+            }
+            redirect('/profile');
+        } else {
+            redirect('/');
+        }
+    }
 }

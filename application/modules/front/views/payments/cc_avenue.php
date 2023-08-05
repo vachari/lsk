@@ -16,12 +16,12 @@ $username = $customerData['user_name'];
 </head>
 
 <body>
-    <form method="post" class="login100-form validate-form" name="customerData" action="<?php echo base_url() . 'front/Orders/ccProcessPayment'; ?>">
+    <form method="post" name="customerData" action="<?php echo base_url() . 'front/Orders/ccProcessPayment'; ?>">
         <div class="container">
             <div class="row">
 
                 <div class="col-md-6">
-                    <img src="<?php echo PROJECT_LOGO; ?>" alt="IMG">
+                    <img src="<?php echo PROJECT_LOGO; ?>" alt="IMG" style="height: 80px; width:120px;">
                 </div>
 
                 <div class="col-md-6">

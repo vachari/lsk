@@ -68,8 +68,8 @@ Version: 1.0;
 /*  1.1 Header Top CSS
 /*----------------------------------------*/
 .header-container {
-	background: #eb3e32;
-	color: #fff;
+	background: #ccc;
+	color: #363F4D;
 }
 
 .header-top-area {
@@ -5997,4 +5997,14 @@ fieldset legend {
 .product-categories li.catActiveClass>a {
 	font-weight: bold;
 	color: #F1B306 !important;
+}
+
+.desc_thumb_img {
+	height: 100px !important;
+	width: 100px !important;
+}
+
+.product-cart-img {
+	height: 100px !important;
+	width: 100px !important;
 }

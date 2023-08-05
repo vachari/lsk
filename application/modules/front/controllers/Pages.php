@@ -152,7 +152,8 @@ class Pages extends CI_Controller
 		$id = $this->uri->segment(2);
 		$where3 = array('active_status' => 1, 'trash' => 0, 'id' => $id);
 		$this->data['feature_product'] = $this->Pages_model->commonGetWhere('ga_main_prod_details_tbl', $where3);
-
+		$this->data['product_gallery'] = $this->Pages_model->productGallery($id);
+		$this->data['related_products'] = $this->Product_model->newArrivalProducts();
 		$this->data['index_wish_result'] = $this->checkout->return_wishlist();
 		$this->load->view('product_details', $this->data);
 	}
