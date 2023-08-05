@@ -225,4 +225,24 @@ class Product_model extends CI_Model
         // print_r($response);
         return json_encode($response);
     }
+
+    public function newArrivalProducts()
+    {
+        $where_prod = array('mp.active_status' => 1, 'mp.trash' => 0);
+        $response = array();
+        $this->db->select('mp.*,u.unit_of_measure');
+        $this->db->from('ga_main_prod_details_tbl mp');
+        $this->db->join('ga_prod_units_tbl u', 'u.id = mp.unit', 'left');
+        $this->db->where($where_prod);
+        $this->db->order_by("mp.selling_price", 'ASC');
+        $this->db->order_by("mp.id", 'DESC');
+        $this->db->limit(10);
+        $query = $this->db->get();
+        $count = $query->num_rows();
+        $respose[CODE] = ($count > 0) ? SUCCESS_CODE : FAIL_CODE;
+        $respose[MESSAGE] = ($count > 0) ? ' success ' : ' failed ';
+        $respose[DESCRIPTION] = ($count > 0) ? " $count result found " : ' No result found ';
+        $respose['result'] = $query->result();
+        return json_encode($respose);
+    }
 }

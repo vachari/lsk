@@ -54,11 +54,12 @@ class Pages extends CI_Controller
 		$where_prod = array('mp.active_status' => 1, 'mp.trash' => 0, 'mp.feature_product' => 1);
 		$this->data['feature_products'] = $this->Product_model->get_products($where_prod, 'asc');
 		$this->data['front_categories'] = $this->Pages_model->get_front_categories();
-		$this->data['slider'] = $this->Pages_model->commonWhereFetch(["id", "slider_image"], "slider_tbl", ['flag_status' => 1], "id", "ASC");
+		$this->data['slider'] = $this->Pages_model->commonWhereFetch(["id", "slider_image", "slider_title", 'slider_url'], "slider_tbl", ['flag_status' => 1], "id", "ASC");
 		$this->data['cart_sess_id'] = $this->cart_session_id;
 		$this->data['sharedcartdata'] = $this->user_model->user_sharedcartData();
 		$this->data['categoryBasedProducts'] = $this->Product_model->menuBasedProducts();
-
+		$this->data['newarrival_products'] = $this->Product_model->newArrivalProducts();
+		$this->data['bestseller_products'] = $this->Product_model->newArrivalProducts();
 		$this->load->view('index', $this->data);
 	}
 
@@ -151,7 +152,7 @@ class Pages extends CI_Controller
 		$id = $this->uri->segment(2);
 		$where3 = array('active_status' => 1, 'trash' => 0, 'id' => $id);
 		$this->data['feature_product'] = $this->Pages_model->commonGetWhere('ga_main_prod_details_tbl', $where3);
-		 
+
 		$this->data['index_wish_result'] = $this->checkout->return_wishlist();
 		$this->load->view('product_details', $this->data);
 	}

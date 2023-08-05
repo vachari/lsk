@@ -1,299 +1,332 @@
-<?php $this->load->view('includes/header_css.php'); ?>
+<?php $this->load->view('includes/header_css'); ?>
 
 <body>
+  <!--[if lt IE 8]>
+	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
 
-  <!--header area start-->
-  <?php $this->load->view('includes/header.php'); ?>
-  <!--header area end-->
-
-  <!--breadcrumbs area start-->
-  <div class="breadcrumbs_area">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="breadcrumb_content">
-            <ul>
-              <li><a href="<?php echo base_url(); ?>">home</a></li>
-              <?php if ($this->uri->segment(4) == '') { ?>
-                <li ><a href="#"><?php echo ($this->uri->segment(2)); ?></a></li>
-
-              <?php  } ?>
-            </ul>
+  <div class="wrapper">
+    <!--Header Area Start-->
+    <?php $this->load->view('includes/header'); ?>
+    <!--Header Area End-->
+    <!--Heading Banner Area Start-->
+    <div class="heading-banner-area pt-30">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="heading-banner">
+              <div class="breadcrumbs">
+                <ul>
+                  <li><a href="index.html">Home</a><span class="breadcome-separator">></span></li>
+                  <li>Shop</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--breadcrumbs area end-->
-
-  <!--shop  area start-->
-  <div class="shop_area shop_reverse mt-50 mb-50">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-12">
-          <!--sidebar widget start-->
-          <aside class="sidebar_widget">
-            <div class="shop_sidebar_banner mb-50">
-              <a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_PATH; ?>bg/banner16.jpg" alt=""></a>
-            </div>
-            <div class="widget_list widget_categories">
-              <h2>categories</h2>
-              <ul>
-                <?php $menus = json_decode($menuList);
-                // print_r($menus->menu_result);
-                $uri = base64_decode($this->uri->segment(3));
-                foreach ($menus->menu_result as $m) {
-                ?>
-                  <li>
-                    <a href="<?php echo base_url() . 'products/' . strtolower($m->menu_title) . '/' . base64_encode($m->menu_id); ?>" <?php if ($uri == $m->menu_id) {
-                                                                                                                                        echo 'style="color:#016FBF;" ';
-                                                                                                                                      } ?>><?php echo (strlen($m->menu_title) > 20) ? substr($m->menu_title, 0, 20) . '...' : $m->menu_title; ?> </a>
-                  </li>
-                <?php
-                }
-                ?>
-
-              </ul>
-            </div>
-            <div class="widget_list widget_filter">
-              <h2>Filter by price</h2>
-              <form action="#">
-                <div id="slider-range"></div>
-                <input type="text" name="text" id="amount" />
-                <button type="submit">Filter</button>
-              </form>
-            </div>
-
-
-            <div class="widget_list" style="display: none;">
-              <h2>Select By Color</h2>
-              <ul>
-                <li>
-                  <a href="#">Black <span>(6)</span></a>
-                </li>
-                <li>
-                  <a href="#"> Blue <span>(8)</span></a>
-                </li>
-                <li>
-                  <a href="#">Brown <span>(10)</span></a>
-                </li>
-                <li>
-                  <a href="#"> Green <span>(6)</span></a>
-                </li>
-                <li>
-                  <a href="#">Pink <span>(4)</span></a>
-                </li>
-
-              </ul>
-            </div>
-            <div class="widget_list recent_product">
-              <h2>Top Rated Products</h2>
-              <div class="recent_product_container">
-                <!-- Products Loop start -->
-
-                <div class="recent_product_list">
-                  <div class="recent_product_thumb">
-                    <a href="product-details.html"><img src="<?php echo IMG_PATH; ?>s-product/product.jpg" alt=""></a>
-                  </div>
-                  <div class="recent_product_content">
-                    <h3><a href="product-details.html">Natus erro</a></h3>
-                    <div class="product_rating">
-                      <ul>
-                        <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                        <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                        <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                        <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                        <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                      </ul>
-                    </div>
-                    <div class="price_box">
-                      <span class="current_price">$65.00</span>
-                      <span class="old_price">$70.00</span>
-                    </div>
+    <!--Heading Banner Area End-->
+    <!--Product List Grid View Area Start-->
+    <div class="product-list-grid-view-area mt-20">
+      <div class="container">
+        <div class="row">
+          <!--Shop Product Area Start-->
+          <div class="col-lg-9 order-lg-2 order-1">
+            <div class="shop-desc-container">
+              <div class="row">
+                <!--Shop Product Image Start-->
+                <div class="col-lg-12">
+                  <div class="shop-product-img mb-30 img-full">
+                    <img src="<?php echo IMG_PATH; ?>offer/11.jpg" alt="">
                   </div>
                 </div>
-                <!-- Product Loop end -->
-
-
-
-
-
-
+                <!--Shop Product Image Start-->
               </div>
             </div>
-
-          </aside>
-          <!--sidebar widget end-->
-        </div>
-        <div class="col-lg-9 col-md-12">
-          <!--shop wrapper start-->
-          <!--shop toolbar start-->
-          <!-- <div class="shop_banner">
-            <img src="<?php echo IMG_PATH; ?>bg/banner29.jpg" alt="">
-          </div> -->
-         
-          <?php
-          $pro = json_decode($products);
-          if ($pro->code == 200) {
-            $recordsCount = count($pro->result);
-            
-          ?>
-            <div class="shop_toolbar_wrapper">
-              <div class="shop_toolbar_btn">
-
-                <button data-role="grid_3" type="button" class="active btn-grid-3" data-bs-toggle="tooltip" title="3"></button>
-
-                <button data-role="grid_4" type="button" class=" btn-grid-4" data-bs-toggle="tooltip" title="4"></button>
-
-                <button data-role="grid_list" type="button" class="btn-list" data-bs-toggle="tooltip" title="List"></button>
-              </div>
-              <div class="">
-
-
-                <select name="pricesort" id="pricesort" class="form-control">
-
-                  <option selected value="1">Sort by average rating</option>
-                  <!-- <option value="2">Sort by popularity</option>
-                   <option value="3">Sort by newness</option> -->
-                  <option value="2">Sort by price: low to high</option>
-                  <option value="1">Sort by price: high to low</option>
-                  <!-- <option value="6">Product Name: Z</option> -->
-                </select>
-                <input type="hidden" name="cat_id" id="cat_id" value="<?php echo base64_decode($this->uri->segment(3, 0)); ?>">
-                <input type="hidden" name="subcat_id" id="subcat_id" value="<?php echo base64_decode($this->uri->segment(4, 0)); ?>">
-                <input type="hidden" name="listsubcat_id" id="listsubcat_id" value="<?php echo base64_decode($this->uri->segment(5, 0)); ?>">
-
-
-
-              </div>
-
-              <!-- <div class="page_amount">
-                <p>Showing  1 - <?php echo $recordsCount; ?> results</p>
-              </div> -->
-            </div>
-          <?php  } ?>
-          <!--shop toolbar end-->
-
-          <div class="row no-gutters shop_wrapper" id="productslist">
-            <!-- Producut Loop start  -->
+            <!--Shop Tab Menu Start-->
             <?php
-            if ($pro->code == 200) {
-              foreach ($pro->result as $fpro) {
-            ?>
-                <div class="col-lg-4 col-md-4 col-12 ">
-                  <div class="single_product">
-                    <div class="product_thumb">
-                      <a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>" title="quick view"><img class="prod-img" src="<?php echo base_url() . 'uploads/products/' . $fpro->prod_image; ?>" alt=""></a>
-                      <div class="label_product">
-                        <span class="label_sale">sale</span>
-                      </div>
-                      <!-- <div class="quick_button">
-                         <a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>" title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                       </div> -->
-                    </div>
-                    <div class="product_content grid_content">
-                      <div class="product_name">
-                        <h3><a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>"><?php echo (strlen($fpro->prod_name) > 22) ? substr($fpro->prod_name, 0, 20) . '...' : $fpro->prod_name; ?> </a></h3>
-                      </div>
-                      <div class="product_rating">
-                        <ul>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="price_box">
-                        <span class="current_price"><?php echo india_price($fpro->selling_price); ?></span>
-                        <span class="old_price"><?php echo india_price($fpro->mrp); ?></span>
-                      </div>
-                      <div class="action_links">
-                        <ul>
-                          <li class="wishlist" data-id="<?php echo $fpro->id; ?>"><a href="javascript:void(0)" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                          <li class="add_to_cart" data-id="<?php echo $fpro->id; ?>"><a href="javascript:void(0)" onclick="addToCart('<?php echo $fpro->id; ?>') title=" add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
-                          <!-- <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li> -->
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="product_content list_content">
-                      <div class="product_name">
-                        <h3><a href="<?php echo base_url() . 'productDetails/' . $fpro->id; ?>"><?php echo (strlen($fpro->prod_name) > 22) ? substr($fpro->prod_name, 0, 20) . '...' : $fpro->prod_name; ?></a></h3>
-                      </div>
-                      <div class="product_rating">
-                        <ul>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                          <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="price_box">
-                        <span class="current_price"><?php echo india_price($fpro->selling_price); ?></span>
-                        <span class="old_price"><?php echo india_price($fpro->mrp); ?></span>
-                      </div>
-                      <div class="action_links">
-                        <ul>
-                          <li class="wishlist" data-id="<?php echo $fpro->id; ?>"><a href="javascript:void(0)" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                          <li class="add_to_cart" data-id="<?php echo $fpro->id; ?>"><a href="javascript:void(0)" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
-                          <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li>
-                        </ul>
-                      </div>
+            $pro = json_decode($products);
 
-                      <div class="product_desc">
-                        <p>
-                          <?php echo (strlen($fpro->prod_desc) > 200) ? substr($fpro->prod_desc, 0, 200) . '...' : $fpro->prod_desc; ?>
-                        </p>
-                      </div>
-                    </div>
+            $recordsCount = count($pro->result);
+
+            ?>
+            <div class="shop-tab-menu">
+              <div class="row">
+                <!--List & Grid View Menu Start-->
+                <div class="col-lg-5 col-md-5 col-xl-6 col-12">
+                  <div class="shop-tab">
+                    <ul class="nav">
+                      <li><a class="active" data-toggle="tab" href="#grid-view"><i class="ion-android-apps"></i></a></li>
+                      <li><a data-toggle="tab" href="#list-view"><i class="ion-navicon-round"></i></a></li>
+                    </ul>
                   </div>
                 </div>
-              <?php }
-            } else { ?>
-              <div class="col-lg-4 col-md-4 col-12 text-center">
-                <img src="<?php echo IMG_PATH; ?>norecords.png" />
+                <!--List & Grid View Menu End-->
+                <!-- View Mode Start-->
+                <div class="col-lg-7 col-md-7 col-xl-6 col-12">
+                  <div class="toolbar-form">
+                    <form action="#">
+                      <div class="toolbar-select">
+                        <span>Short by:</span>
+                        <select data-placeholder="Choose a Country..." class="order-by" tabindex="1">
+                          <option value="Default sorting">Default sorting</option>
+                          <option value="United States">United States</option>
+                          <option value="United Kingdom">United Kingdom</option>
+                          <option value="Afghanistan">Afghanistan</option>
+                          <option value="Aland Islands">Aland Islands</option>
+                          <option value="Albania">Albania</option>
+                          <option value="Algeria">Algeria</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="show-result">
+                    <p>Showing 1–16 of <?php echo $recordsCount; ?> results</p>
+                  </div>
+                </div>
+                <!-- View Mode End-->
               </div>
-            <?php } ?>
-            <!-- Producut Loop End  -->
+            </div>
+            <!--Shop Tab Menu End-->
+            <!--Shop Product Area Start-->
+
+            <div class="shop-product-area">
+              <div class="tab-content">
+                <!--Grid View Start-->
+                <div id="grid-view" class="tab-pane fade show active">
+                  <div class="row product-container">
+                    <!--Single Product Start-->
+                    <?php
+                    if ($pro->code == 200) {
+                      foreach ($pro->result as $fpro) {
+                        $productLink = base_url() . 'productDetails/' . $fpro->id;
+                    ?>
+                        <div class="col-lg-3 col-md-3 item-col2">
+                          <div class="single-product">
+                            <div class="product-img">
+                              <a href="<?php echo $productLink; ?>">
+                                <img class="first-img" src="<?php echo base_url() . 'uploads/products/' . $fpro->prod_image; ?>" alt="">
+                                <img class="hover-img" src="<?php echo base_url() . 'uploads/products/' . $fpro->prod_image; ?>" alt="">
+                              </a>
+                              <ul class="product-action">
+                                <li class="wishlist" data-id="<?php echo $fpro->id; ?>"><a href="javascript:void(0)" data-toggle="tooltip" title="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
+                                <li class="add_to_cart" data-id="<?php echo $fpro->id; ?>"><a href="javascript:void(0)" data-toggle="tooltip" title="Add to cart"><i class="ion-android-cart"></i></a></li>
+
+                              </ul>
+                            </div>
+                            <div class="product-content">
+                              <h2><a href="<?php echo $productLink; ?>"><?php echo (strlen($fpro->prod_name) > 22) ? substr($fpro->prod_name, 0, 20) . '...' : $fpro->prod_name; ?></a></h2>
+                              <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                              </div>
+                              <div class="product-price">
+                                <span class="new-price"><?php echo india_price($fpro->selling_price); ?></span>
+                                <a class="button add-btn" href="javascript:void(0)" class="add_to_cart" data-id="<?php echo $fpro->id; ?>" data-toggle="tooltip" title="Add to Cart">add to cart</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Single Product End-->
+                      <?php }
+                    } else { ?>
+                      <div class="col-lg-4 col-md-4 col-12 text-center">
+                        <img src="<?php echo IMG_PATH; ?>norecords.png" />
+                      </div>
+                    <?php } ?>
 
 
+                  </div>
 
+                </div>
+                <!--Grid View End-->
 
-
-
-
-
-
-
-          </div>
-
-          <div class="shop_toolbar t_bottom" style="display: none;">
-            <div class="pagination">
-              <ul>
-                <li class="current">1</li>
+              </div>
+            </div>
+            <!--Shop Product Area End-->
+            <!--Pagination Start-->
+            <div class="pagination pb-10">
+              <ul class="page-number">
+                <li class="active"><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
-                <li class="next"><a href="#">next</a></li>
-                <li><a href="#">>></a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
               </ul>
             </div>
+            <!--Pagination End-->
           </div>
-          <!--shop toolbar end-->
-          <!--shop wrapper end-->
+          <!--Shop Product Area End-->
+          <!--Left Sidebar Start-->
+          <div class="col-lg-3 order-lg-1 order-2">
+            <!--Widget Shop Categories start-->
+            <div class="widget widget-shop-categories">
+              <h3 class="widget-shop-title">Shop By Categories</h3>
+              <div class="widget-content">
+                <ul class="product-categories">
+                  <?php $menus = json_decode($menuList);
+                  // print_r($menus->menu_result);
+                  $uri = base64_decode($this->uri->segment(3));
+                  foreach ($menus->menu_result as $m) {
+                    $catLink = base_url() . 'products/' . strtolower($m->menu_title) . '/' . base64_encode($m->menu_id);
+                  ?>
+                    <li class="<?php if ($uri == $m->menu_id) {
+                                  echo 'catActiveClass" ';
+                                } ?>"><a href="<?php echo $catLink; ?>"><?php echo $m->menu_title; ?></a></li>
+                  <?php } ?>
+                </ul>
+              </div>
+            </div>
+            <!--Widget Shop Categories End-->
+            <!--Widget Price Slider Start-->
+            <div class="widget widget-price-slider">
+              <h3 class="widget-title">Filter by price</h3>
+              <div class="widget-content">
+                <div class="price-filter">
+                  <form action="#">
+                    <div id="slider-range"></div>
+                    <span>Price:<input id="amount" class="amount" readonly="" type="text"></span>
+                    <input class="price-button" value="Filter" type="button">
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--Widget Price Slider End-->
+            <!--Widget Brand Start-->
+            <div class="widget widget-brand">
+              <h3 class="widget-title">Brands</h3>
+              <div class="widget-content">
+                <ul class="brand-menu">
+                  <li><input type="checkbox"><a href="#">Brand2</a> <span class="pull-right">(1)</span></li>
+                </ul>
+              </div>
+            </div>
+            <!--Widget Brand End-->
+            <!--Widget Manufacture Start-->
+            <div class="widget widget-manufacture">
+              <h3 class="widget-title">MANUFACTURER</h3>
+              <div class="widget-content">
+                <ul class="brand-menu">
+                  <li><input type="checkbox"><a href="#">Pellentesque</a> <span class="pull-right">(1)</span></li>
+                </ul>
+              </div>
+            </div>
+            <!--Widget Manufacture End-->
+            <!--Widget Color Start-->
+            <div class="widget widget-color">
+              <h3 class="widget-title">Color</h3>
+              <div class="widget-content">
+                <ul class="brand-menu">
+                  <li><input type="checkbox"><a href="#">Gold</a> <span class="pull-right">(1)</span></li>
+                  <li><input type="checkbox"><a href="#">Green</a> <span class="pull-right">(1)</span></li>
+                  <li><input type="checkbox"><a href="#">White</a> <span class="pull-right">(1)</span></li>
+                </ul>
+              </div>
+            </div>
+            <!--Widget Color End-->
+            <!--Widget Compare Start-->
+            <div class="widget widget-compare">
+              <h3 class="widget-compare-title">Compare</h3>
+              <div class="widget-content">
+                <ul class="compare-menu">
+                  <li>
+                    <a class="title" href="#">Cillum dolore</a>
+                    <a class="pull-right" href="#"><i class="fa fa-times"></i></a>
+                  </li>
+                  <li>
+                    <a class="title" href="#">Cillum dolore</a>
+                    <a class="pull-right" href="#"><i class="fa fa-times"></i></a>
+                  </li>
+                </ul>
+                <a class="clear-all" href="#">Clear all</a>
+                <a class="compare-btn" href="#">compare</a>
+              </div>
+            </div>
+            <!--Widget Compare End-->
+            <!--Widget Tag Start-->
+            <div class="widget widget-tag">
+              <h3 class="widget-shop-tag-title">Popular Tags</h3>
+              <ul>
+                <li><a href="#">asian</a></li>
+                <li><a href="#">brown</a></li>
+                <li><a href="#">camera</a></li>
+                <li><a href="#">chilled</a></li>
+                <li><a href="#">coctail</a></li>
+                <li><a href="#">cool</a></li>
+                <li><a href="#">dark</a></li>
+                <li><a href="#">euro</a></li>
+                <li><a href="#">food</a></li>
+                <li><a href="#">france</a></li>
+                <li><a href="#">hardware</a></li>
+                <li><a href="#">hat</a></li>
+                <li><a href="#">hipster</a></li>
+                <li><a href="#">holidays</a></li>
+                <li><a href="#">light</a></li>
+                <li><a href="#">mac</a></li>
+                <li><a href="#">place</a></li>
+                <li><a href="#">retro</a></li>
+                <li><a href="#">t-shirt</a></li>
+                <li><a href="#">teen</a></li>
+                <li><a href="#">travel</a></li>
+                <li><a href="#">video-2</a></li>
+                <li><a href="#">watch</a></li>
+                <li><a href="#">white</a></li>
+              </ul>
+            </div>
+            <!--Widget Tag End-->
+          </div>
+          <!--Left Sidebar End-->
         </div>
       </div>
     </div>
+    <!--Product List Grid View Area End-->
+    <!--Brand Area Start-->
+    <div class="brand-area ptb-30 white-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="brand-active owl-carousel">
+              <!--Single Brand Start-->
+              <div class="single-brand img-full">
+                <a href="#"><img src="<?php echo IMG_PATH; ?>brand/1.png" alt=""></a>
+              </div>
+              <!--Single Brand End-->
+              <!--Single Brand Start-->
+              <div class="single-brand img-full">
+                <a href="#"><img src="<?php echo IMG_PATH; ?>brand/2.png" alt=""></a>
+              </div>
+              <!--Single Brand End-->
+              <!--Single Brand Start-->
+              <div class="single-brand img-full">
+                <a href="#"><img src="<?php echo IMG_PATH; ?>brand/3.png" alt=""></a>
+              </div>
+              <!--Single Brand End-->
+              <!--Single Brand Start-->
+              <div class="single-brand img-full">
+                <a href="#"><img src="<?php echo IMG_PATH; ?>brand/4.png" alt=""></a>
+              </div>
+              <!--Single Brand End-->
+              <!--Single Brand Start-->
+              <div class="single-brand img-full">
+                <a href="#"><img src="<?php echo IMG_PATH; ?>brand/5.png" alt=""></a>
+              </div>
+              <!--Single Brand End-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Brand Area End-->
+    <!--Footer Area Start-->
+    <?php $this->load->view('includes/footer'); ?>
+    <!--Footer Area End-->
+
   </div>
-  <!--shop  area end-->
-
-  <!--brand newsletter area start-->
-
-
-
-  <!--footer area start-->
-  <?php $this->load->view('includes/footer.php'); ?>
-  <!--footer area end-->
+  <script type="text/javascript" src="<?php echo JS_PATH; ?>commoncart.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $(".add_to_cart").click(function() {
@@ -307,63 +340,13 @@
       })
     });
   </script>
-  <script type="text/javascript" src="<?php echo JS_PATH; ?>commoncart.js"></script>
 
 
 
+  <!--All Js Here-->
 
-
+  <!--Jquery 3.6.0-->
 
 </body>
 
 </html>
-<script>
-  $('.filters').on('click', function() {
-    filters();
-  });
-  /*price Sorting Code Start*/
-
-  $('#pricesort').on('change', function() {
-    var order = $(this).val();
-    filters(order);
-  });
-  /*price Sorting Code End*/
-  function filters(order) {
-    if (!isNaN())
-      var sortvalue = order;
-    else
-      var sortvalue = $('#pricesort').val();
-    var cat_id = $('#cat_id').val();
-    var subcat_id = $('#subcat_id').val();
-    var listsubcat_id = $('#listsubcat_id').val();
-    var priceArray = new Array();
-    $('input[name="price[]"]:checked').each(function() {
-      priceArray.push($(this).val());
-    });
-    var pricelist = '' + priceArray;
-    // alert(pricelist);
-
-    $.ajax({
-      dataType: 'html',
-      type: 'POST',
-      data: {
-        'cat_id': cat_id,
-        'subcat_id': subcat_id,
-        'listsubcat_id': listsubcat_id,
-        'price': pricelist,
-        'sort': sortvalue,
-        'url': location.href
-      },
-      url: "<?php echo base_url() . 'front/Products/productFilter'; ?>",
-      success: function(result) {
-        console.log(result);
-        $('#productslist').empty;
-        $('#productslist').html(result);
-      },
-      error: function(error) {
-        console.log(error)
-      }
-    });
-    /*Ajax code End*/
-  }
-</script>

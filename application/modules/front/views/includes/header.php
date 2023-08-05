@@ -15,362 +15,273 @@ if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) {
 }
 $category = json_decode($menuList);
 ?>
+<!--Header Area Start-->
+<header>
+    <div class="header-container">
+        <!--Header Top Area Start-->
+        <div class="header-top-area">
+            <div class="container">
+                <div class="row">
+                    <!--Header Top Left Area Start-->
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="header-top-menu">
+                            <ul>
 
-<!--header area start-->
-<header class="header_area header_seven">
-    <!--header top start-->
-    <div class="header_top header_top_seven">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4">
-                    <div class="welcome_text">
-                        <p><img src="<?php echo IMG_PATH; ?>mobile.svg" alt="" /> <span>+91 7981186263</span> </p>
+                                <li><span>Beta</span></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="top_right text-right">
-                        <ul>
-                            <li class="language">
-                                <a href="#">
-                                    <i class="zmdi zmdi-dribbble"></i> English <i class="zmdi zmdi-caret-down"></i>
-                                </a>
-                                <ul class="dropdown_language">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">Germany</a></li>
-                                    <li><a href="#">French</a></li>
-                                </ul>
-                            </li>
-                            <?php if ($isUserLoggedIn) { ?>
-                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="<?php echo base_url(); ?>checkout">Checkout </a></li>
-                                        <li><a href="<?php echo base_url(); ?>profile">My Account </a></li>
-                                        <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
-                                        <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
-                                        <li><a href="<?php echo base_url(); ?>logout">Logout</a></li>
+                    <!--Header Top Left Area End-->
+                    <!--Header Top Right Area Start-->
+                    <div class="col-lg-8 col-md-8 d-lg-block d-md-block d-none text-right">
+                        <div class="header-top-menu">
+                            <ul>
+                                <li class="support"><span>Best Car & Bike deals are there - Support: <?php echo PROJECT_PHONE; ?></span></li>
+                                <li class="account"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
+                                    <ul class="ht-dropdown">
+                                        <?php if ($isUserLoggedIn) { ?>
+                                            <li><a href="<?php echo base_url(); ?>checkout">Checkout </a></li>
+                                            <li><a href="<?php echo base_url(); ?>profile">My Account </a></li>
+                                            <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
+                                            <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                            <li><a href="<?php echo base_url(); ?>logout">Logout</a></li>
+                                        <?php  } else { ?>
+                                            <li><a href="<?php echo base_url(); ?>register">Create Account </a></li>
+                                            <li><a href="<?php echo base_url(); ?>register">Login </a></li>
+                                        <?php } ?>
                                     </ul>
                                 </li>
-                            <?php } else { ?>
-                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i>Signup / Sign IN<i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="<?php echo base_url(); ?>register">Create Account </a></li>
-                                        <li><a href="<?php echo base_url(); ?>register">Login </a></li>
-                                </li>
-                            <?php } ?>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
+                    <!--Header Top Right Area End-->
                 </div>
-
             </div>
         </div>
-    </div>
-    <!--header top start-->
-    <!--header center area start-->
-    <div class="header_middle header_middle_seven">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-3">
-                    <div class="logo">
-                        <a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_PATH; ?>lsk-logo.svg" alt=""></a>
+        <!--Header Top Area End-->
+        <!--Header Middel Area Start-->
+        <div class="header-middel-area">
+            <div class="container">
+                <div class="row">
+                    <!--Logo Start-->
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="logo">
+                            <a href="<?php echo base_url(); ?>"><img src="<?php echo PROJECT_LOGO ?>" alt="LOGO" title="<?php echo PROJECT_NAME; ?>"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="header_middle_inner">
-                        <div class="search-container">
+                    <!--Logo End-->
+                    <!--Search Box Start-->
+                    <div class="col-lg-6 col-md-5 col-12">
+                        <div class="search-box-area">
+
                             <form action="<?php echo base_url(); ?>products" method="post">
-                                <div class="hover_category">
-                                    <select class="select_option" name="select" id="categori">
-                                        <option selected value="1">All Categories</option>
+                                <div class="select-area">
+                                    <select name="select" data-placeholder="Choose a Country..." class="select" tabindex="1">
+                                        <option value="">All Categories</option>
                                         <?php foreach ($category->menu_result as $cat) {
-                                            if (!empty($cat->listsubmenu_list)) {
-                                                $listsub = $cat->listsubmenu_list;
-                                            }
-                                            $men_title = preg_replace('/\s+/', '', $cat->menu_title); ?>
-                                            <option value="2"><?php echo  $men_title; ?></option>
+                                            $menu_title = preg_replace('/\s+/', '', $cat->menu_title)
+                                        ?>
+                                            <optgroup label="<?php echo $menu_title; ?>">
+                                                <?php foreach ($cat->submenu_list as $sub_res) { ?>
+                                                    <option value="<?php echo $sub_res->submenu_id; ?>"><?php echo $sub_res->submenu_title; ?></option>
+                                                <?php } ?>
+                                            </optgroup>
                                         <?php } ?>
                                     </select>
                                 </div>
-                                <div class="search_box">
-                                    <input name="search" placeholder="Search product..." type="text">
-                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
+                                <div class="search-box">
+                                    <input type="text" name="search" id="search" placeholder="" value='Search product...' onblur="if(this.value==''){this.value='Search product...'}" onfocus="if(this.value=='Search product...'){this.value=''}">
+                                    <button type="submit"><i class="ion-ios-search-strong"></i></button>
                                 </div>
                             </form>
                         </div>
-                        <div class="mini_cart_wrapper">
-                            <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span><?php echo $cartCount; ?>items - <?php echo $CartAmount; ?></span> </a>
-                            <!--mini cart-->
-                            <div class="mini_cart mini_cart_seven">
-                                <?php
-                                $cartReq = json_decode($cartList);
-                                if ($cartReq->code == 200) {
-                                    foreach ($cartReq->cart_result as $cartRes) {
-                                ?>
-                                        <div class="cart_item">
-                                            <div class="cart_img">
-                                                <a href="#"><img src="<?php echo $cartRes->product_image; ?>" alt=""></a>
-                                            </div>
-                                            <div class="cart_info">
-                                                <a href="#"><?php echo $cartRes->prod_name; ?></a>
+                    </div>
+                    <!--Search Box End-->
+                    <!--Mini Cart Start-->
+                    <div class="col-lg-3 col-md-4 col-12">
+                        <div class="mini-cart-area">
+                            <ul>
+                                <!-- <li><a href="#"><i class="ion-android-star"></i></a></li> -->
+                                <li><a href="#"><i class="ion-android-cart"></i><span class="cart-add"><?php echo $cartCount; ?></span><span class="cart-total"><?php echo $CartAmount; ?> <i class="fa fa-angle-down"></i></span></a>
+                                    <ul class="cart-dropdown <?php echo ($cartCount == 0) ? 'hideClass' : ''; ?>">
+                                        <?php
 
-                                                <span class="quantity">Qty: <?php echo $cartRes->qty; ?></span>
-                                                <span class="price_cart"><?php echo india_price($cartRes->selling_price); ?></span>
+                                        $cartReq = json_decode($cartList);
+                                        if ($cartReq->code == 200) {
+                                            foreach ($cartReq->cart_result as $cartRes) {
+                                                $producLink = base_url() . 'ProdutDetails/' . $cartRes->prod_id; ?>
 
-                                            </div>
-                                            <div class="cart_remove">
-                                                <a href="#"><i class="ion-android-close"></i></a>
-                                            </div>
-                                        </div>
-                                <?php }
-                                } ?>
-                                <div class="mini_cart_table">
-                                    <div class="cart_total">
-                                        <span>Subtotal:</span>
-                                        <span class="price"><?php echo $CartAmount; ?></span>
-                                    </div>
-                                </div>
-
-                                <div class="mini_cart_footer">
-                                    <div class="cart_button">
-                                        <a href="<?php echo base_url(); ?>cart">View cart</a>
-                                        <a href="<?php echo base_url(); ?>checkout">Checkout</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!--mini cart end-->
+                                                <!--Single Cart Item Start-->
+                                                <li class="cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="<?php echo $producLink; ?>"><img src="<?php echo $cartRes->product_image; ?>" alt="<?php echo $cartRes->product_image; ?>" title="<?php echo $cartRes->product_image; ?>"></a>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <h4><a href="<?php echo $producLink; ?>"><?php echo $cartRes->prod_name; ?></a></h4>
+                                                        <p class="cart-quantity">Qty:<?php echo $cartRes->qty; ?></p>
+                                                        <p class="cart-price"><?php echo india_price($cartRes->selling_price); ?></p>
+                                                    </div>
+                                                    <div class="cart-close">
+                                                        <a href="javascript:void(0)" onclick="deleteCartItem(<?php echo $cartRes->cart_id; ?>)" title="Remove"><i class="ion-android-close"></i></a>
+                                                    </div>
+                                                </li>
+                                                <!--Single Cart Item Start-->
+                                            <?php }
+                                        } else { ?>
+                                            <li class="cart-item"> No Cart Items found..!
+                                            </li> <?php } ?>
+                                        <!--Cart Total Start-->
+                                        <li class="cart-total-amount mtb-20">
+                                            <h4>SubTotal : <span class="pull-right"><?php echo $CartAmount; ?></span></h4>
+                                        </li>
+                                        <!--Cart Total End-->
+                                        <!--Cart Button Start-->
+                                        <li class="cart-button">
+                                            <a href="<?php echo base_url(); ?>cart" class="button2">View cart</a>
+                                            <a href="<?php echo base_url(); ?>checkout" class="button2">Check out</a>
+                                        </li>
+                                        <!--Cart Button End-->
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    <!--Mini Cart End-->
                 </div>
             </div>
         </div>
-    </div>
-    <!--header center area end-->
-
-    <!--header middel start-->
-    <div class="header_bottom header_bottom_seven">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-3">
-                    <div class="categories_menu categori_seven">
-                        <div class="categories_title">
-                            <h2 class="categori_toggle">Categories</h2>
+        <!--Header Middel Area End-->
+        <!--Header bottom Area Start-->
+        <div class="header-bottom-area header-sticky">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--Logo Sticky Start-->
+                        <div class="logo-sticky">
+                            <a href="<?php echo base_url(); ?>"><img src="<?php echo PROJECT_LOGO; ?>" alt="<?php echo PROJECT_NAME; ?>" title="<?php echo PROJECT_NAME; ?>"></a>
                         </div>
-                        <div class="categories_menu_toggle">
-                            <ul>
-                                <?php
+                        <!--Logo Sticky End-->
+                        <!--Main Menu Area Start-->
+                        <div class="main-menu-area">
+                            <nav>
+                                <ul class="main-menu">
 
-                                foreach ($category->menu_result as $cat) {
-                                    if (!empty($cat->submenu_list)) {
-                                        $listsub = $cat->submenu_list;
-                                    }
-                                    $subCount = count($cat->submenu_list);
-                                    $men_title = preg_replace('/\s+/', '', $cat->menu_title);
-                                ?>
-                                    <li class="menu_item_children categorie_list"><a href="<?php echo base_url() . 'products/' . strtolower($men_title) . '/' . base64_encode($cat->menu_id); ?>"><?php echo $men_title; ?>
-                                            <?php if ($subCount > 0) { ?>
-                                                <i class="fa fa-angle-right"></i>
+                                    <li class="new"><a href="#">Categories</a>
+                                        <!--Mega Menu Start-->
+                                        <ul class="mega-menu">
+                                            <?php foreach ($category->menu_result as $cat) {
+                                                $menu_title = preg_replace('/\s+/', '', $cat->menu_title);
+                                                $subCount = count($cat->submenu_list);
+                                                $menuURL = base_url() . 'products/' . strtolower($menu_title) . '/' . base64_encode($cat->menu_id);
+                                            ?>
+                                                <li>
+                                                    <ul>
+                                                        <li class="mega-title"><a href="<?php echo $menuURL; ?>"><?php echo $menu_title; ?></a></li>
+                                                        <?php if ($subCount > 0) {
+                                                            foreach ($cat->submenu_list as $scat) {
+                                                                $sub_title = preg_replace('/\s+/', '+', $scat->submenu_title);
+                                                                $subLink = base_url() . 'products/' . strtolower($menu_title) . '/' . strtolower($sub_title) . '/' . base64_encode($scat->submenu_id);
+                                                        ?>
+                                                                <li><a href="<?php echo $subLink; ?>"><?php echo $scat->submenu_title; ?></a></li>
+                                                        <?php }
+                                                        } ?>
+                                                    </ul>
+                                                </li>
                                             <?php } ?>
-                                        </a>
-                                        <?php if ($subCount > 0) { ?>
-                                            <ul class="categories_mega_menu">
-                                                <?php foreach ($cat->submenu_list as $scat) {
-                                                    $sub_title = preg_replace('/\s+/', '+', $scat->submenu_title);
-                                                ?>
-                                                    <li class="menu_item_children"><a href="<?php echo base_url() . 'products/' . strtolower($men_title) . '/' . strtolower($sub_title) . '/' . base64_encode($scat->submenu_id); ?>"><?php echo $scat->submenu_title; ?></a>
-                                                        <!-- <ul class="categorie_sub_menu">
-                                                            <li><a href="#">Bower</a></li>
-                                                            <li><a href="#">Flipbac</a></li>
-                                                            <li><a href="#">Gary Fong</a></li>
-                                                            <li><a href="#">GigaPan</a></li>
-                                                        </ul> -->
-                                                    </li>
-                                                <?php } ?>
 
-                                            </ul>
-                                        <?php } ?>
+
+                                        </ul>
+                                        <!--Mega Menu End-->
                                     </li>
 
+                                    <li><a href="<?php echo base_url(); ?>about">About US</a></li>
+                                    <li><a href="<?php echo base_url(); ?>contact">Contact Us</a></li>
+                                    <li><a href="javascript:void(0)">Quick Access</a>
+                                        <ul class="dropdown">
+                                            <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
+                                            <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
+                                            <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
+                                            <li><a href="<?php echo base_url(); ?>login">Login Register</a></li>
+                                            <li><a href="<?php echo base_url(); ?>profile">My Account</a></li>
+                                            <li><a href="<?php echo base_url(); ?>orders">Orders</a></li>
+
+                                        </ul>
+                                    </li>
+                                    <li class="hot"><a href="<?php echo base_url(); ?>about"><i class="ion-android-star"></i> Car & Bike Deals</a></li>
+                                    <li><a href="<?php echo base_url(); ?>about">Offers & Coupons</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--Main Menu Area End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header bottom Area End-->
+        <!--Mobile Menu Area Start-->
+        <div class="mobile-menu-area d-lg-none d-md-none d-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mobile-menu">
+                            <nav>
+                                <ul>
+                                    <li class="new"><a href="#">Categories</a>
+                                        <!--Mega Menu Start-->
+                                        <ul>
+                                            <?php foreach ($category->menu_result as $cat) {
+                                                $menu_title = preg_replace('/\s+/', '', $cat->menu_title);
+                                                $subCount = count($cat->submenu_list);
+                                                $menuURL = base_url() . 'products/' . strtolower($menu_title) . '/' . base64_encode($cat->menu_id);
+                                            ?>
+                                                <li class="mega-title"><a href="<?php echo $menuURL; ?>"><?php echo $menu_title; ?></a></li>
+                                                <ul>
+
+                                                    <?php if ($subCount > 0) {
+                                                        foreach ($cat->submenu_list as $scat) {
+                                                            $sub_title = preg_replace('/\s+/', '+', $scat->submenu_title);
+                                                            $subLink = base_url() . 'products/' . strtolower($menu_title) . '/' . strtolower($sub_title) . '/' . base64_encode($scat->submenu_id);
+                                                    ?>
+                                                            <li><a href="<?php echo $subLink; ?>"><?php echo $scat->submenu_title; ?></a></li>
+                                                    <?php }
+                                                    } ?>
+                                                </ul>
+                                    </li>
                                 <?php } ?>
 
-                                <!-- <li><a href="#" id="more-btn"><i class="fa fa-plus" aria-hidden="true"></i> More Categories</a></li> -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="main_menu menu_seven header_position">
-                        <nav>
-                            <ul>
-                                <li class="active">
-                                    <a href="<?php echo base_url(); ?>"><i class="zmdi zmdi-home"></i> home </a>
-                                </li>
-                                <li class="mega_items"><a href="shop.html"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
-                                    <div class="mega_menu">
-                                        <ul class="mega_menu_inner">
-                                            <li><a href="#">other Pages</a>
-                                                <ul>
-                                                    <li><a href="<?php echo base_url(); ?>cart">cart</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>profile">my account</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="<?php echo base_url(); ?>about"><i class="zmdi zmdi-comments"></i> about Us</a></li>
-                                <li><a href="<?php echo base_url(); ?>contact"><i class="zmdi zmdi-account-box-mail"></i> Contact Us</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--header middel end-->
 
-</header>
-<!--header area end-->
-<div class="Offcanvas_menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="canvas_open">
-                        <span>MENU</span>
-                        <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
-                    </div>
-                    <div class="Offcanvas_menu_wrapper">
-                        <div class="canvas_close">
-                              <a href="javascript:void(0)"><i class="ion-android-close"></i></a>  
-                        </div>
-                        <div class="welcome_text">
-                            <p><img src="<?php echo IMG_PATH; ?>mobile.svg" alt="" /> <span><?php echo PROJECT_PHONE; ?></span> </p>
-                        </div>
-                       
-                        <div class="top_right">
-                        <ul>
-                            <li class="language">
-                                <a href="#">
-                                    <i class="zmdi zmdi-dribbble"></i> English <i class="zmdi zmdi-caret-down"></i>
-                                </a>
-                                <ul class="dropdown_language">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">Germany</a></li>
-                                    <li><a href="#">French</a></li>
                                 </ul>
-                            </li>
-                            <?php if ($isUserLoggedIn) { ?>
-                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="<?php echo base_url(); ?>checkout">Checkout </a></li>
-                                        <li><a href="<?php echo base_url(); ?>profile">My Account </a></li>
+                                <!--Mega Menu End-->
+                                </li>
+
+                                <li><a href="<?php echo base_url(); ?>about">About US</a></li>
+                                <li><a href="<?php echo base_url(); ?>contact">Contact Us</a></li>
+                                <li><a href="javascript:void(0)">Quick Access</a>
+                                    <ul>
                                         <li><a href="<?php echo base_url(); ?>cart">Shopping Cart</a></li>
                                         <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
-                                        <li><a href="<?php echo base_url(); ?>logout">Logout</a></li>
+                                        <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
+                                        <li><a href="<?php echo base_url(); ?>login">Login Register</a></li>
+                                        <li><a href="<?php echo base_url(); ?>profile">My Account</a></li>
+                                        <li><a href="<?php echo base_url(); ?>orders">Orders</a></li>
+
                                     </ul>
                                 </li>
-                            <?php } else { ?>
-                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i>Signup / Sign IN<i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="<?php echo base_url(); ?>register">Create Account </a></li>
-                                        <li><a href="<?php echo base_url(); ?>register">Login </a></li>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div> 
-                    <div class="search-container">
-                            <form action="<?php echo base_url(); ?>products" method="post">
-                                <div class="hover_category">
-                                    <select class="select_option" name="select" id="categori">
-                                        <option selected value="1">All Categories</option>
-                                        <?php foreach ($category->menu_result as $cat) {
-                                            if (!empty($cat->listsubmenu_list)) {
-                                                $listsub = $cat->listsubmenu_list;
-                                            }
-                                            $men_title = preg_replace('/\s+/', '', $cat->menu_title); ?>
-                                            <option value="2"><?php echo  $men_title; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="search_box">
-                                    <input name="search" placeholder="Search product..." type="text">
-                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
-                                </div>
-                            </form>
-                        </div> 
-                        <div class="mini_cart_wrapper">
-                            <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span><?php echo $cartCount; ?>items - <?php echo $CartAmount; ?></span> </a>
-                            <!--mini cart-->
-                            <div class="mini_cart mini_cart_seven">
-                                <?php
-                                $cartReq = json_decode($cartList);
-                                if ($cartReq->code == 200) {
-                                    foreach ($cartReq->cart_result as $cartRes) {
-                                ?>
-                                        <div class="cart_item">
-                                            <div class="cart_img">
-                                                <a href="#"><img src="<?php echo $cartRes->product_image; ?>" alt=""></a>
-                                            </div>
-                                            <div class="cart_info">
-                                                <a href="#"><?php echo $cartRes->prod_name; ?></a>
-
-                                                <span class="quantity">Qty: <?php echo $cartRes->qty; ?></span>
-                                                <span class="price_cart"><?php echo india_price($cartRes->selling_price); ?></span>
-
-                                            </div>
-                                            <div class="cart_remove">
-                                                <a href="#"><i class="ion-android-close"></i></a>
-                                            </div>
-                                        </div>
-                                <?php }
-                                } ?>
-                                <div class="mini_cart_table">
-                                    <div class="cart_total">
-                                        <span>Subtotal:</span>
-                                        <span class="price"><?php echo $CartAmount; ?></span>
-                                    </div>
-                                </div>
-
-                                <div class="mini_cart_footer">
-                                    <div class="cart_button">
-                                        <a href="<?php echo base_url(); ?>cart">View cart</a>
-                                        <a href="<?php echo base_url(); ?>checkout">Checkout</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!--mini cart end-->
+                                <li class="hot"><a href="<?php echo base_url(); ?>about"><i class="ion-android-star"></i> Car & Bike Deals</a></li>
+                                <li><a href="<?php echo base_url(); ?>about">Offers & Coupons</a></li>
+                                </ul>
+                            </nav>
                         </div>
-                        <div class="main_menu menu_seven header_position">
-                        <nav>
-                            <ul>
-                                <li class="active">
-                                    <a href="<?php echo base_url(); ?>"><i class="zmdi zmdi-home"></i> home </a>
-                                </li>
-                                <li class="mega_items"><a href="shop.html"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
-                                    <div class="mega_menu">
-                                        <ul class="mega_menu_inner">
-                                            <li><a href="#">other Pages</a>
-                                                <ul>
-                                                    <li><a href="<?php echo base_url(); ?>cart">cart</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>wishlist">Wishlist</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>checkout">Checkout</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>profile">my account</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="<?php echo base_url(); ?>about"><i class="zmdi zmdi-comments"></i> about Us</a></li>
-                                <li><a href="<?php echo base_url(); ?>contact"><i class="zmdi zmdi-account-box-mail"></i> Contact Us</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                        
                     </div>
                 </div>
             </div>
         </div>
+        <!--Mobile Menu Area End-->
     </div>
-    <!--Offcanvas menu area end-->
+</header>
+<!--Header Area End-->
+<script type="text/javascript">
+    function deleteCartItem(cartID) {
+        alert(cartID);
+    }
+</script>

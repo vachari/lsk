@@ -177,16 +177,20 @@ if (!function_exists('india_price')) {
 
     function india_price($money)
     {
-        $len = strlen($money);
-        $m = '';
-        $money = strrev($money);
-        for ($i = 0; $i < $len; $i++) {
-            if (($i == 3 || ($i > 3 && ($i - 1) % 2 == 0)) && $i != $len) {
-                $m .= ',';
+        if ($money > 0) {
+            $len = strlen($money);
+            $m = '';
+            $money = strrev($money);
+            for ($i = 0; $i < $len; $i++) {
+                if (($i == 3 || ($i > 3 && ($i - 1) % 2 == 0)) && $i != $len) {
+                    $m .= ',';
+                }
+                $m .= $money[$i];
             }
-            $m .= $money[$i];
+            return CURRENCY . strrev($m);
+        } else {
+            return CURRENCY . strrev(0);
         }
-        return CURRENCY . strrev($m);
     }
 }
 //Remove slashes in given string
