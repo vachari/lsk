@@ -104,8 +104,8 @@ $category = json_decode($menuList);
                         <div class="single-about">
                             <div class="block-wrapper">
                                 <div class="about-content">
-                                    <h5>Free Delivery</h5>
-                                    <p>Free shipping on all order</p>
+                                    <h5>More Offers</h5>
+                                    <p>Will provide reasonable offers </p>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +114,8 @@ $category = json_decode($menuList);
                         <div class="single-about">
                             <div class="block-wrapper2">
                                 <div class="about-content">
-                                    <h5>Free Delivery</h5>
-                                    <p>Free shipping on all order</p>
+                                    <h5>Bulk Orders</h5>
+                                    <p>We will accept bulk Orders</p>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ $category = json_decode($menuList);
                             <div class="block-wrapper3">
                                 <div class="about-content">
                                     <h5>Free Delivery</h5>
-                                    <p>Free shipping on all order</p>
+                                    <p>Make order & get free delivery</p>
                                 </div>
                             </div>
                         </div>
@@ -134,8 +134,8 @@ $category = json_decode($menuList);
                         <div class="single-about not-border">
                             <div class="block-wrapper4">
                                 <div class="about-content">
-                                    <h5>Free Delivery</h5>
-                                    <p>Free shipping on all order</p>
+                                    <h5>Contct US</h5>
+                                    <p>info@lskoffers.com</p>
                                 </div>
                             </div>
                         </div>
@@ -229,17 +229,17 @@ $category = json_decode($menuList);
                                 <div class="col-lg-12">
                                     <div class="single-offer mb-20">
                                         <div class="offer-img img-full">
-                                            <a href="#"><img src="<?php echo IMG_PATH; ?>dynamic_banners/CAR_BIKE.JPG" alt=""></a>
+                                            <a href="<?php echo base_url(); ?>car-deals"><img src="<?php echo IMG_PATH; ?>dynamic_banners/CAR_BIKE.jpg" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="single-offer mb-20">
                                         <div class="offer-img img-full">
-                                            <a href="#"><img src="<?php echo IMG_PATH; ?>dynamic_banners/BIKE.JPG" alt=""></a>
+                                            <a href="<?php echo base_url(); ?>car-deals"><img src="<?php echo IMG_PATH; ?>dynamic_banners/BIKE.jpg" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="single-offer">
                                         <div class="offer-img img-full">
-                                            <a href="#"><img src="<?php echo IMG_PATH; ?>dynamic_banners/lSK_BIKES.JPG" alt=""></a>
+                                            <a href="<?php echo base_url(); ?>car-deals"><img src="<?php echo IMG_PATH; ?>dynamic_banners/lSK_BIKES.jpg" alt=""></a>
                                         </div>
                                     </div>
                                 </div>
@@ -311,7 +311,7 @@ $category = json_decode($menuList);
                         <!--New arrivals Product End-->
                         <!--Right Side Our Blog Start-->
                         <div class="right-side-our-blog">
-                            <div class="row">
+                            <div class="row" style="display: none;">
                                 <div class="col-lg-12">
                                     <div class="right-side-Our-blog-title">
                                         <!--Section Title2 Start-->
@@ -540,7 +540,7 @@ $category = json_decode($menuList);
                                     </div>
                                     <!--Product Tab End-->
                                     <!--Offer Image Start-->
-                                    <div class="row">
+                                    <div class="row" style="display: none;">
                                         <div class="col-lg-12">
                                             <div class="single-offer">
                                                 <div class="offer-img img-full">

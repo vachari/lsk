@@ -16,9 +16,9 @@
               <div class="footer-content">
                 <p>There are many variations of passages of Lorem Ipsum available, but the majorited have suffered alteration.</p>
                 <div class="contact">
-                  <p><label>Address:</label>123 Main Street, Anytown, CA 12345 - USA.</p>
-                  <p><label>Phone:</label><a href="tel:+800123456789"></a>(+800) 123 456 789)</p>
-                  <p><label>Email:</label><a href="mailto:Support@demo.com">Support@demo.com</a></p>
+
+                  <p><label>Phone:</label><a href="tel:<?php echo PROJECT_PHONE; ?>"></a><?php echo PROJECT_PHONE; ?></p>
+                  <p><label>Email:</label><a href="mailto:info@lskoffers.com">info@lskoffers.com</a></p>
                 </div>
               </div>
               <!--Footer Content End-->

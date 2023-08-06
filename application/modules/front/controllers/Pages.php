@@ -633,4 +633,9 @@ class Pages extends CI_Controller
 		$data['cartCheck'] = $this->Crud->commonCheck($cols, 'ga_cart_tbl', $wherecondition);
 		return $check;
 	}
+
+	public function carDeals()
+	{
+		$this->load->view('carDeals', $this->data);
+	}
 }

@@ -179,3 +179,4 @@ $route['api/change-password'] = 'api/User/changePassword';
 $route['api/update-profile'] = 'api/User/updateProfile';
 $route['api/logout'] = 'api/User/logoutUserFromDevice';
 /*User API's relted code section code End */
+$route['car-deals'] = 'front/Pages/carDeals';

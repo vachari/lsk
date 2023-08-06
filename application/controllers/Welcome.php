@@ -27,7 +27,12 @@ class Welcome extends CI_Controller
 	public function pay()
 	{
 		$data['pay_amount'] = 1000;
-		 $data['pay_name'] ='Circle Tech';
+		$data['pay_name'] = 'Circle Tech';
 		$this->load->view('paymentview', $data);
+	}
+
+	public function carDeals()
+	{
+		$this->load->view('carDeals');
 	}
 }

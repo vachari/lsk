@@ -207,7 +207,7 @@ $category = json_decode($menuList);
 
                                         </ul>
                                     </li>
-                                    <li class="hot"><a href="<?php echo base_url(); ?>about"><i class="ion-android-star"></i> Car & Bike Deals</a></li>
+                                    <li class="hot"><a href="<?php echo base_url(); ?>car-deals"><i class="ion-android-star"></i> Car & Bike Deals</a></li>
                                     <li><a href="<?php echo base_url(); ?>about">Offers & Coupons</a></li>
                                 </ul>
                             </nav>
